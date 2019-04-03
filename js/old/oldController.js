@@ -75,6 +75,7 @@ function package(a){
 //Splits paragraph and array of sentences
 function segment(a){
   //split each sentence by periods.
+  //need to create cases for titles and other periods
   let b = a.split(". ");
   package(b);
 }
