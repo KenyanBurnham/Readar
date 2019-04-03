@@ -144,14 +144,25 @@
                   <!-- Modal content-->
                   <div class="modal-content">
                         <div class="modal-header">
-                              <h4 class="modal-title">Analysis of Text</h4>
+                              <h4 class="modal-title">Scansion of Text</h4>
                               <button type="button" class="close" data-dismiss="modal" onclick="modalClose();">&times;</button>
                         </div>
                         <div class="modal-body">
-                              <h6>Sentence Characteristics</h6>
-                              <table class="outputTable">
-                                  <tbody id="outputPlace"></tbody>
-                              </table>
+                              <div class="row">
+                                  <div class="col">
+                                      <h6>Body Characteristics</h6>
+                                      <div id="bodyStatistics"></div>
+                                      <br>
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col">
+                                      <h6>Sentence Characteristics</h6>
+                                      <table class="outputTable">
+                                          <tbody id="outputPlace"></tbody>
+                                      </table>
+                                  </div>
+                              </div>
                         </div>
                         <div class="modal-footer">
                               <button type="button" class="btn btn-default" data-dismiss="modal" onclick="modalClose();">Close</button>

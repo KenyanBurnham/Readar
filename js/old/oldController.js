@@ -6,7 +6,7 @@ let breathSyllables = [];
 function buildGradient(a, b){
     console.log(a);
     let span = document.querySelector(".changeable" + b + "");
-    let ratio = ((a*100)/3);
+    let ratio = ((a*100)/4);
     let bar = "<div class='progress'><div class='progress-bar' role='progressbar' aria-valuenow='70' aria-valuemin='0' aria-valuemax='100' style='width:" + ratio + "%'>" + a + "</div></div>";
     span.innerHTML = bar;
     console.log("done");
