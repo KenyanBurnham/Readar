@@ -17,7 +17,7 @@
               </div>
               <div class="col">
                   <h1>Readar</h1><br>
-                  <p>This is a toolset that allows users to gather statistics on bodies of text. </p>
+                  <p>This is a toolset that allows users to gather statistics on bodies of text. It takes an input text and outputs statistics about each sentence.</p>
                   <br>
               </div>
               <div class="col">
@@ -32,7 +32,7 @@
               </div>
               <div class="col">
                   <div class="form-group">
-                    <textarea id="inputPlace" name="name" rows="6" cols="60" placeholder="Paste a paragraph into this box."></textarea>
+                    <textarea id="inputPlace" name="name" rows="6" cols="60" minlength="2" required placeholder="Paste a paragraph into this box."></textarea>
                     <br><br>
                 </div>
               </div>
@@ -47,7 +47,7 @@
                   &nbsp;
               </div>
               <div class="col">
-                  <button class="btn btn-lg btn-primary" type="button" name="button" data-toggle="modal" data-target="#myModal" onclick="startCount();">Process</button>
+                  <button id="submissionButton" class="btn btn-lg btn-primary" type="button" name="button" data-toggle="modal" data-target="#myModal" onclick="startCount();" disabled>Process</button>
               </div>
               <div class="col">
                   &nbsp;
@@ -145,7 +145,7 @@
                   <div class="modal-content">
                         <div class="modal-header">
                               <h4 class="modal-title">Analysis of Text</h4>
-                              <button type="button" class="close" data-dismiss="modal">&times;</button>
+                              <button type="button" class="close" data-dismiss="modal" onclick="modalClose();">&times;</button>
                         </div>
                         <div class="modal-body">
                               <h6>Sentence Characteristics</h6>
@@ -154,7 +154,7 @@
                               </table>
                         </div>
                         <div class="modal-footer">
-                              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                              <button type="button" class="btn btn-default" data-dismiss="modal" onclick="modalClose();">Close</button>
                         </div>
                   </div>
             </div>
@@ -168,6 +168,7 @@
     <script type="text/javascript" script src="../js/old/oldStatistics.js"></script>
     <script type="text/javascript" script src="../js/old/oldProcess.js"></script>
     <script type="text/javascript" script src="../js/old/oldController.js"></script>
+    <script type="text/javascript" script src="../js/utilities/required-length.js"></script>
     <script type="text/javascript" script src="../js/model.js"></script>
 </body>
 </html>
