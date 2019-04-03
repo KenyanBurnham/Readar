@@ -1,0 +1,38 @@
+.gradient0{
+    background-image: linear-gradient(90deg, #007bff);
+    width: 100px;
+}
+
+.gradient1{
+    background-image: linear-gradient(90deg, #007bff, #FFFFFF);
+    width: 115px;
+}
+
+.gradient2{
+    background-image: linear-gradient(90deg, #007bff, #FFFFFF);
+    width: 130px;
+}
+
+.gradient3{
+    background-image: linear-gradient(90deg, #007bff, #FFFFFF);
+    width: 145px;
+}
+
+.gradient4{
+    background-image: linear-gradient(90deg, #007bff, #FFFFFF);
+    width: 160px;
+}
+
+.gradient5{
+    background-image: linear-gradient(90deg, #007bff, #FFFFFF);
+    width: 175px;
+}
+
+.gradient6{
+    background-image: linear-gradient(90deg, #007bff, #FFFFFF);
+    width: 190px;
+}
+
+.outputTable, td{
+  padding: 10px 10px;
+}
