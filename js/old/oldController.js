@@ -4,12 +4,12 @@ let breathWords = [];
 let breathSyllables = [];
 
 function buildGradient(a, b){
-    console.log(a);
+    //console.log(a);
     let span = document.querySelector(".changeable" + b + "");
     let ratio = ((a*100)/4);
     let bar = "<div class='progress'><div class='progress-bar' role='progressbar' aria-valuenow='70' aria-valuemin='0' aria-valuemax='100' style='width:" + ratio + "%'>" + a + "</div></div>";
     span.innerHTML = bar;
-    console.log("done");
+    //console.log("done");
 }
 
 function classDOMManipulation(a, b){
@@ -71,13 +71,23 @@ function package(a){
         domAddition(b1, c.breath, i);
     }
 }
+function characterSearch(a){
+    //filter non-word characters
+    //var result = a.match(/\W/g);
+    //console.log(result);
+    /**
+      sentences(a);
+
+    **/
+}
 
 //Splits paragraph and array of sentences
 function segment(a){
-  //split each sentence by periods.
-  //need to create cases for titles and other periods
-  let b = a.split(". ");
-  package(b);
+    //split each sentence by periods.
+    //need to create cases for titles and other periods
+    let index = characterSearch(a);
+    //let b = a.split(". ");
+    //package(b);
 }
 
 function startCount(){
@@ -86,6 +96,6 @@ function startCount(){
     //Segment paragraph
     segment(paragraphToProcess.toString());
     //Run statistics
-    statistics();
+    //statistics();
 
 }

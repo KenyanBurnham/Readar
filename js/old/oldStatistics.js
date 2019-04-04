@@ -58,72 +58,72 @@ function getAverage(source){
 }
 
 function syllableStatistics(){
-    console.log("%c ---- Syllable Statistics ----", 'background: #222; color: #fd7e14');
+    //console.log("%c ---- Syllable Statistics ----", 'background: #222; color: #fd7e14');
     //Get the sum
     let averageSyllable = getAverage(breathSyllables);
-    console.log("Average: " + averageSyllable);
+    //console.log("Average: " + averageSyllable);
 
     //Get the standard deviation
     let averageDeviation = getAverageDeviation(breathSyllables, averageSyllable);
-    console.log("Standard Deviation: " + averageDeviation);
+    //console.log("Standard Deviation: " + averageDeviation);
 
     //Get Median
     let median = getMedian(breathSyllables);
-    console.log("Median Value: " + median);
+    //console.log("Median Value: " + median);
 
     //Get Minimum
     let minimum = getMinimum(breathSyllables);
-    console.log("Minimum: " + minimum);
+    //console.log("Minimum: " + minimum);
 
     //Get Maximum
     let maximum = getMaximum(breathSyllables);
-    console.log("Maximum: " + maximum);
+    //console.log("Maximum: " + maximum);
 }
 
 function wordStatistics(){
-    console.log("%c ---- Word Statistics ----", 'background: #222; color: #bada55');
+    //console.log("%c ---- Word Statistics ----", 'background: #222; color: #bada55');
     //Get the sum
     let averageWord = getAverage(breathWords);
-    console.log("Average: " + averageWord);
+    //console.log("Average: " + averageWord);
 
     //Get the standard deviation
     let averageDeviation = getAverageDeviation(breathWords, averageWord);
-    console.log("Standard Deviation: " + averageDeviation);
+    //console.log("Standard Deviation: " + averageDeviation);
 
     //Get Median
     let median = getMedian(breathWords);
-    console.log("Median Value: " + median);
+    //console.log("Median Value: " + median);
 
     //Get Minimum
     let minimum = getMinimum(breathWords);
-    console.log("Minimum: " + minimum);
+    //console.log("Minimum: " + minimum);
 
     //Get Maximum
     let maximum = getMaximum(breathWords);
-    console.log("Maximum: " + maximum);
+    //console.log("Maximum: " + maximum);
 }
 
 function breathUnitsStatistics(){
-    console.log("%c ---- Breath Statistics ----", 'background: #222; color: #007bff');
+    //console.log("%c ---- Breath Statistics ----", 'background: #222; color: #007bff');
     //Get the sum
     let averageBreath = getAverage(breathUnits);
-    console.log("Average: " + averageBreath);
+    //console.log("Average: " + averageBreath);
 
     //Get the standard deviation
     let averageDeviation = getAverageDeviation(breathUnits, averageBreath);
-    console.log("Standard Deviation: " + averageDeviation);
+    //console.log("Standard Deviation: " + averageDeviation);
 
     //Get Median
     let median = getMedian(breathUnits);
-    console.log("Median Value: " + median);
+    //console.log("Median Value: " + median);
 
     //Get Minimum
     let minimum = getMinimum(breathUnits);
-    console.log("Minimum: " + minimum);
+    //console.log("Minimum: " + minimum);
 
     //Get Maximum
     let maximum = getMaximum(breathUnits);
-    console.log("Maximum: " + maximum);
+    //console.log("Maximum: " + maximum);
 }
 
 //Begins forming the statistics for the page.
