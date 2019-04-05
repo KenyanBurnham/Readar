@@ -4,11 +4,11 @@ let breathWords = [];
 let breathSyllables = [];
 
 function buildBreathStatistics(breaths){
-    let averageSentence = "Average Breath Unit Size: " + breaths[0];
-    let maxSentence = "Maximum Breath Unit Size: " + breaths[1];
-    let minSentence = "Minimum Breath Unit Size: " + breaths[2];
-    let medianSentence = "Median Breath Unit Size: " + breaths[3];
-    let standarDeviationSentence = "Standard Deviation: " + breaths[4];
+    let averageSentence = breaths[0].toFixed(2);
+    let maxSentence = breaths[1].toFixed(2);
+    let minSentence = breaths[2].toFixed(2);
+    let medianSentence = breaths[3].toFixed(2);
+    let standarDeviationSentence = breaths[4].toFixed(2);
     document.getElementById('breathAverage').innerHTML = averageSentence;
     document.getElementById('breathMax').innerHTML = maxSentence;
     document.getElementById('breathMin').innerHTML = minSentence;
@@ -17,11 +17,11 @@ function buildBreathStatistics(breaths){
 }
 
 function buildSyllableStatistics(syllables){
-    let averageSentence = "Average Syllable Size: " + syllables[0];
-    let maxSentence = "Maximum Syllable Size: " + syllables[1];
-    let minSentence = "Minimum Syllable Size: " + syllables[2];
-    let medianSentence = "Median Syllable Size: " + syllables[3];
-    let standarDeviationSentence = "Standard Deviation: " + syllables[4];
+    let averageSentence = syllables[0].toFixed(2);
+    let maxSentence = syllables[1].toFixed(2);
+    let minSentence = syllables[2].toFixed(2);
+    let medianSentence = syllables[3].toFixed(2);
+    let standarDeviationSentence = syllables[4].toFixed(2);
     document.getElementById('syllableAverage').innerHTML = averageSentence;
     document.getElementById('syllableMax').innerHTML = maxSentence;
     document.getElementById('syllableMin').innerHTML = minSentence;
@@ -30,11 +30,11 @@ function buildSyllableStatistics(syllables){
 }
 
 function buildWordStatistics(words){
-    let averageSentence = "Average Word Size: " + words[0];
-    let maxSentence = "Maximum Word Size: " + words[1];
-    let minSentence = "Minimum Word Size: " + words[2];
-    let medianSentence = "Median Word Size: " + words[3];
-    let standarDeviationSentence = "Standard Deviation: " + words[4];
+    let averageSentence = words[0].toFixed(2);
+    let maxSentence = words[1].toFixed(2);
+    let minSentence = words[2].toFixed(2);
+    let medianSentence = words[3].toFixed(2);
+    let standarDeviationSentence = words[4].toFixed(2);
     document.getElementById('wordAverage').innerHTML = averageSentence;
     document.getElementById('wordMax').innerHTML = maxSentence;
     document.getElementById('wordMin').innerHTML = minSentence;
@@ -43,12 +43,12 @@ function buildWordStatistics(words){
 }
 
 function buildBodyStatistics(){
-    let wordStatistics = wordStatistics();
-    let syllableStatistics = syllableStatistics();
-    let breathUnitsStatistics = breathUnitsStatistics();
-    buildWordStatistics(wordStatistics);
-    buildSyllableStatistics(wordStatistics);
-    buildBreathStatistics(wordStatistics);
+    let wordStats = wordStatistics();
+    let syllableStats = syllableStatistics();
+    let breathUnitsStats = breathUnitsStatistics();
+    buildWordStatistics(wordStats);
+    buildSyllableStatistics(syllableStats);
+    buildBreathStatistics(breathUnitsStats);
 }
 //May need to move where this is
 function buildGradient(a, b, c, d){

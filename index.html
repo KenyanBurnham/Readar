@@ -144,7 +144,7 @@
                   <!-- Modal content-->
                   <div class="modal-content">
                         <div class="modal-header">
-                              <h4 class="modal-title">Scansion of Text</h4>
+                              <h4 class="modal-title">Scansion Results</h4>
                               <button type="button" class="close" data-dismiss="modal" onclick="modalClose();">&times;</button>
                         </div>
                         <div class="modal-body">
@@ -152,26 +152,49 @@
                                   <div class="col">
                                       <h4>Body Characteristics</h4>
                                       <br>
-                                      <h6>Words</h6>
-                                      <p id="wordAverage"></p>
-                                      <p id="wordMax"></p>
-                                      <p id="wordMin"></p>
-                                      <p id="wordMedian"></p>
-                                      <p id="wordDeviation"></p>
+                                      <table>
+                                          <thead>
+                                              <tr>
+                                                  <td> &nbsp; </td>
+                                                  <td class="table-key-blue">Words</td>
+                                                  <td class="table-key-light-blue">Syllables</td>
+                                                  <td class="table-key-opaque-blue">Breath Units</td>
+                                              </tr>
+                                          </thead>
+                                          <tbody>
+                                              <tr>
+                                                  <td><b class="td-label">Average</b></td>
+                                                  <td class="td-word" id="wordAverage"></td>
+                                                  <td class="td-syl" id="syllableAverage"></td>
+                                                  <td class="td-breath" id="breathAverage"></td>
+                                              </tr>
+                                              <tr>
+                                                  <td><b class="td-label">Max.</b></td>
+                                                  <td class="td-word" id="wordMax"></td>
+                                                  <td class="td-syl" id="syllableMax"></td>
+                                                  <td class="td-breath" id="breathMax"></td>
+                                              </tr>
+                                              <tr>
+                                                  <td><b class="td-label">Min.</b></td>
+                                                  <td class="td-word" id="wordMin"></td>
+                                                  <td class="td-syl" id="syllableMin"></td>
+                                                  <td class="td-breath" id="breathMin"></td>
+                                              </tr>
+                                              <tr>
+                                                  <td><b class="td-label">Median</b></td>
+                                                  <td class="td-word" id="wordMedian"></td>
+                                                  <td class="td-syl" id="syllableMedian"></td>
+                                                  <td class="td-breath" id="breathMedian"></td>
+                                              </tr>
+                                              <tr>
+                                                  <td><b class="td-label">Stan. Dev.</b></td>
+                                                  <td class="td-word" id="wordDeviation"></td>
+                                                  <td class="td-syl" id="syllableDeviation"></td>
+                                                  <td class="td-breath" id="breathDeviation"></td>
+                                              </tr>
+                                          </tbody>
+                                      </table>
                                       <br>
-                                      <h6>Syllables</h6>
-                                      <p id="syllableAverage"></p>
-                                      <p id="syllableMax"></p>
-                                      <p id="syllableMin"></p>
-                                      <p id="syllableMedian"></p>
-                                      <p id="syllableDeviation"></p>
-                                      <br>
-                                      <h6>Breath Units (Syllables &#247; Words)</h6>
-                                      <p id="breathAverage"></p>
-                                      <p id="breathMax"></p>
-                                      <p id="breathMin"></p>
-                                      <p id="breathMedian"></p>
-                                      <p id="breathDeviation"></p>
                                       <hr>
                                       <br>
                                   </div>
@@ -180,15 +203,8 @@
                                   <div class="col">
                                       <h4>Sentence Results</h4>
                                       <br>
-                                      <table>
-                                          <tbody>
-                                              <td class="table-key-blue">Words</td>
-                                              <td class="table-key-light-blue">Syllables</td>
-                                              <td class="table-key-opaque-blue">Breath Units</td>
-                                          </tbody>
-                                      </table>
                                       <table class="outputTable">
-                                        <br><br>
+                                        <br>
                                           <tbody id="outputPlace"></tbody>
                                       </table>
                                   </div>

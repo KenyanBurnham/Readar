@@ -37,6 +37,10 @@
     padding: 10px 10px;
 }
 
+.progress-bar-adjustment{
+    margin-bottom: 1px;
+}
+
 .table-key-blue{
     background-color: #007bff;
     color: white;
@@ -53,6 +57,18 @@
     opacity: .7;
 }
 
-.progress-bar-adjustment{
-    margin-bottom: 1px;
+.td-breath{
+    background-color: rgba(23, 164, 186, 0.05)
+}
+
+.td-label{
+    opacity: .68;
+}
+
+.td-syl{
+    background-color: rgba(23, 162, 184, 0.1);
+}
+
+.td-word{
+    background-color: rgba(23, 164, 186, 0.05)
 }
