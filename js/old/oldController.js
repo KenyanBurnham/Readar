@@ -166,5 +166,14 @@ function startCount(){
     //Segment paragraph
     segment(paragraphToProcess.toString());
 
-
+// TODO: Put results on separate page
+// TODO: Figure out why statistics are wrong
+// TODO: find a graph library and impliment on results page
+// TODO: Make CSS library for mobile view or make mobile templates
+// TODO: Create sample text function that auto-inserts and runs
+// TODO: Add footer with my info
+// TODO: Write API for functions
+// TODO: Package JS for other contributors
+// TODO: Figure out manifest info for mobile homepage
+// TODO: Figure out a way to export data
 }
