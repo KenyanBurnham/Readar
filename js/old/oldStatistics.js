@@ -78,6 +78,9 @@ function syllableStatistics(){
     //Get Maximum
     let maximum = getMaximum(breathSyllables);
     //console.log("Maximum: " + maximum);
+
+    let statisticsArray = [averageSyllable, averageDeviation, median, minimum, maximum];
+    return statisticsArray;
 }
 
 function wordStatistics(){
@@ -101,6 +104,9 @@ function wordStatistics(){
     //Get Maximum
     let maximum = getMaximum(breathWords);
     //console.log("Maximum: " + maximum);
+
+    let statisticsArray = [averageWord, averageDeviation, median, minimum, maximum];
+    return statisticsArray;
 }
 
 function breathUnitsStatistics(){
@@ -124,6 +130,9 @@ function breathUnitsStatistics(){
     //Get Maximum
     let maximum = getMaximum(breathUnits);
     //console.log("Maximum: " + maximum);
+
+    let statisticsArray = [averageBreath, averageDeviation, median, minimum, maximum];
+    return statisticsArray;
 }
 
 //Begins forming the statistics for the page.

@@ -34,5 +34,25 @@
 }
 
 .outputTable, td{
-  padding: 10px 10px;
+    padding: 10px 10px;
+}
+
+.table-key-blue{
+    background-color: #007bff;
+    color: white;
+}
+
+.table-key-light-blue{
+    background-color: #17a2b8;
+    color: white;
+}
+
+.table-key-opaque-blue{
+    background-color: #007bff;
+    color: white;
+    opacity: .7;
+}
+
+.progress-bar-adjustment{
+    margin-bottom: 1px;
 }

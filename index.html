@@ -150,15 +150,45 @@
                         <div class="modal-body">
                               <div class="row">
                                   <div class="col">
-                                      <h6>Body Characteristics</h6>
-                                      <div id="bodyStatistics"></div>
+                                      <h4>Body Characteristics</h4>
+                                      <br>
+                                      <h6>Words</h6>
+                                      <p id="wordAverage"></p>
+                                      <p id="wordMax"></p>
+                                      <p id="wordMin"></p>
+                                      <p id="wordMedian"></p>
+                                      <p id="wordDeviation"></p>
+                                      <br>
+                                      <h6>Syllables</h6>
+                                      <p id="syllableAverage"></p>
+                                      <p id="syllableMax"></p>
+                                      <p id="syllableMin"></p>
+                                      <p id="syllableMedian"></p>
+                                      <p id="syllableDeviation"></p>
+                                      <br>
+                                      <h6>Breath Units (Syllables &#247; Words)</h6>
+                                      <p id="breathAverage"></p>
+                                      <p id="breathMax"></p>
+                                      <p id="breathMin"></p>
+                                      <p id="breathMedian"></p>
+                                      <p id="breathDeviation"></p>
+                                      <hr>
                                       <br>
                                   </div>
                               </div>
                               <div class="row">
                                   <div class="col">
-                                      <h6>Sentence Characteristics</h6>
+                                      <h4>Sentence Results</h4>
+                                      <br>
+                                      <table>
+                                          <tbody>
+                                              <td class="table-key-blue">Words</td>
+                                              <td class="table-key-light-blue">Syllables</td>
+                                              <td class="table-key-opaque-blue">Breath Units</td>
+                                          </tbody>
+                                      </table>
                                       <table class="outputTable">
+                                        <br><br>
                                           <tbody id="outputPlace"></tbody>
                                       </table>
                                   </div>
@@ -174,7 +204,6 @@
 
 
     <!-- Scripts-->
-    <script type="text/javascript" src="../dependencies/wink-nlp-utils/src/string-sentences.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script type="text/javascript" script src="../js/old/oldStatistics.js"></script>
