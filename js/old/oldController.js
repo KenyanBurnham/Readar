@@ -104,7 +104,7 @@ function package(a){
     for (let i = 0; i < iteration; i++) {
         let b = a[i];
 // TODO: Add a "." to the end of b1
-        let b1 = b.concat(". ");
+        let b1 = b;
         b = b.toString();
         b = b.replace(/(\r\n|\n|\r)/gm,"").trim();
         let c = processSentence(b);
