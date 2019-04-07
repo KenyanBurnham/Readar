@@ -126,6 +126,7 @@ function package(a){
         breath: w,
         **/
         domAddition(b1, c.breath, i, c.sumWords, c.sumSyllables);
+        initalizeReadarChart(c.sumWords, c.sumSyllables, c.breath);
     }
 }
 function characterSearch(a){
@@ -155,9 +156,13 @@ function characterSearch(a){
 function segment(a){
     //split each sentence by periods.
     //need to create cases for titles and other periods
-    let index = characterSearch(a);
+    //let index = characterSearch(a);
     let b = a.split(". ");
     package(b);
+}
+
+function switchBack(){
+    location.reload();
 }
 
 function startCount(){
@@ -165,6 +170,9 @@ function startCount(){
     let paragraphToProcess = document.getElementById('inputPlace').value;
     //Segment paragraph
     segment(paragraphToProcess.toString());
+
+    document.getElementById('initialized').setAttribute("hidden", "hidden");
+    document.getElementById('results').removeAttribute("hidden");
 
 // TODO: Put results on separate page
 // TODO: Figure out why statistics are wrong

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Meta Information -->
+    <title>Readar</title>
+    <!-- Teamplate Stylesheets-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!-- Custom Stylesheets-->
+    <link rel="stylesheet" href="css/changeable.css">
+</head>
+<body>
+      <br><br>
+      <section>
+          <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-4">
+                    &nbsp;
+                </div>
+                <div class="col-md-4">
+                    <img src="media/ReadarLogo2.svg" style="width:30vw; height: 21vw;" alt="Readar Logo.">
+                </div>
+                <div class="col-md-4">
+                    &nbsp;
+                </div>
+              </div>
+          </div>
+      </section>
+      <section class="container-fluid">
+          <div class="row">
+              <div class="col-md-2">
+                  &nbsp;
+              </div>
+              <div class="col-md-8">
+                <br><br>
+                  <h1 style="opacity: .8;">Readar</h1><br>
+                  <p>Here are the results...</p>
+                  <br>
+              </div>
+              <div class="col-md-2">
+                  &nbsp;
+              </div>
+          </div>
+      </section>
+      <section class="container-fluid">
+          <div class="row">
+              <div class="col-md-2">
+                  &nbsp;
+              </div>
+              <div class="col-md-8">
+                  <h4>Body Characteristics</h4>
+                  <br>
+                  <table>
+                      <thead>
+                          <tr>
+                              <td> &nbsp; </td>
+                              <td class="table-key-blue">Words</td>
+                              <td class="table-key-light-blue">Syllables</td>
+                              <td class="table-key-opaque-blue">Breath Units</td>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr>
+                              <td><b class="td-label">Average</b></td>
+                              <td class="td-word" id="wordAverage"></td>
+                              <td class="td-syl" id="syllableAverage"></td>
+                              <td class="td-breath" id="breathAverage"></td>
+                          </tr>
+                          <tr>
+                              <td><b class="td-label">Max.</b></td>
+                              <td class="td-word" id="wordMax"></td>
+                              <td class="td-syl" id="syllableMax"></td>
+                              <td class="td-breath" id="breathMax"></td>
+                          </tr>
+                          <tr>
+                              <td><b class="td-label">Min.</b></td>
+                              <td class="td-word" id="wordMin"></td>
+                              <td class="td-syl" id="syllableMin"></td>
+                              <td class="td-breath" id="breathMin"></td>
+                          </tr>
+                          <tr>
+                              <td><b class="td-label">Median</b></td>
+                              <td class="td-word" id="wordMedian"></td>
+                              <td class="td-syl" id="syllableMedian"></td>
+                              <td class="td-breath" id="breathMedian"></td>
+                          </tr>
+                          <tr>
+                              <td><b class="td-label">Stan. Dev.</b></td>
+                              <td class="td-word" id="wordDeviation"></td>
+                              <td class="td-syl" id="syllableDeviation"></td>
+                              <td class="td-breath" id="breathDeviation"></td>
+                          </tr>
+                      </tbody>
+                  </table>
+                  <br>
+                  <hr>
+              </div>
+              <div class="col-md-2">
+                  &nbsp;
+              </div>
+          </div>
+      </section>
+      <section class="container-fluid">
+          <div class="row">
+              <div class="col-md-2">
+                  &nbsp;
+              </div>
+              <div class="col-md-8">
+                  <h4>Results</h4>
+                  <br>
+                  <table class="outputTable">
+                    <br>
+                      <tbody id="outputPlace"></tbody>
+                  </table>
+              </div>
+              <div class="col-md-2">
+                  &nbsp;
+              </div>
+          </div>
+      </section>
+      <br>
+
+
+    <!-- Scripts-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script type="text/javascript" script src="js/utilities/log.js"></script>
+    <script type="text/javascript" script src="js/old/oldStatistics.js"></script>
+    <script type="text/javascript" script src="js/old/oldProcess.js"></script>
+    <script type="text/javascript" script src="js/old/oldController.js"></script>
+    <script type="text/javascript" script src="js/utilities/required-length.js"></script>
+    <script type="text/javascript" script src="js/model.js"></script>
+</body>
+</html>
