@@ -113,7 +113,57 @@ function wordGraph(words){
     }
 }
 
-function getDataReady(words, syllables, breaths, body){
+function bodyGraph(words, syllables, breaths){
+      var ctx3 = document.getElementById('bodyChart').getContext('2d');
+      var bodyChart = new Chart(ctx3, {
+        type: 'line',
+        data: {
+            datasets: [{
+                label: 'Words',
+                data: [words],
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.4)',
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)',
+                ],
+                borderWidth: 1
+            }, {
+                label: 'Syllables',
+                data: [syllables],
+                backgroundColor: [
+                    'rgba(54, 162, 184, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(54, 162, 184, 1)',
+                ],
+                borderWidth: 1
+            }, {
+                label: 'Breaths',
+                data: [breaths],
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.4)',
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)',
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+      });
+      bodyChart.update();
+}
+
+function getDataReady(body){
       let sumWords = [];
       let sumSyllables = [];
       let sumBreaths = [];
@@ -125,4 +175,5 @@ function getDataReady(words, syllables, breaths, body){
       wordGraph(sumWords);
       sylGraph(sumSyllables);
       breathGraph(sumBreaths);
+      bodyGraph(sumWords, sumSyllables, sumBreaths);
 }
