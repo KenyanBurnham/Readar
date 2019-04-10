@@ -123,7 +123,10 @@ function segment(a){
     //let index = characterSearch(a);
     let b = a.split(". ");
     let body = package(b);
-    getDataReady(body);
+    let wordMax = getMaximum(breathWords);
+    let syllableMax = getMaximum(breathSyllables);
+    let breathMax = getMaximum(breathUnits);
+    getDataReady(body, wordMax, syllableMax, breathMax);
 }
 
 function startCount(){
