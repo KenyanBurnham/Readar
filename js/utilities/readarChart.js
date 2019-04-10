@@ -43,7 +43,7 @@ function breathGraph(breaths){
     });
     removeData(breathChart);
     for (var i = 0; i < breaths.length; i++) {
-        addData(breathChart, "Sentence " + i, breaths[i]);
+        addData(breathChart, i, breaths[i]);
     }
 }
 
@@ -76,7 +76,7 @@ function sylGraph(syllables){
     });
     removeData(sylChart);
     for (var i = 0; i < syllables.length; i++) {
-        addData(sylChart, "Sentence " + i, syllables[i]);
+        addData(sylChart, i, syllables[i]);
     }
 }
 
@@ -109,7 +109,7 @@ function wordGraph(words){
     });
     removeData(wordChart);
     for (var i = 0; i < words.length; i++) {
-        addData(wordChart, "Sentence " + i, words[i]);
+        addData(wordChart, i, words[i]);
     }
 }
 

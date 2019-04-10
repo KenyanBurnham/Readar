@@ -75,7 +75,7 @@ function domAddition(copyOfSource, breathsInSentence, iterationOfForLoop, sumOfW
     span2.setAttribute("data-breath", " " + breathsInSentence + " ");
     span2.innerHTML = breathsInSentence;
     span2.setAttribute("class", "changeable" + iterationOfForLoop + "");
-    td3.innerHTML = iterationOfForLoop + 1;
+    td3.innerHTML = iterationOfForLoop;
     td1.appendChild(span1);
     td1.setAttribute("class", "changeable");
     td2.appendChild(span2);
