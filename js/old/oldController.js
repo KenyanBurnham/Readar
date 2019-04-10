@@ -100,22 +100,22 @@ function domAddition(a, b, c, d, e){
 
 //Processes sentences in process.js
 function package(a){
-    let iteration = a.length;
-    for (let i = 0; i < iteration; i++) {
+    for (let i = 0; i < a.length; i++) {
+        //b is a temporary storage variable
         let b = a[i];
-// TODO: Add a "." to the end of b1
-        let b1 = b;
+        //c is a copy of the original sentences that will not be altered
+        let c = b;
         b = b.toString();
         b = b.replace(/(\r\n|\n|\r)/gm,"").trim();
-        let c = processSentence(b);
+        let d = processSentence(b);
         //breath units
-        breathUnits[i] = c.breath;
+        breathUnits[i] = d.breath;
         //sentences
-        breathSentences[i] = c.source;
+        breathSentences[i] = d.source;
         //sum of words
-        breathWords[i] = c.sumWords;
+        breathWords[i] = d.sumWords;
         //sum of syllables
-        breathSyllables[i] = c.sumSyllables;
+        breathSyllables[i] = d.sumSyllables;
         /**
         source: a,
         words: x,
@@ -125,31 +125,8 @@ function package(a){
         sizes: z,
         breath: w,
         **/
-        domAddition(b1, c.breath, i, c.sumWords, c.sumSyllables);
-        initalizeReadarChart(c.sumWords, c.sumSyllables, c.breath);
+        domAddition(c, d.breath, i, d.sumWords, d.sumSyllables);
     }
-}
-function characterSearch(a){
-    let Characters = new Object;
-    let all = [];
-    for (var i = 0; i < a.length; i++) {
-        all = [a.charAt(i)];
-    }
-    Characters.original = a;
-    Characters.chars = all;
-    Characters.entries = all.entries;
-    for (let f = 0; f <= all.length; f++){
-        if(all[f] === "."){
-            console.log("period");
-        }
-    }
-    //filter non-word characters
-    //var result = a.substring(1,3);
-    //a.match(/\W/g); filters non-word characters and returns them
-    //a.split("(?!^)") break into chars
-    //a.exec("M"); searches for a string
-    //console.log(result);
-
 }
 
 //Splits paragraph and array of sentences
@@ -159,10 +136,7 @@ function segment(a){
     //let index = characterSearch(a);
     let b = a.split(". ");
     package(b);
-}
-
-function switchBack(){
-    location.reload();
+    getDataReady(breathWords, breathSyllables, breathUnits);
 }
 
 function startCount(){

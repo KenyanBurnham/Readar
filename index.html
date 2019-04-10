@@ -199,101 +199,145 @@
                   </div>
                   <div class="col-md-8">
                     <br><br>
-                      <h1 style="opacity: .8;">Readar</h1><br>
-                      <p>Here are the results...</p>
-                      <br>
+                      <h1 style="opacity: .8;">Results</h1><br>
+                      <p>Here are the results, consider syllable counting error and rounding error (two significant figures).</p>
+
                   </div>
                   <div class="col-md-2">
                       &nbsp;
                   </div>
               </div>
           </section>
+          <br><hr><br>
+          <section class="container-fluid">
+              <div class="row">
+                  <div class="col-md-2">
+                      &nbsp;
+                  </div>
+                  <div class="col-md-8">
+                      <div class="row">
+                          <div class="col">
+                            <br>
+                            <h3>Body Characteristics</h3>
+                            <br>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col">
+                              <table class="outputTable">
+                                  <thead>
+                                      <tr>
+                                          <td> &nbsp; </td>
+                                          <td class="table-key-blue">Words</td>
+                                          <td class="table-key-light-blue">Syllables</td>
+                                          <td class="table-key-opaque-blue">Breath Units</td>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <tr>
+                                          <td><b class="td-label">Average</b></td>
+                                          <td class="td-word" id="wordAverage"></td>
+                                          <td class="td-syl" id="syllableAverage"></td>
+                                          <td class="td-breath" id="breathAverage"></td>
+                                      </tr>
+                                      <tr>
+                                          <td><b class="td-label">Max.</b></td>
+                                          <td class="td-word" id="wordMax"></td>
+                                          <td class="td-syl" id="syllableMax"></td>
+                                          <td class="td-breath" id="breathMax"></td>
+                                      </tr>
+                                      <tr>
+                                          <td><b class="td-label">Min.</b></td>
+                                          <td class="td-word" id="wordMin"></td>
+                                          <td class="td-syl" id="syllableMin"></td>
+                                          <td class="td-breath" id="breathMin"></td>
+                                      </tr>
+                                      <tr>
+                                          <td><b class="td-label">Median</b></td>
+                                          <td class="td-word" id="wordMedian"></td>
+                                          <td class="td-syl" id="syllableMedian"></td>
+                                          <td class="td-breath" id="breathMedian"></td>
+                                      </tr>
+                                      <tr>
+                                          <td><b class="td-label">Stan. Dev.</b></td>
+                                          <td class="td-word" id="wordDeviation"></td>
+                                          <td class="td-syl" id="syllableDeviation"></td>
+                                          <td class="td-breath" id="breathDeviation"></td>
+                                      </tr>
+                                  </tbody>
+                              </table>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-md-2">
+                      &nbsp;
+                  </div>
+              </div>
+          </section>
+          <br><hr><br>
+          <section class="container-fluid">
+              <div class="row">
+                  <div class="col-md-2">
+                      &nbsp;
+                  </div>
+                  <div class="col-md-8">
+                      <h3>Sentence Characteristics</h3>
+                      <br>
+                      <table class="outputTable">
+                        <br>
+                          <tbody id="outputPlace"></tbody>
+                      </table>
+                  </div>
+                  <div class="col-md-2">
+                      &nbsp;
+                  </div>
+              </div>
+          </section>
+          <br><hr><br>
           <section>
               <div class="row">
                   <div class="col-md-2">
                       &nbsp;
                   </div>
                   <div class="col-md-8">
-                      <canvas id="myChart" width="300" height="200"></canvas>
+                      <h3>Word Chart</h3>
+                      <br>
+                      <canvas id="wordChart" width="300" height="200"></canvas>
+                      <br>
                   </div>
                   <div class="col-md-2">
                       &nbsp;
                   </div>
               </div>
           </section>
-          <section class="container-fluid">
+          <br><hr><br>
+          <section>
               <div class="row">
                   <div class="col-md-2">
                       &nbsp;
                   </div>
                   <div class="col-md-8">
+                      <h3>Syllable Chart</h3>
                       <br>
-                      <hr>
+                      <canvas id="sylChart" width="300" height="200"></canvas>
                       <br>
-                      <h4>Body Characteristics</h4>
-                      <p>Here are the results...</p>
-                      <table class="outputTable">
-                          <thead>
-                              <tr>
-                                  <td> &nbsp; </td>
-                                  <td class="table-key-blue">Words</td>
-                                  <td class="table-key-light-blue">Syllables</td>
-                                  <td class="table-key-opaque-blue">Breath Units</td>
-                              </tr>
-                          </thead>
-                          <tbody>
-                              <tr>
-                                  <td><b class="td-label">Average</b></td>
-                                  <td class="td-word" id="wordAverage"></td>
-                                  <td class="td-syl" id="syllableAverage"></td>
-                                  <td class="td-breath" id="breathAverage"></td>
-                              </tr>
-                              <tr>
-                                  <td><b class="td-label">Max.</b></td>
-                                  <td class="td-word" id="wordMax"></td>
-                                  <td class="td-syl" id="syllableMax"></td>
-                                  <td class="td-breath" id="breathMax"></td>
-                              </tr>
-                              <tr>
-                                  <td><b class="td-label">Min.</b></td>
-                                  <td class="td-word" id="wordMin"></td>
-                                  <td class="td-syl" id="syllableMin"></td>
-                                  <td class="td-breath" id="breathMin"></td>
-                              </tr>
-                              <tr>
-                                  <td><b class="td-label">Median</b></td>
-                                  <td class="td-word" id="wordMedian"></td>
-                                  <td class="td-syl" id="syllableMedian"></td>
-                                  <td class="td-breath" id="breathMedian"></td>
-                              </tr>
-                              <tr>
-                                  <td><b class="td-label">Stan. Dev.</b></td>
-                                  <td class="td-word" id="wordDeviation"></td>
-                                  <td class="td-syl" id="syllableDeviation"></td>
-                                  <td class="td-breath" id="breathDeviation"></td>
-                              </tr>
-                          </tbody>
-                      </table>
-                      <br>
-                      <hr>
                   </div>
                   <div class="col-md-2">
                       &nbsp;
                   </div>
               </div>
           </section>
-          <section class="container-fluid">
+          <br><hr><br>
+          <section>
               <div class="row">
                   <div class="col-md-2">
                       &nbsp;
                   </div>
                   <div class="col-md-8">
-                      <h4>Sentence Characteristics</h4>
-                      <p>Here are the results...</p>
-                      <table class="outputTable">
-                        <br>
-                          <tbody id="outputPlace"></tbody>
-                      </table>
+                      <h3>Breaths Unit Chart</h3>
+                      <br>
+                      <canvas id="breathChart" width="300" height="200"></canvas>
+                      <br>
                   </div>
                   <div class="col-md-2">
                       &nbsp;
@@ -311,10 +355,9 @@
     <script type="text/javascript" script src="js/utilities/log.js"></script>
     <script type="text/javascript" script src="js/utilities/readarChart.js"></script>
     <script type="text/javascript" script src="js/utilities/required-length.js"></script>
+    <script type="text/javascript" script src="js/utilities/switchBack.js"></script>
     <script type="text/javascript" script src="js/old/oldStatistics.js"></script>
     <script type="text/javascript" script src="js/old/oldProcess.js"></script>
     <script type="text/javascript" script src="js/old/oldController.js"></script>
-    <script type="text/javascript" script src="js/model.js"></script>
-
 </body>
 </html>

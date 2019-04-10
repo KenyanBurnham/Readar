@@ -1,0 +1,3 @@
+function switchBack(){
+    location.reload();
+}
