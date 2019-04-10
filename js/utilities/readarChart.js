@@ -113,12 +113,16 @@ function wordGraph(words){
     }
 }
 
-function getDataReady(words, syllables, breaths){
-      console.log(words);
-      wordGraph(words);
-      console.log(syllables);
-      sylGraph(syllables);
-      console.log(breaths);
-      breathGraph(breaths);
-
+function getDataReady(words, syllables, breaths, body){
+      let sumWords = [];
+      let sumSyllables = [];
+      let sumBreaths = [];
+      for (var i = 0; i < body.sentences.length; i++) {
+          sumWords[i] = body.sentences[i].sumWords;
+          sumSyllables[i] = body.sentences[i].sumSyllables;
+          sumBreaths[i] = body.sentences[i].breath;
+      }
+      wordGraph(sumWords);
+      sylGraph(sumSyllables);
+      breathGraph(sumBreaths);
 }

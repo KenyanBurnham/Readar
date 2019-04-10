@@ -42,8 +42,7 @@ function processSentence(a){
     let y = [];
     let z = [];
     let b = a.split(" ");
-    let f = b.length;
-    for (let i = 0; i < f; i++) {
+    for (let i = 0; i < b.length; i++) {
         //Filter Input
         let c = filterToLowerCase(b[i]);
         c = removeWhiteSpace(c);
@@ -55,16 +54,14 @@ function processSentence(a){
         //Build word length array
         z[i] = getWordLength(c);
     }
-    let e = y.reduce(getSum);
-    w = (e/f).toFixed(2);
     let Sentence = {
         source: a,
         words: x,
         syllables: y,
-        sumSyllables: e,
-        sumWords: f,
+        sumSyllables: y.reduce(getSum),
+        sumWords: b.length,
         sizes: z,
-        breath: w,
+        breath: ((y.reduce(getSum))/(b.length)).toFixed(2),
     };
     return Sentence;
 }

@@ -100,6 +100,10 @@ function domAddition(a, b, c, d, e){
 
 //Processes sentences in process.js
 function package(a){
+    let Body = {
+        source: a,
+        sentences: [],
+    };
     for (let i = 0; i < a.length; i++) {
         //b is a temporary storage variable
         let b = a[i];
@@ -107,15 +111,15 @@ function package(a){
         let c = b;
         b = b.toString();
         b = b.replace(/(\r\n|\n|\r)/gm,"").trim();
-        let d = processSentence(b);
+        let sentence = processSentence(b);
         //breath units
-        breathUnits[i] = d.breath;
+        breathUnits[i] = sentence.breath;
         //sentences
-        breathSentences[i] = d.source;
+        breathSentences[i] = sentence.source;
         //sum of words
-        breathWords[i] = d.sumWords;
+        breathWords[i] = sentence.sumWords;
         //sum of syllables
-        breathSyllables[i] = d.sumSyllables;
+        breathSyllables[i] = sentence.sumSyllables;
         /**
         source: a,
         words: x,
@@ -125,8 +129,10 @@ function package(a){
         sizes: z,
         breath: w,
         **/
-        domAddition(c, d.breath, i, d.sumWords, d.sumSyllables);
+        domAddition(c, sentence.breath, i, sentence.sumWords, sentence.sumSyllables);
+        Body.sentences[i] = sentence;
     }
+    return Body;
 }
 
 //Splits paragraph and array of sentences
@@ -135,8 +141,8 @@ function segment(a){
     //need to create cases for titles and other periods
     //let index = characterSearch(a);
     let b = a.split(". ");
-    package(b);
-    getDataReady(breathWords, breathSyllables, breathUnits);
+    let body = package(b);
+    getDataReady(breathWords, breathSyllables, breathUnits, body);
 }
 
 function startCount(){
