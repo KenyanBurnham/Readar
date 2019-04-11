@@ -4,6 +4,9 @@
   "start_url": ".",
   "display": "standalone",
   "background_color": "#fff",
+  "orientation": "portrait-primary",
+  "prefer_related_applications": false,
+  "lang": "en-US",
   "description": "A simple analytical tool for technical writers.",
   "icons": [{
     "src": "media/ReadarLogo2.png",
