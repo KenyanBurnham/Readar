@@ -24,3 +24,7 @@ function w3_close() {
     mySidebar.style.display = "none";
     overlayBg.style.display = "none";
 }
+
+function relocateTest(){
+    window.location.assign("test.html");
+}
