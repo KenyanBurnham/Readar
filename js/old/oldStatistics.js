@@ -1,143 +1,159 @@
-/*
-Source:
-https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/min
-*/
-function getMaximum(source){
+/**=============================================================================
+      Gets the maximum value of a dataset
+
+      Source: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/min
+=============================================================================**/
+function getMaximum(dataset){
     let local = [];
-    for (var i = 0; i < source.length; i++) {
-      local[i] = Number(source[i]);
+    for (var i = 0; i < dataset.length; i++) {
+      local[i] = Number(dataset[i]);
     }
     return Math.max(...local);
 }
 
-/*
-Source:
-https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/min
-*/
-function getMinimum(source){
+/**=============================================================================
+      Gets the minimum value of a dataset
+
+      Source: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/min
+=============================================================================**/
+function getMinimum(dataset){
     let local = [];
-    for (var i = 0; i < source.length; i++) {
-      local[i] = Number(source[i]);
+    for (var i = 0; i < dataset.length; i++) {
+      local[i] = Number(dataset[i]);
     }
     return Math.min(...local);
 }
 
-/**
-Source:
-https://www.jstips.co/en/javascript/array-average-and-median/
-**/
-function getMedian(source){
-    let targetSorted = source.sort((a, b) => a - b);
-    let lowMiddle = Math.floor((source.length - 1) / 2);
-    let highMiddle = Math.ceil((source.length - 1) / 2);
+/**=============================================================================
+      Get's the median value (mode) of a dataset
+
+      Source: https://www.jstips.co/en/javascript/array-average-and-median/
+=============================================================================**/
+function getMedian(dataset){
+    let targetSorted = dataset.sort((a, b) => a - b);
+    let lowMiddle = Math.floor((dataset.length - 1) / 2);
+    let highMiddle = Math.ceil((dataset.length - 1) / 2);
     let median = (Number(targetSorted[lowMiddle]) + Number(targetSorted[highMiddle])) / 2;
     return median;
 }
 
-/**
-Source:
-https://derickbailey.com/2014/09/21/calculating-standard-deviation-with-array-map-and-array-reduce-in-javascript/
-**/
-function getAverageDeviation(source, average){
-    let avgDev = [];
-    for (var i = 0; i < source.length; i++) {
-        avgDev[i] = Math.pow(Math.abs(average - Number(source[i])), 2);
-    }
-    let avgDeviation = getAverage(avgDev);
-    let rootedDeviation = Math.sqrt(avgDeviation);
-    return rootedDeviation;
-}
-
-function getAverage(source){
+/*==============================================================================
+      Returns average of dataset
+=============================================================================**/
+function getAverage(dataset){
   let sum = 0;
-  for(let i = 0; i < source.length; i++){
-      sum = sum + Number(source[i]);
+  for(let i = 0; i < dataset.length; i++){
+      sum = sum + Number(dataset[i]);
   }
-  let average = (sum/source.length);
+  let average = (sum/dataset.length);
   return average;
 }
 
-function syllableStatistics(){
-    //console.log("%c ---- Syllable Statistics ----", 'background: #222; color: #fd7e14');
-    //Get the sum
-    let averageSyllable = getAverage(breathSyllables);
-    //console.log("Average: " + averageSyllable);
+/**=============================================================================
+      Returns standard deviation of a dataset
 
-    //Get the standard deviation
-    let averageDeviation = getAverageDeviation(breathSyllables, averageSyllable);
-    //console.log("Standard Deviation: " + averageDeviation);
-
-    //Get Median
-    let median = getMedian(breathSyllables);
-    //console.log("Median Value: " + median);
-
-    //Get Minimum
-    let minimum = getMinimum(breathSyllables);
-    //console.log("Minimum: " + minimum);
-
-    //Get Maximum
-    let maximum = getMaximum(breathSyllables);
-    //console.log("Maximum: " + maximum);
-
-    let statisticsArray = [averageSyllable, averageDeviation, median, minimum, maximum];
-    return statisticsArray;
+      Source: https://derickbailey.com/2014/09/21/calculating-standard-deviation-with-array-map-and-array-reduce-in-javascript/
+=============================================================================**/
+function getStandardDeviation(dataset){
+    let average = getAverage(dataset);
+    let avgDev = [];
+    for (var i = 0; i < dataset.length; i++) {
+        avgDev[i] = Math.pow(Math.abs(average - Number(dataset[i])), 2);
+    }
+    let avgDeviation = getAverage(avgDev);
+    let standardDeviation = Math.sqrt(avgDeviation);
+    return standardDeviation;
 }
 
-function wordStatistics(){
-    //console.log("%c ---- Word Statistics ----", 'background: #222; color: #bada55');
-    //Get the sum
-    let averageWord = getAverage(breathWords);
-    //console.log("Average: " + averageWord);
+/*==============================================================================
+      Returns a new value between 0 and 1 based on the dataset
 
-    //Get the standard deviation
-    let averageDeviation = getAverageDeviation(breathWords, averageWord);
-    //console.log("Standard Deviation: " + averageDeviation);
-
-    //Get Median
-    let median = getMedian(breathWords);
-    //console.log("Median Value: " + median);
-
-    //Get Minimum
-    let minimum = getMinimum(breathWords);
-    //console.log("Minimum: " + minimum);
-
-    //Get Maximum
-    let maximum = getMaximum(breathWords);
-    //console.log("Maximum: " + maximum);
-
-    let statisticsArray = [averageWord, averageDeviation, median, minimum, maximum];
-    return statisticsArray;
+      Source:  https://www.statisticshowto.datasciencecentral.com/normalized/
+=============================================================================**/
+function normalizeBetweenZeroAndOne(datapoint, dataset){
+    return (datapoint - getAverage(dataset))/(getMaximum(dataset)-(getMinimum(dataset)));
 }
 
-function breathUnitsStatistics(){
-    //console.log("%c ---- Breath Statistics ----", 'background: #222; color: #007bff');
-    //Get the sum
-    let averageBreath = getAverage(breathUnits);
-    //console.log("Average: " + averageBreath);
+/*==============================================================================
+      Returns a new z score for a given datset
 
-    //Get the standard deviation
-    let averageDeviation = getAverageDeviation(breathUnits, averageBreath);
-    //console.log("Standard Deviation: " + averageDeviation);
-
-    //Get Median
-    let median = getMedian(breathUnits);
-    //console.log("Median Value: " + median);
-
-    //Get Minimum
-    let minimum = getMinimum(breathUnits);
-    //console.log("Minimum: " + minimum);
-
-    //Get Maximum
-    let maximum = getMaximum(breathUnits);
-    //console.log("Maximum: " + maximum);
-
-    let statisticsArray = [averageBreath, averageDeviation, median, minimum, maximum];
-    return statisticsArray;
+      Source:  https://www.statisticshowto.datasciencecentral.com/normalized/
+=============================================================================**/
+function standardizeDatasets(datapoint, dataset){
+    return ((datapoint - getAverage(dataset))/getStandardDeviation(dataset));
 }
 
-//Begins forming the statistics for the page.
-function statistics(){
-    breathUnitsStatistics();
-    wordStatistics();
-    syllableStatistics();
+/*==============================================================================
+      Gets body statistics and adds BodyStatistics object to body object
+=============================================================================**/
+function bodyStatistics(body){
+    // All wordSums in the body
+    let bodyWordsSum = [];
+    // All syllableSums in the body
+    let bodySyllablesSum = [];
+    //All breath units in the body
+    let bodyBreathsSum = [];
+    //Copy of sentence objects
+    let sentences = body.sentences;
+
+    for (let i = 0; i < sentences.length; i++) {
+        //gather all wordSum counts
+        bodyWordsSum[i] = sentences[i].sumWords;
+        //gather all syllableSum counts
+        bodySyllablesSum[i] = sentences[i].sumSyllables;
+        //gather all breath counts
+        bodyBreathsSum[i] = sentences[i].breath;
+    }
+
+    /**
+        sentences:          number of sentences in body
+
+        wordMax:            maximum value of words in body
+        syllableMax:        maximum value of syllables in body
+        breathMax:          maximum value of breath units in body
+
+        wordMin:            minimum value of words in body
+                            (ASSUMPTION) minimum value should be one in most cases
+        syllableMin:        minimum value of syllables in body
+                            (ASSUMPTION) minimum value should be one in most cases
+        breathMax:          minimum value of breath units in body
+
+        wordAverage:        average number of words in body
+        syllableAverage:    average number of syllables in body
+        breathAverage:      average of breath units in body
+
+        wordMedian:         median number of words in body
+        syllableMedian:     median number of sylables in body
+        breathMedian:       median value of breath units in body
+
+        wordDeviation:      standard deviation of the words in the body
+        syllableDeviation:  standard deviation of the syllables in the body
+        breathDeviation:    standard deviation of the breath units in the body
+    **/
+
+    let BodyStatistics = {
+          original:          sentences.length,
+
+          wordMax:            getMaximum(bodyWordsSum),
+          syllableMax:        getMaximum(bodySyllablesSum),
+          breathMax:          getMaximum(bodyBreathsSum),
+
+          wordMin:            getMinimum(bodyWordsSum),
+          syllableMin:        getMinimum(bodySyllablesSum),
+          breathMin:          getMinimum(bodyBreathsSum),
+
+          wordAverage:        getAverage(bodyWordsSum),
+          syllableAverage:    getAverage(bodySyllablesSum),
+          breathAverage:      getAverage(bodyBreathsSum),
+
+          wordMedian:         getMedian(bodyWordsSum),
+          syllableMedian:     getMedian(bodySyllablesSum),
+          breathMedian:       getMedian(bodyBreathsSum),
+
+          wordDeviation:      getStandardDeviation(bodyWordsSum),
+          syllableDeviation:  getStandardDeviation(bodySyllablesSum),
+          breathDeviation:    getStandardDeviation(bodyBreathsSum),
+    }
+    return BodyStatistics;
+
 }

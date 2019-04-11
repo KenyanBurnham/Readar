@@ -1,140 +1,98 @@
-let breathUnits = [];
-let breathSentences = [];
-let breathWords = [];
-let breathSyllables = [];
+/**=============================================================================
+          Separates data for dom elements and passes data to dom factories
+=============================================================================**/
+function domManipulation(body){
+      // Generate senetence statistics elements
+      for (let i = 0; i < body.sentences; i++) {
+          /**  ------- buildSentenceCharacteristicsTable ------
+              for each sentence
+              get value of breath, sumWords, sumSyllables
+              get copy of sentence for display
+              get unique name for ID
+          **/
+          buildSentenceCharacteristicsTable(
+                body.sentences[i].source,
+                body.sentences[i].identity,
+                body.sentences[i].sumWords,
+                body.sentences[i].sumSyllables,
+                i
+          );
 
-function buildBreathStatistics(breaths){
-    document.getElementById('breathAverage').innerHTML = breaths[0].toFixed(2);
-    document.getElementById('breathMax').innerHTML = breaths[4].toFixed(2);
-    document.getElementById('breathMin').innerHTML = breaths[3].toFixed(2);
-    document.getElementById('breathMedian').innerHTML = breaths[2].toFixed(2);
-    document.getElementById('breathDeviation').innerHTML = breaths[1].toFixed(2);
+          // Separated so table will already be generated
+
+          /** ------build Gradient----------
+              for each sentence
+              get unique id
+              get body max of words, syllables, and breaths
+          **/
+          buildGradient(
+                body.sentences[i].identity,
+                body.sentences[i].sumWords.value,
+                body.sentences[i].sumSyllables,
+                body.sentences[i].breath,
+                body.bodyStatistics.wordMax,
+                body.bodyStatistics.syllableMax,
+                body.bodyStatistics.breathMax,
+          );
+      }
+
+      // Generate body Statistics elements
+      buildBodyStatisticsTable(body.bodyStatistics);
+
+      /** ------- getDataReady ------
+          for the body
+          get the max of words, syllables, and breaths
+      **/
+      //getDataReady(body, wordMax, syllableMax, breathMax);
 }
 
-function buildSyllableStatistics(syllables){
-    document.getElementById('syllableAverage').innerHTML = syllables[0].toFixed(2);
-    document.getElementById('syllableMax').innerHTML = syllables[4].toFixed(2);
-    document.getElementById('syllableMin').innerHTML = syllables[3].toFixed(2);
-    document.getElementById('syllableMedian').innerHTML = syllables[2].toFixed(2);
-    document.getElementById('syllableDeviation').innerHTML = syllables[1].toFixed(2);
-}
-
-function buildWordStatistics(words){
-    document.getElementById('wordAverage').innerHTML = words[0].toFixed(2);
-    document.getElementById('wordMax').innerHTML = words[4].toFixed(2);
-    document.getElementById('wordMin').innerHTML = words[3].toFixed(2);
-    document.getElementById('wordMedian').innerHTML = words[2].toFixed(2);
-    document.getElementById('wordDeviation').innerHTML = words[1].toFixed(2);
-}
-
-function buildBodyStatistics(){
-    let wordStats = wordStatistics();
-    let syllableStats = syllableStatistics();
-    let breathUnitsStats = breathUnitsStatistics();
-    buildWordStatistics(wordStats);
-    buildSyllableStatistics(syllableStats);
-    buildBreathStatistics(breathUnitsStats);
-}
-//May need to move where this is
-function buildGradient(breathsInSentence, iterationOfForLoop, sumOfWords, sumOfSyllables){
-    let span = document.querySelector(".changeable" + iterationOfForLoop + "");
-    let wordMax = getMaximum(breathWords);
-    let syllableMax = getMaximum(breathSyllables);
-    let breathMax = getMaximum(breathUnits);
-    let wordRatio = ((sumOfWords*100)/wordMax);
-    console.log(wordRatio);
-    let syllableRatio = ((sumOfSyllables*100)/syllableMax);
-    console.log(syllableRatio);
-    let breathRatio = ((breathsInSentence*100)/breathMax);
-    console.log(breathRatio);
-    let bar = "<div class='progress progress-bar-adjustment'><div class='progress-bar' role='progressbar' aria-valuenow='70' aria-valuemin='0' aria-valuemax='100' style='width:" + wordRatio + "%'>" + sumOfWords + "</div></div>";
-    let bar1 = "<div class='progress progress-bar-adjustment'><div class='progress-bar bg-info' role='progressbar' aria-valuenow='70' aria-valuemin='0' aria-valuemax='100' style='width:" + syllableRatio + "%'>" + sumOfSyllables + "</div></div>";
-    let bar2 = "<div class='progress'><div class='progress-bar' role='progressbar' aria-valuenow='70' aria-valuemin='0' aria-valuemax='100' style='width:" + breathRatio + "%; opacity: .7;'>" + breathsInSentence + "</div></div>";
-    let bigbar = bar.concat(bar1).concat(bar2);
-    span.innerHTML = bigbar;
-}
-
-function classDOMManipulation(breathsInSentence, iterationOfForLoop, sumOfWords, sumOfSyllables){
-    //Run statistics to generate global
-    statistics();
-    //Creates progress bar element
-    buildGradient(breathsInSentence, iterationOfForLoop, sumOfWords, sumOfSyllables);
-    //Builds table with body statistics
-    buildBodyStatistics();
-}
-
-function domAddition(copyOfSource, breathsInSentence, iterationOfForLoop, sumOfWords, sumOfSyllables){
-    let tr = document.createElement("tr");
-    let td1 = document.createElement("td");
-    let td2 = document.createElement("td");
-    let td3 = document.createElement("td");
-    let span1 = document.createElement("span");
-    let span2 = document.createElement("span");
-    let element = document.querySelector("#outputPlace");
-    span1.innerHTML = copyOfSource;
-    span2.setAttribute("data-breath", " " + breathsInSentence + " ");
-    span2.innerHTML = breathsInSentence;
-    span2.setAttribute("class", "changeable" + iterationOfForLoop + "");
-    td3.innerHTML = iterationOfForLoop;
-    td1.appendChild(span1);
-    td1.setAttribute("class", "changeable");
-    td2.appendChild(span2);
-    td2.setAttribute("width", "150px");
-    td3.setAttribute("width", "50px");
-    tr.appendChild(td3);
-    tr.appendChild(td1);
-    tr.appendChild(td2);
-    element.appendChild(tr);
-    classDOMManipulation(breathsInSentence, iterationOfForLoop, sumOfWords, sumOfSyllables);
-}
-
-//Processes sentences in process.js
-function package(source){
+/**=============================================================================
+          Creates body object
+=============================================================================**/
+function package(sentenceSource){
+    // Create body object, initailize with empty sentence array
     let Body = {
         sentences: [],
     };
-    for (let i = 0; i < source.length; i++) {
-        //b is a temporary storage variable
-        let mutableSource = source[i];
-        //c is a copy of the original sentences that will not be altered
+    for (let i = 0; i < sentenceSource.length; i++) {
+        //mutableSource is a temporary storage variable that will be altered
+        let mutableSource = sentenceSource[i];
+        //mutableCopy is a copy of the original sentences that will not be altered
         let mutableCopy = mutableSource;
-        mutableSource = mutableSource.toString();
-        mutableSource = mutableSource.replace(/(\r\n|\n|\r)/gm,"").trim();
+        // Filters copy of text for processing
+        mutableSource = filterMutableSource(mutableSource);
+        //Gets word count, syllables, and all the words in the sentence
         let sentence = processSentence(mutableSource);
-        //breath units
-        breathUnits[i] = sentence.breath;
-        //sentences
-        breathSentences[i] = sentence.source;
-        //sum of words
-        breathWords[i] = sentence.sumWords;
-        //sum of syllables
-        breathSyllables[i] = sentence.sumSyllables;
-        //DOM Addition Adds elements to the dom with the statistics
-        domAddition(mutableCopy, sentence.breath, i, sentence.sumWords, sentence.sumSyllables);
+        //Adds sentence to Body ojbject
         Body.sentences[i] = sentence;
     }
     return Body;
 }
 
-//Splits paragraph and array of sentences
-function segment(a){
-    //split each sentence by periods.
-    //need to create cases for titles and other periods
-    //let index = characterSearch(a);
-    let b = a.split(". ");
-    let body = package(b);
-    let wordMax = getMaximum(breathWords);
-    let syllableMax = getMaximum(breathSyllables);
-    let breathMax = getMaximum(breathUnits);
-    getDataReady(body, wordMax, syllableMax, breathMax);
+/**=============================================================================
+          Splits body source into sentences by periods + "SPACE" pairs.
+=============================================================================**/
+function segment(bodySource){
+    //Breaks body into sentences by period SPACE pairs
+    let splitSource = bodySource.split(". ");
+    //creates the body object and gets sentence information
+    let body = package(splitSource);
+    return body;
 }
 
+/**=============================================================================
+          Begins the data processing step
+          This file handles the data to DOM management
+=============================================================================**/
 function startCount(){
-    //Grab paragraph
-    let paragraphToProcess = document.getElementById('inputPlace').value;
+    //Grab paragraph from DOM
+    let bodyData = grabStringFromDOM("inputPlace");
     //Segment paragraph
-    segment(paragraphToProcess.toString());
+    let bodyObject = segment(bodyData.toString());
+    bodyObject.bodyStatistics = bodyStatistics(bodyObject);
+    console.log(bodyObject.bodyStatistics);
+    domManipulation(bodyObject);
 
-    document.getElementById('initialized').setAttribute("hidden", "hidden");
-    document.getElementById('results').removeAttribute("hidden");
+    //switches desktop index content and results content visibility
+    //desktopDomResults();
 }

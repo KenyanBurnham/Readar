@@ -1,3 +1,36 @@
+/**============================================================================
+      filters sentence for processing
+
+      Originator: Simon Breiter
+      Source: https://codepen.io/simonbreiter/pen/gRpRJj
+=============================================================================**/
+function createSentenceKey(){
+      // Random number from 0 to length
+      const randomNumber = (length) => {
+          return Math.floor(Math.random() * length)
+      }
+      // Generate Pseudo Random String
+      const generateID = (length) => {
+          const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+          let text = "";
+          for (let i = 0; i < length; i++) {
+              text += possible.charAt(randomNumber(possible.length));
+          }
+          return text;
+      }
+      return generateID(10);
+}
+
+/**============================================================================
+      filters sentence for processing
+=============================================================================**/
+function filterMutableSource(a){
+    a = a.toString();
+    a = a.replace(/(\r\n|\n|\r)/gm,"");
+    a = a.trim();
+    return a;
+}
+
 /** ============================================================================
         method used with .reduce() to get a sum of all numbers
 =============================================================================**/
@@ -90,7 +123,18 @@ function processSentence(source){
         //Build word length array
         arrayOfWordLengths[i] = getWordLength(filteredWord);
     }
+    /**
+        identity:        Random sentence key to identify the unique sentence
+        source:         Original sentence
+        words:          Array of all the words that were in the sentence
+        syllables:      Array of syllable counts for each word
+        sumSyllables:   The total number of syllables in the sentence
+        sumWords:       The total number of words in the sentence
+        sizes:          Array of word lengths in sentence
+        breath:         breath unit of the sentence
+    **/
     let Sentence = {
+        identity: createSentenceKey(),
         source: source,
         words: arrayOfWords,
         syllables: arrayOfSyllables,

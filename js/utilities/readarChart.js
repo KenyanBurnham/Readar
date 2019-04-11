@@ -6,6 +6,10 @@ function addData(chart, label, data) {
     chart.update();
 }
 
+
+/**=============================================================================
+          Chart.JS prescribed method to remove data from graph
+=============================================================================**/
 function removeData(chart) {
     chart.data.labels.pop();
     chart.data.datasets.forEach((dataset) => {
