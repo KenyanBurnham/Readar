@@ -1,0 +1,13 @@
+{
+  "name": "Readar",
+  "short_name": "Readar",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#fff",
+  "description": "A simple analytical tool for technical writers.",
+  "icons": [{
+    "src": "media/ReadarLogo2.png",
+    "sizes": "48x48",
+    "type": "image/png"
+  }]
+}
