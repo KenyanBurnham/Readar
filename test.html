@@ -40,8 +40,9 @@
             <a href="javascript:void(0)" onclick="w3_close()" class="w3-right w3-xlarge w3-padding-large w3-hover-black w3-hide-large" title="Close Menu">
                 <i class="fa fa-remove"></i>
             </a>
-            <h4 class="w3-bar-item"><b>Menu</b></h4>
-            <a class="w3-bar-item w3-button w3-hover-black btn btn-md btn-primary" style="text-align: center;" href="#">Use</a>
+            <h4 class="w3-bar-item app-faded-span"><b>Menu</b></h4>
+            <a class="w3-bar-item w3-button w3-hover-black btn btn-md btn-primary" style="text-align: center;" href="test.html">Use</a>
+            <a class="w3-bar-item w3-button w3-hover-black" href="modal.html">About</a>
             <a class="w3-bar-item w3-button w3-hover-black" href="#">Samples</a>
             <a class="w3-bar-item w3-button w3-hover-black" href="#">Statistics Notes</a>
             <a class="w3-bar-item w3-button w3-hover-black" href="#">Developer Notes</a>
@@ -55,19 +56,26 @@
 
           <div class="w3-row">
               <div class="w3-container">
-                  <h1 class="text-app-blue">Enter text</h1>
-
+                <br><br>  <br>
+                  <h1 class="text-app-blue">Enter or Paste Text</h1>
+                  <br>
                   <p>Enter text in the form below.</p>
+                  <br>
+              </div>
+              <div class="w3-container">
+                  <form class="" action="index.html" method="post">
+                      <textarea name="name" rows="8" cols="47" placeholder="Enter text, then hit submit."></textarea>
+                  </form>
               </div>
               <div class="w3-container">
                 <br>
-                  <button class="btn btn-lg btn-app-teal" type="button" name="button" onclick="relocateTest()">Try It</button>
+                  <button class="btn btn-lg btn-app-teal" type="button" name="button" onclick="beginMobileProcess()">Submit</button>
               </div>
           </div>
 
           <br><br>
 
-          <footer id="myFooter">
+          <footer class="app-footer-adjustment" id="myFooter">
               <div class="w3-container w3-theme-l1">
                 <br>
                 <p>Created by <a href="https://www.linkedin.com/in/kenyan-burnham-0ba25582/" target="_blank">Kenyan Burnham</a>, <span class="app-faded-span">2019</span></p>
@@ -90,5 +98,8 @@
     <script type="text/javascript" script src="js/old/oldStatistics.js"></script>
     <script type="text/javascript" script src="js/old/oldProcess.js"></script>
     <script type="text/javascript" script src="js/old/oldController.js"></script>
+    <script type="text/javascript" script src="js/mobile/mobileProcess.js">
+
+    </script>
 </body>
 </html>
