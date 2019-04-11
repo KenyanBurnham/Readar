@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Meta Information -->
+    <title>Readar</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="manifest.json">
+    <!-- Template Stylesheets-->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css">
+    <!-- Custom Stylesheets-->
+    <link rel="stylesheet" href="css/mobile.css">
+    <!-- Script -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+</head>
+<body>
+
+    <section>
+      <!-- Navbar -->
+        <div class="w3-top">
+              <div class="w3-bar nav-app-teal w3-top w3-left-align w3-large">
+                    <a class="w3-bar-item w3-button w3-right w3-hide-large w3-hover-white w3-large nav-app-teal-faded" href="javascript:void(0)" onclick="w3_open()"><i class="fa fa-bars"></i></a>
+                    <a href="#" class="w3-bar-item w3-button nav-app-teal-faded">Readar</a>
+                    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-hover-white">About</a>
+                    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Values</a>
+                    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-hover-white">News</a>
+                    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Contact</a>
+                    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-hide-medium w3-hover-white">Clients</a>
+                    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-hide-medium w3-hover-white">Partners</a>
+              </div>
+        </div>
+
+        <!-- Sidebar -->
+        <nav class="w3-sidebar w3-bar-block w3-collapse w3-large w3-theme-l5 w3-animate-left" id="mySidebar">
+            <a href="javascript:void(0)" onclick="w3_close()" class="w3-right w3-xlarge w3-padding-large w3-hover-black w3-hide-large" title="Close Menu">
+                <i class="fa fa-remove"></i>
+            </a>
+            <h4 class="w3-bar-item"><b>Menu</b></h4>
+            <a class="w3-bar-item w3-button w3-hover-black btn btn-md btn-primary" style="text-align: center;" href="#">Use</a>
+            <a class="w3-bar-item w3-button w3-hover-black" href="#">Samples</a>
+            <a class="w3-bar-item w3-button w3-hover-black" href="#">Statistics Notes</a>
+            <a class="w3-bar-item w3-button w3-hover-black" href="#">Developer Notes</a>
+        </nav>
+
+        <!-- Overlay effect when opening sidebar on small screens -->
+        <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+        <!-- Main content: shift it to the right by 250 pixels when the sidebar is visible -->
+        <div class="w3-main" style="margin-left:250px">
+
+          <div class="w3-row w3-padding-64">
+              <div class="w3-container w3-center">
+                  <img class="app-icon-top" src="media/readarIcon.png" alt="Readar Icon PNG">
+              </div>
+          </div>
+
+          <div class="w3-row">
+              <div class="w3-container">
+                  <h1 class="text-app-blue">Readar</h1>
+                  <p>This is a toolset that allows users to gather statistics on bodies of text. It takes an input text and outputs statistics about each sentence.</p>
+                  <p>Each body of work has it's own internal meter based on the rhetorical situation and writer. Writer's can use this tool to find subvocal pauses within their own writing to ensure consistent meter.</p>
+              </div>
+              <div class="w3-container">
+                <br>
+                  <button class="btn btn-lg btn-app-teal" type="button" name="button">Try It</button>
+              </div>
+          </div>
+
+          <br><hr><br>
+
+          <div class="w3-row">
+              <div class="w3-container">
+                  <h1 class="text-app-blue">What Readar does</h1>
+                  <p>Readar parses text and provides a numerical analyses of the body of text. </p>
+                  <ul>
+                      <li> Gathers information about a the composition of syllables and words within each sentence. </li>
+                          <br>
+                      <li> Provides syllable-to-word ("breath unit") statistics. </li>
+                          <br>
+                      <li> Provides a visual representation of the composition over the length of the text body. </li>
+                  </ul>
+              </div>
+          </div>
+
+          <br><hr><br>
+
+          <div class="w3-row">
+              <div class="w3-container">
+                  <h1 class="text-app-blue">What Readar does <i>not</i> do </h1>
+                  <p>Readar has a number of assumptions and edge cases that have not been integrated. </p>
+                  <ul>
+                      <li>Readar does not currently account for complex sentences or non-word characters such as "?", ":", ";", or commas. In future revisions these characters will delimit their own sub-sentences.</li>
+                          <br>
+                      <li>Syllables are measured without any flexibility. </li>
+                          <br>
+                      <li>All calculations are limited to two significant figures for simplicity. </li>
+                          <br>
+                      <li>Readar does not tell you how to revise a body of text, Readar provides data for interpretation.</li>
+                          <br>
+                      <li>Readar performs better with larger data sets.</li>
+                  </ul>
+              </div>
+          </div>
+
+          <br><br>
+
+          <footer id="myFooter">
+              <div class="w3-container w3-theme-l1">
+                <br>
+                <p>Created by <a href="https://www.linkedin.com/in/kenyan-burnham-0ba25582/" target="_blank">Kenyan Burnham</a>, <span class="app-faded-span">2019</span></p>
+              </div>
+          </footer>
+
+        <!-- END MAIN -->
+        </div>
+        <script type="text/javascript" src="js/mobile/navigation.js"></script>
+
+    </section>
+
+    <!-- Scripts-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script type="text/javascript" script src="js/utilities/log.js"></script>
+    <script type="text/javascript" script src="js/utilities/readarChart.js"></script>
+    <!--<script type="text/javascript" script src="js/utilities/required-length.js"></script>-->
+    <script type="text/javascript" script src="js/utilities/switchBack.js"></script>
+    <script type="text/javascript" script src="js/old/oldStatistics.js"></script>
+    <script type="text/javascript" script src="js/old/oldProcess.js"></script>
+    <script type="text/javascript" script src="js/old/oldController.js"></script>
+</body>
+</html>

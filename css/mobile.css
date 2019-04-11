@@ -1,0 +1,52 @@
+/** ==============================================
+                    W3Schools Styles
+==================================================**/
+
+
+html,body,h1,h2,h3,h4,h5,h6 {
+    font-family: "Roboto", sans-serif;
+}
+
+.w3-sidebar {
+    z-index: 3;
+    width: 250px;
+    top: 43px;
+    bottom: 0;
+    height: inherit;
+}
+
+/** ==============================================
+                    Custom Styles
+==================================================**/
+
+.app-faded-span{
+    opacity: .48;
+}
+
+.app-icon-top{
+    height: auto;
+    width: auto;
+    padding: auto;
+    margin: auto;
+}
+
+.btn-app-teal{
+    background-color: #007bff;
+    color: white;
+}
+
+.nav-app-teal{
+    background-color: #007bff;
+    color: white;
+}
+
+.nav-app-teal-faded{
+    background-color: #007bff;
+    color: white;
+    opacity: .8;
+}
+
+.text-app-blue{
+    color: black;
+    opacity: .68;
+}
