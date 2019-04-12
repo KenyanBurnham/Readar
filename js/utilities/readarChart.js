@@ -24,7 +24,7 @@ function breathGraph(breaths){
       type: 'line',
       data: {
           datasets: [{
-              label: 'Breath Units',
+              label: 'Breath Units Per Sentence',
               data: [breaths],
               backgroundColor: [
                   'rgba(54, 162, 235, 0.2)',
@@ -57,7 +57,7 @@ function sylGraph(syllables){
       type: 'line',
       data: {
           datasets: [{
-              label: 'Syllables',
+              label: 'Syllables Per Sentence',
               data: [syllables],
               backgroundColor: [
                   'rgba(54, 162, 184, 0.2)',
@@ -90,7 +90,7 @@ function wordGraph(words){
       type: 'line',
       data: {
           datasets: [{
-              label: 'Words',
+              label: 'Words Per Sentence',
               data: [words],
               backgroundColor: [
                   'rgba(54, 162, 235, 0.4)',
@@ -143,7 +143,7 @@ function bodyGraph(words, syllables, breaths){
                 ],
                 borderWidth: 1
             }, {
-                label: 'Breaths',
+                label: 'Breaths Per Sentence',
                 data: [breaths],
                 backgroundColor: [
                     'rgba(54, 162, 235, 0.4)',

@@ -26,7 +26,6 @@ function domManipulation(body){
       console.log(body.sentences);
       // Generate senetence statistics elements
       for (let i = 0; i < body.sentences.length; i++) {
-          console.log("Where");
           /**  ------- buildSentenceCharacteristicsTable ------
               for each sentence
               get value of breath, sumWords, sumSyllables
@@ -67,7 +66,7 @@ function domManipulation(body){
           for the body
           get the max of words, syllables, and breaths
       **/
-      //getDataReady(body, wordMax, syllableMax, breathMax);
+      getDataReady(body);
 }
 
 /**=============================================================================
@@ -97,10 +96,29 @@ function startCount(){
 }
 
 /**=============================================================================
+          Begins the data processing step
+          This file handles the data to DOM management
+=============================================================================**/
+function processBody(){
+
+    //Grab paragraph from DOM
+    let bodyData = grabStringFromDOM("bodyInput");
+
+    //Segment paragraph
+    let bodyObject = segment(bodyData.toString());
+    bodyObject.bodyStatistics = bodyStatistics(bodyObject);
+    domManipulation(bodyObject);
+    //switches desktop index content and results content visibility
+    desktopDomResults();
+}
+
+
+
+/**=============================================================================
           Listeners
 =============================================================================**/
 (function(){
       // Sets listener on desktop input
       // requires a certain number of characters before it will submit
-      document.getElementById("inputPlace").addEventListener("change", disabledDomManagement);
+      //document.getElementById("inputPlace").addEventListener("change", disabledDomManagement);
 })();

@@ -2,17 +2,16 @@
         Hides index content and shows content with results
 =============================================================================**/
 function desktopDomResults(){
-    document.getElementById('initialized').setAttribute("hidden", "hidden");
-    document.getElementById('results').removeAttribute("hidden");
+    document.getElementById('useContainer').setAttribute("hidden", "hidden");
+    document.getElementById('resultsContainer').removeAttribute("hidden");
 }
 
 /**=============================================================================
         Grabs the input and returns it to the model as a string.
 =============================================================================**/
-function grabStringFromDOM(idOfInput){
+function grabStringFromDOM(id){
     //Grab input string
-    let inputToProcess = document.getElementById(idOfInput).value;
-    return inputToProcess.toString();
+    return document.getElementById(id).value.toString();
 }
 
 /**=============================================================================
@@ -26,7 +25,7 @@ function buildSentenceCharacteristicsTable(text, breath, identity, words, syllab
     let span1 = document.createElement("span");
     let span2 = document.createElement("span");
     //Lift element up later
-    let element = document.querySelector("#outputPlace");
+    let element = document.querySelector("#sentenceOutput");
     span1.innerHTML = text;
     span2.setAttribute("data-breath", " " + breath + " ");
     span2.innerHTML = breath;

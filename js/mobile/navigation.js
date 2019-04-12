@@ -28,3 +28,11 @@ function w3_close() {
 function relocateTest(){
     window.location.assign("test.html");
 }
+
+function relocateUse(){
+    window.location.assign("use.html");
+}
+
+function relocateResults(){
+    window.location.assign("results.html");
+}
