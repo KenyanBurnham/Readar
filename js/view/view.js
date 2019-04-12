@@ -95,7 +95,6 @@ function buildWordStatistics(maximum, minimum, average, median, deviation){
     Builds body statistics tables
 =============================================================================**/
 function buildBodyStatisticsTable(bodyStatistics){
-    console.log(bodyStatistics);
 
     // Body word Statistics
     buildWordStatistics(

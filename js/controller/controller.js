@@ -23,8 +23,10 @@ function disabledDomManagement(){
           Separates data for dom elements and passes data to dom factories
 =============================================================================**/
 function domManipulation(body){
+      console.log(body.sentences);
       // Generate senetence statistics elements
-      for (let i = 0; i < body.sentences; i++) {
+      for (let i = 0; i < body.sentences.length; i++) {
+          console.log("Where");
           /**  ------- buildSentenceCharacteristicsTable ------
               for each sentence
               get value of breath, sumWords, sumSyllables
@@ -33,6 +35,7 @@ function domManipulation(body){
           **/
           buildSentenceCharacteristicsTable(
                 body.sentences[i].source,
+                body.sentences[i].breath,
                 body.sentences[i].identity,
                 body.sentences[i].sumWords,
                 body.sentences[i].sumSyllables,
@@ -48,7 +51,7 @@ function domManipulation(body){
           **/
           buildGradient(
                 body.sentences[i].identity,
-                body.sentences[i].sumWords.value,
+                body.sentences[i].sumWords,
                 body.sentences[i].sumSyllables,
                 body.sentences[i].breath,
                 body.bodyStatistics.wordMax,
@@ -88,18 +91,16 @@ function startCount(){
     //Segment paragraph
     let bodyObject = segment(bodyData.toString());
     bodyObject.bodyStatistics = bodyStatistics(bodyObject);
-    console.log(bodyObject.bodyStatistics);
     domManipulation(bodyObject);
-
     //switches desktop index content and results content visibility
-    //desktopDomResults();
+    desktopDomResults();
 }
 
 /**=============================================================================
           Listeners
 =============================================================================**/
 (function(){
-    // Sets listener on desktop input
-    // requires a certain number of characters before it will submit
-    document.getElementById("inputPlace").addEventListener("change", disabledDomManagement);
-});
+      // Sets listener on desktop input
+      // requires a certain number of characters before it will submit
+      document.getElementById("inputPlace").addEventListener("change", disabledDomManagement);
+})();
