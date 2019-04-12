@@ -1,4 +1,4 @@
-function addData(chart, label, data) {
+function addData(chart, label, data, set) {
     chart.data.labels.push(label);
     chart.data.datasets.forEach((dataset) => {
         dataset.data.push(data);
@@ -47,7 +47,7 @@ function breathGraph(breaths){
     });
     removeData(breathChart);
     for (var i = 0; i < breaths.length; i++) {
-        addData(breathChart, i, breaths[i]);
+        addData(breathChart, i, breaths[i], 0);
     }
 }
 
@@ -80,7 +80,7 @@ function sylGraph(syllables){
     });
     removeData(sylChart);
     for (var i = 0; i < syllables.length; i++) {
-        addData(sylChart, i, syllables[i]);
+        addData(sylChart, i, syllables[i], 0);
     }
 }
 
@@ -113,7 +113,7 @@ function wordGraph(words){
     });
     removeData(wordChart);
     for (var i = 0; i < words.length; i++) {
-        addData(wordChart, i, words[i]);
+        addData(wordChart, i, words[i], 0);
     }
 }
 
@@ -131,7 +131,7 @@ function bodyGraph(words, syllables, breaths){
                 borderColor: [
                     'rgba(54, 162, 235, 1)',
                 ],
-                borderWidth: 1
+                borderWidth: 1,
             }, {
                 label: 'Syllables',
                 data: [syllables],
@@ -141,7 +141,7 @@ function bodyGraph(words, syllables, breaths){
                 borderColor: [
                     'rgba(54, 162, 184, 1)',
                 ],
-                borderWidth: 1
+                borderWidth: 1,
             }, {
                 label: 'Breaths Per Sentence',
                 data: [breaths],
@@ -151,20 +151,33 @@ function bodyGraph(words, syllables, breaths){
                 borderColor: [
                     'rgba(54, 162, 235, 1)',
                 ],
-                borderWidth: 1
+                borderWidth: 1,
             }]
         },
         options: {
             scales: {
                 yAxes: [{
                     ticks: {
-                        beginAtZero: true
+                        beginAtZero: true,
                     }
                 }]
-            }
+            },
         }
       });
+
       bodyChart.update();
+      for (var i = 0; i < words.length; i++) {
+          bodyChart.data.datasets[0].data[i] = words[i];
+          bodyChart.update();
+      }
+      for (var j = 0; j < syllables.length; j++) {
+          bodyChart.data.datasets[1].data[j] = syllables[j];
+          bodyChart.update();
+      }
+      for (var k = 0; k < breaths.length; k++) {
+          bodyChart.data.datasets[2].data[k] = breaths[k];
+          bodyChart.update();
+      }
 }
 
 function getDataReady(body){

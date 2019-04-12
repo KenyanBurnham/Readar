@@ -101,7 +101,7 @@ function startCount(){
 function processBody(){
 
     //Grab paragraph from DOM
-    let bodyData = grabStringFromDOM("bodyInput");
+    let bodyData = sample1;
 
     //Segment paragraph
     let bodyObject = segment(bodyData.toString());
@@ -117,7 +117,5 @@ function processBody(){
           Listeners
 =============================================================================**/
 (function(){
-      // Sets listener on desktop input
-      // requires a certain number of characters before it will submit
-      //document.getElementById("inputPlace").addEventListener("change", disabledDomManagement);
+      processBody();
 })();
