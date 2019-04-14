@@ -82,3 +82,15 @@ function normalizeBetweenZeroAndOne(datapoint, dataset){
 function standardizeDatasets(datapoint, dataset){
     return ((datapoint - getAverage(dataset))/getStandardDeviation(dataset));
 }
+
+/**=============================================================================
+      Find words in sentence with a larger or smaller than average breath unit
+      Compared to the breath unit of the sentence
+       - Take breath unit from sentence
+       - take standard deviation of sentence
+       - Take word and syllable at the index of each word in the sentence
+         and create a breath unit for that index
+      - compare that breath unit to the standard deviation of the breath
+        unit of the sentence (is it hirer or lower than the breath unit of th sentence?)
+
+=============================================================================**/

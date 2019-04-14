@@ -4,25 +4,6 @@
         DESCRIPTION: Contains methods for to the 'body' object and it's sub-objects
 
         ------------------------------------------------------------------------
-        "Body" Object Properties
-        ------------------------------------------------------------------------
-            sentences:      Array of split sentence strings
-        ------------------------------------------------------------------------
-
-        ------------------------------------------------------------------------
-        "Sentence" Object Properties
-        ------------------------------------------------------------------------
-            identity:       Random sentence key to identify the unique sentence
-            source:         Original sentence
-            words:          Array of all the words that were in the sentence
-            syllables:      Array of syllable counts for each word
-            sumSyllables:   The total number of syllables in the sentence
-            sumWords:       The total number of words in the sentence
-            sizes:          Array of word lengths in sentence
-            breath:         breath unit of the sentence
-        ------------------------------------------------------------------------
-
-        ------------------------------------------------------------------------
         "BodyStatistics" Object
         ------------------------------------------------------------------------
         sentences:          number of sentences in body
@@ -52,7 +33,6 @@
 
 |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||**/
 
-
 /** ============================================================================
         Takes in split sentence and splits words
         Gets syllable count, builds word array, and array of word lengths
@@ -62,6 +42,7 @@ function processSentence(source){
     let arrayOfWords = [];
     let arrayOfSyllables = [];
     let arrayOfWordLengths = [];
+    let arrayOfBreathsPerWord = [];
     let arrayOfWordsFromSource = source.split(" ");
     for (let i = 0; i < arrayOfWordsFromSource.length; i++) {
         //Filter Input
@@ -72,18 +53,21 @@ function processSentence(source){
         arrayOfSyllables[i] = getSyllableCount(filteredWord);
         //Build word length array
         arrayOfWordLengths[i] = getWordLength(filteredWord);
+        // Build breath unit per word array
+        arrayOfBreathsPerWord.push(arrayOfSyllables[i]/arrayOfWordLengths[i]).toFixed(2);
     }
-    let Sentence = {
-        identity: createSentenceKey(),
-        source: source,
-        words: arrayOfWords,
-        syllables: arrayOfSyllables,
-        sumSyllables: arrayOfSyllables.reduce(getSum),
-        sumWords: arrayOfWordsFromSource.length,
-        sizes: arrayOfWordLengths,
-        breath: ((arrayOfSyllables.reduce(getSum))/(arrayOfWordsFromSource.length)).toFixed(2),
-    };
-    return Sentence;
+    let sentence = new Sentence(
+        createSentenceKey(),
+        source,
+        arrayOfWords,
+        arrayOfSyllables,
+        arrayOfSyllables.reduce(getSum),
+        arrayOfWordsFromSource.length,
+        arrayOfWordLengths,
+        ((arrayOfSyllables.reduce(getSum))/(arrayOfWordsFromSource.length)).toFixed(2),
+        arrayOfBreathsPerWord
+    );
+    return sentence;
 }
 
 /**==============================================================================
@@ -153,6 +137,7 @@ function package(sentenceSource){
         let sentence = processSentence(mutableSource);
         //Adds sentence to Body ojbject
         Body.sentences[i] = sentence;
+        console.log(Body.sentences[i].breathPerWord);
     }
     return Body;
 }
