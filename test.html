@@ -21,7 +21,7 @@
     <section class="full-width-editor container-fluid">
         <div class="row full-size-row">
             <div id="typing-target"class="col-md-10 big-container">
-                <textarea id="inputTarget" name="name" rows="30" cols="100" class="textarea-forms-right-size" onkeypress="handleNewKey(event, this)"></textarea>
+                <textarea id="inputTarget" name="name" rows="30" cols="100" class="textarea-forms-right-size" onkeypress="handleNewKey(event, this)" onpaste="handleNewPaste(event, this)"></textarea>
             </div>
             <div class="col-md-2 small-container">
                 <div class="row make-row-big">

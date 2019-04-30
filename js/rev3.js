@@ -1,3 +1,8 @@
+function handleNewPaste(event){
+    console.log(event);
+    
+}
+
 function handleNewKey(event){
     // Whether character is shifted or not
     shiftKey = event.shiftKey;
