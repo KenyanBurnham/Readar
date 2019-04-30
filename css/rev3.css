@@ -1,0 +1,26 @@
+.big-container{
+    background-color: white;
+    height: 100%;
+    padding: 15px 15px;
+    width: 100%;
+}
+
+.full-width-editor{
+    height: 100vh;
+    width: 100vw;
+}
+
+.make-row-big{
+    height: 100vh;
+}
+
+.small-container{
+    background-color: #FAFAFA;
+    height: 100%;
+    width: 100%;
+}
+
+.textarea-forms-right-size{
+    height: 100%;
+    width: 100%;
+}
