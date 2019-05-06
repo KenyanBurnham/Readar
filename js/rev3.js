@@ -1,6 +1,30 @@
+let Document = {
+    text: [],
+    eventLog: [],
+    textLog: [],
+
+
+    debugText: function(){
+        console.log(this.text);
+    },
+    debugTextLog: function(){
+        console.log(this.textLog);
+    },
+    debugEventLog: function(){
+        console.log(this.eventLog);
+    },
+}
+
 function handleNewPaste(event){
-    console.log(event);
-    
+    // Stop data actually being pasted
+    event.stopPropagation();
+    event.preventDefault();
+    // Get pasted data via clipboard API
+    let clipboardData = event.clipboardData || window.clipboardData;
+    let pastedData = clipboardData.getData('Text');
+    console.log(pastedData);
+    console.log(event.target.selectionStart);
+
 }
 
 function handleNewKey(event){
@@ -12,5 +36,8 @@ function handleNewKey(event){
     key = event.key;
     //Time stamp when entered
     timeStamp = event.timeStamp;
-    console.log(event);
+
+    Document.eventLog.push(event);
+    Document.text.push(event.key);
+    Document.textLog.push(event.key);
 }
