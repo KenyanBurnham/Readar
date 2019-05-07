@@ -29,17 +29,83 @@ function Record(eventObject, objectData, objectEventType, objectTimeStamp){
 
 let Sentences = {
     sentences: [],
-    process: function(paragraph){
-        console.log(paragraph);
-        //Find corpora and honora
-        //Corpora.abbreviations.forEach();
-        /*If it's a fragment that has a coma and no space before it, then call that a sentence fragment*/
-
+    splitFragments: function(sentence){
+        //Create a copy of sentence to filter common punctuation for fragments
+        let mutableSentence = sentence;
+        //replace commas with tag
+        mutableSentence = mutableSentence.replace(/\,/g, "$");
+        //replace parethesis with tag
+        mutableSentence = mutableSentence.replace(/\(/g, "$");
+        //replace parethesis with tag
+        mutableSentence = mutableSentence.replace(/\)/g, "$");
+        //replace brackets with tag
+        mutableSentence = mutableSentence.replace(/\[/g, "$");
+        //replace brackets with tag
+        mutableSentence = mutableSentence.replace(/\]/g, "$");
+        //replace colon with tag
+        mutableSentence = mutableSentence.replace(/\:/g, "$");
+        //replace semicolon with tag
+        mutableSentence = mutableSentence.replace(/\;/g, "$");
+        //return array of fragments
+        return mutableSentence.split("$");
+    },
+    splitPunctuation: function(paragraph){
+        //Remove some simple cases of punctuation
+        paragraph = paragraph.replace("!", ".");
+        paragraph = paragraph.replace("?", ".");
+        paragraph = paragraph.replace("...", ".");
+        //Split paragraph by "SPACE + ." pairs
+        let sentences = paragraph.split(". ");
+        //return sentences without punctuations
+        return sentences;
+    },
+    splitSentences: function(paragraph){
+        let paragraphSentences = [];
+        //remove common punctuation and split sentence by ". " pairs
+        let sentences = Sentences.splitPunctuation(paragraph);
+        //For each sentence, remove any edge cases and push to larger object
+        sentences.forEach(function(sentence){
+            //Make random spaces filter out
+            if(sentence.length > 0){
+                //create Sentence Object to save in sentences array of Sentences Object
+                let Sentence = new Object;
+                //Add an empty string of sentence to Sentence Object
+                Sentence.sentence = "";
+                //Push current sentence into into sentence object
+                Sentence.sentence = sentence;
+                //Set fragments to Sentence Object
+                Sentence.fragments = Sentences.splitFragments(sentence);
+                //Save a copy to the sentences object
+                Sentences.sentences.push(Sentence);
+                //Save a copy to return to paragraph
+                paragraphSentences.push(Sentence);
+            }
+        });
+        return paragraphSentences;
+    },
+    filterHonora: function(paragraph){
+        //create a mutable copy
+        let mutableParagraph = paragraph;
+        //initialize a count variable to access replacement words for various honorifics
+        let corpCount = 0;
+        //Find honora
+        Corpora.honora.forEach(function(acronyma){
+              //Increment the count
+              corpCount = corpCount + 1;
+              //look for words that match in the paragraph
+              let match = paragraph.match(acronyma + ".");
+              //If one is found, replace with full word
+              if(match){
+                  mutableParagraph = mutableParagraph.replace("" + match[0] + "", Corpora.replacement[corpCount - 1]);
+              }
+        });
+        return mutableParagraph;
     },
 }
 
 let Paragraphs = {
     paragraphs: [],
+    strings: [],
     count: 0,
     process: function(target){
         //get text from input
@@ -51,18 +117,47 @@ let Paragraphs = {
         newlined.forEach(function(paragraph){
             //Deals with spurious return carriages.
             paragraphCount = paragraphCount - 1;
+            //If the paragraph is greater than zero (not just a line-break)
             if(paragraph.length > 0){
+                //Increment paragraph counter for this.count
                 paragraphCount = paragraphCount + 1;
-                Paragraphs.paragraphs.push(paragraph);
-                Sentences.process(paragraph);
+                //Add paragraphs to Paragraph Object
+                Paragraphs.strings.push(paragraph);
+                //Begin sentence filtering
+                let sentencesWithoutHonora = Sentences.filterHonora(paragraph);
+                //Split Sentences
+                let splitSentences = Sentences.splitSentences(paragraph);
+                //Create Paragraph object to store sentences
+                let Paragraph = new Object;
+                //Set original text to Paragraph object
+                Paragraph.originText = paragraph;
+                //Set split sentences with honora replaced in Paragraph Object
+                Paragraph.sentences = splitSentences;
+                //push Paragraph object into paragraphs array of Paragraphs object
+                Paragraphs.paragraphs.push(Paragraph);
             }
         });
+        //Update the paragraph count
         this.count = paragraphCount;
     },
 
     processDebug: function(){
         console.log(this.paragraphs);
         console.log(this.count);
+    },
+    sentenceDebug: function(){
+        Paragraphs.paragraphs.forEach(function(paragraph){
+            paragraph.sentences.forEach(function(sentence){
+                console.log(sentence);
+            });
+        });
+    },
+    fragmentDebug: function(){
+      Paragraphs.paragraphs.forEach(function(paragraph){
+          paragraph.sentences.forEach(function(sentence){
+              console.log(sentence.fragments);
+          });
+      });
     },
 };
 
