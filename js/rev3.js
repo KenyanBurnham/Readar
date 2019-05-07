@@ -102,21 +102,23 @@ let Sentences = {
         //Create a copy of sentence to filter common punctuation for fragments
         let mutableSentence = sentence;
         //replace commas with tag
-        mutableSentence = mutableSentence.replace(/\,/g, "$$$");
+        mutableSentence = mutableSentence.replace(/\,/g, "$*");
         //replace parethesis with tag
-        mutableSentence = mutableSentence.replace(/\(/g, "$$$");
+        mutableSentence = mutableSentence.replace(/\(/g, "$*");
         //replace parethesis with tag
-        mutableSentence = mutableSentence.replace(/\)/g, "$$$");
+        mutableSentence = mutableSentence.replace(/\)/g, "$*");
         //replace brackets with tag
-        mutableSentence = mutableSentence.replace(/\[/g, "$$$");
+        mutableSentence = mutableSentence.replace(/\[/g, "$*");
         //replace brackets with tag
-        mutableSentence = mutableSentence.replace(/\]/g, "$$$");
+        mutableSentence = mutableSentence.replace(/\]/g, "$*");
         //replace colon with tag
-        mutableSentence = mutableSentence.replace(/\:/g, "$$$");
+        mutableSentence = mutableSentence.replace(/\:/g, "$*");
         //replace semicolon with tag
-        mutableSentence = mutableSentence.replace(/\;/g, "$$$");
+        mutableSentence = mutableSentence.replace(/\;/g, "$*");
+        //Remove apostrophes and replace with nothing to preserve words
+        mutableSentence = mutableSentence.replace(/'/g,'')
         //return array of fragments
-        return mutableSentence.split("$$$");
+        return mutableSentence.split("$*");
     },
     splitPunctuation: function(paragraph){
         //Remove some simple cases of punctuation

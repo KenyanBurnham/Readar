@@ -1,6 +1,9 @@
-/*
-SOURCE: http://web.archive.org/web/20110102112946/http://www.scottklarr.com/topic/425/how-to-insert-text-into-a-textarea-where-the-cursor-is/
-*/
+/*==============================================================================
+    Inserts text where the cursor caret is.
+
+    Originator: Scott Klarr
+    Source: http://web.archive.org/web/20110102112946/http://www.scottklarr.com/topic/425/how-to-insert-text-into-a-textarea-where-the-cursor-is/
+==============================================================================*/
 function insertAtCaret(areaId,text) {
   	var txtarea = document.getElementById(areaId);
   	var scrollPos = txtarea.scrollTop;
