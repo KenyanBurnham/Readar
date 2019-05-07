@@ -115,8 +115,6 @@ let Sentences = {
         mutableSentence = mutableSentence.replace(/\:/g, "$*");
         //replace semicolon with tag
         mutableSentence = mutableSentence.replace(/\;/g, "$*");
-        //Remove apostrophes and replace with nothing to preserve words
-        mutableSentence = mutableSentence.replace(/'/g,'')
         //return array of fragments
         return mutableSentence.split("$*");
     },
@@ -125,10 +123,11 @@ let Sentences = {
         paragraph = paragraph.replace("!", ".");
         paragraph = paragraph.replace("?", ".");
         paragraph = paragraph.replace("...", ".");
+        //Remove apostrophes (’) and replace with nothing to preserve words
+        paragraph = paragraph.replace(/’/g,"");
         //Split paragraph by "SPACE + ." pairs
-        let sentences = paragraph.split(". ");
-        //return sentences without punctuations
-        return sentences;
+        //return sentences without punctuations or apostrophes
+        return paragraph.split(". ");;
     },
     splitSentences: function(paragraph){
         let paragraphSentences = [];
@@ -204,6 +203,8 @@ let Paragraphs = {
     process: function(target){
         //get text from input
         let text = document.getElementById("" + target + "").value;
+        //Explicitly type as string
+        text = text.toString();
         //split text by spaces
         let newlined = text.split("\n");
         //Number of paragraphs
@@ -302,7 +303,7 @@ let Mediator = {
         // Get pasted data via clipboard API
         let clipboardData = event.clipboardData || window.clipboardData;
         let pastedData = clipboardData.getData('Text');
-        //split datat into characters
+        //split data into characters
         let splitData = pastedData.split("");
         //Add a new record into observer
         let newRecord = new Record(event, splitData, "pasted", event.timeStamp);
