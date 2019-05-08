@@ -19,35 +19,28 @@
 </head>
 <body>
 
-    <section class="full-width-editor container-fluid">
-        <div class="row full-size-row">
-            <div id="typing-target"class="col-md-6 big-container">
-                <h3>Input</h3>
-                <textarea id="inputTarget" name="name" rows="30" cols="100" class="textarea-forms-right-size" onkeyup="Mediator.handleNewKey(event, this);" onpaste="Mediator.handleNewPaste(event, this);"></textarea>
+    <section class="full-width-editor container-fluid" style="background-color: #FAFAFA;">
+        <div class="row">
+            <div class="col-md-2">
                 <div class="row">
-                    <div class="col">
-                        <button class="btn btn-lg btn-primary" type="button" name="button" onclick="Document.debugText();" hidden>Current Stored Text</button>
-                        <button class="btn btn-lg btn-primary" type="button" name="button" onclick="Document.debugEventLog();" hidden>Log of Events</button>
-                        <button class="btn btn-lg btn-primary" type="button" name="button" onclick="Document.debugTextLog();" hidden>TextLog</button>
-                        <button class="btn btn-lg btn-secondary" type="button" name="button" onclick="Observer.reveal();" hidden>Reveal Record</button>
-                        <button class="btn btn-lg btn-secondary" type="button" name="button" onclick="Mediator.update('inputTarget');" hidden>Refresh</button>
-                        <button class="btn btn-lg btn-secondary" type="button" name="button" onclick="words('inputTarget');" hidden>Word</button>
-                        <button class="btn btn-lg btn-secondary" type="button" name="button" onclick="Paragraphs.process('inputTarget');">Paragraph Process</button>
-                        <button class="btn btn-lg btn-secondary" type="button" name="button" onclick="Paragraphs.processDebug();" hidden>Paragraph Debug</button>
-                        <button class="btn btn-lg btn-secondary" type="button" name="button" onclick="Paragraphs.sentenceDebug();" hidden>Sentence Output</button>
-                        <button class="btn btn-lg btn-secondary" type="button" name="button" onclick="Document.bodyDebug();">Debug Body</button>
+                    <div class="col-md-8">
+                        &nbsp;
+                    </div>
+                    <div class="col-md-4" style="float: right;">
+                      <br>
+                      <button class="btn btn-lg btn-primary" type="button" name="button" onclick="Paragraphs.process('inputTarget');"><img src="..\media\package\build\svg\arrow-right.svg"></img></button>
+                      <br>
+                      <br>
+                      <button class="btn btn-lg btn-secondary" type="button" name="button" onclick="console.log('keyboard');"><img src="..\media\package\build\svg\keyboard.svg"></img></button>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 small-container">
-                <div class="row make-row-big">
+            <div id="typing-target"class="col-md-6 big-container">
+                <textarea id="inputTarget" name="name" rows="40" cols="50" class="textarea-forms-right-size" onkeyup="Mediator.handleNewKey(event, this);" onpaste="Mediator.handleNewPaste(event, this);"></textarea>
+            </div>
+            <div class="col-md-2 small-container">
+                <div class="row">
                     <div class="col">
-                        <br>
-                        <h3>Statistics</h3>
-                        <br>
-                        <div class="alert alert-light" role="alert">
-                          Nothing to show here.
-                        </div>
                         <br>
                         <div class="accordion" id="accordionExample">
                             <!-- beginning of Body Characteristics -->
@@ -374,9 +367,7 @@
                           <!-- End of Syllable Characteristics -->
 
                           <!-- End of Caraousel -->
-
                 </div>
-
             </div>
         </div>
     </section>

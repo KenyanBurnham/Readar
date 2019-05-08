@@ -3,6 +3,7 @@
     height: 100%;
     padding: 15px 15px;
     width: 100%;
+    box-shadow: 0 10px 6px -6px #777;
 }
 
 .full-width-editor{
@@ -23,4 +24,8 @@
 .textarea-forms-right-size{
     height: 100%;
     width: 100%;
+}
+
+input:focus, textarea {
+    outline: none !important;
 }

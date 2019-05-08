@@ -94,6 +94,7 @@ let Words = {
                 //Add breath unit to global Words
                 Words.breaths.push(breath);
             }else{
+                //Creates and edge case for word filtering, should output spaces and whitespace.
                 Document.createEdge(word, "Created during word filtering.");
             }
         });
@@ -186,6 +187,7 @@ let Sentences = {
                 //Save a copy to return to paragraph
                 paragraphSentences.push(Sentence);
             }else{
+                // Creates edge case for sentences, should output spaces and whitespace
                 Document.createEdge(sentence, "Created during sentence filtering.");
             }
         });
@@ -247,12 +249,14 @@ let Paragraphs = {
                 //push Paragraph object into paragraphs array of Paragraphs object
                 Paragraphs.paragraphs.push(Paragraph);
             }else{
+                //Records edge cases for paragraph creation, result should be return carriages
                 Document.createEdge(paragraph, "Created during paragraph filtering.");
             }
         });
         //Update the paragraph count
         this.count = paragraphCount;
         Document.body = Paragraphs.paragraphs;
+        Document.bodyDebug();
     },
 
     processDebug: function(){
@@ -347,6 +351,16 @@ let Mediator = {
         Document.updateKeyboard();
     }
 }
+
+/*
+To dos
+- Impliment timestamps throughout objects to track processing speed
+- Add Qwerty and Dvorac options to the typing Characteristics
+- Make keys on typing characteristics respond when keypress event happens, but only when visible
+- Use observer to calculate typing speed
+- Use observer and document.textlog to give typing statistics
+
+*/
 
 /*
 highlighting syntax
