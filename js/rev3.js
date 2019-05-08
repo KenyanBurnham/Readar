@@ -74,7 +74,9 @@ let Words = {
         words.forEach(function(word){
             if(word.length > 0){
                 wordCount = wordCount + 1;
+                console.log("Beginning:" +  word)
                 let syllableCount = getSyllableCount(word);
+                console.log("End");
                 Bank.syllables.push(syllableCount);
                 //Add a copy of the word in the word Bank
                 Bank.words.push(word);

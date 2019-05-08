@@ -1,3 +1,15 @@
+body{
+    background-color: #BBC8CA;
+}
+
+textarea {
+  border-style: none;
+  border-color: Transparent;
+  overflow: auto;
+  outline: none;
+  margin: 20px 10px 20px 10px;
+}
+
 .big-container{
     background-color: white;
     height: 100%;

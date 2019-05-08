@@ -2,11 +2,15 @@
         Gets syllable count using regular expression
 =============================================================================**/
 function filterWithRegEx(a){
-    a = a.replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/, '');
-    // Removes capital Y's
-    a = a.replace(/^y/, '');
-    //Produces a length that accounts for dipthongs
-    a = a.match(/[aeiouy]{1,2}/g).length;
+    if(a != null){
+        a = a.replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/, '');
+        // Removes capital Y's
+        a = a.replace(/^y/, '');
+        //Produces a length that accounts for dipthongs
+        a = a.match(/[aeiouy]{1,2}/g).length;
+    }else{
+        console.log(a);
+    }
     return a;
 }
 
