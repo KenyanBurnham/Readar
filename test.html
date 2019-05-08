@@ -19,24 +19,35 @@
 </head>
 <body>
 
-    <section class="full-width-editor container-fluid" style="background-color: #FAFAFA;">
+    <section class="full-width-editor container-fluid" style="background-color: #BBC8CA;">
+        <div class="row">
+            <div class="col-md-2">
+                &nbsp;
+            </div>
+            <div class="col-md-8">
+                <h1 style="float: left;">Readar</h1>
+            </div>
+            <div class="col-md-2">
+                &nbsp;
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-2">
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-10">
                         &nbsp;
                     </div>
-                    <div class="col-md-4" style="float: right;">
+                    <div class="col-md-2" style="float: right;">
                       <br>
-                      <button class="btn btn-lg btn-primary" type="button" name="button" onclick="Paragraphs.process('inputTarget');"><img src="..\media\package\build\svg\arrow-right.svg"></img></button>
+                      <button class="btn btn-lg " style="background-color: #C7FFED; box-shadow: 0 10px 6px -6px #777;" type="button" name="button" onclick="Paragraphs.process('inputTarget');"><img src="..\media\package\build\svg\arrow-right.svg"></img></button>
                       <br>
                       <br>
-                      <button class="btn btn-lg btn-secondary" type="button" name="button" onclick="console.log('keyboard');"><img src="..\media\package\build\svg\keyboard.svg"></img></button>
+                      <button class="btn btn-lg" style="background-color: #B592A0; box-shadow: 0 10px 6px -6px #777;" type="button" name="button" onclick="console.log('keyboard');"><img src="..\media\package\build\svg\keyboard.svg"></img></button>
                     </div>
                 </div>
             </div>
             <div id="typing-target"class="col-md-6 big-container">
-                <textarea id="inputTarget" name="name" rows="40" cols="50" class="textarea-forms-right-size" onkeyup="Mediator.handleNewKey(event, this);" onpaste="Mediator.handleNewPaste(event, this);"></textarea>
+                <textarea id="inputTarget" name="name" rows="36" cols="50" class="textarea-forms-right-size" onkeyup="Mediator.handleNewKey(event, this);" onpaste="Mediator.handleNewPaste(event, this);"></textarea>
             </div>
             <div class="col-md-2 small-container">
                 <div class="row">
