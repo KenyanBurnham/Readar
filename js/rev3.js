@@ -74,7 +74,7 @@ let Words = {
         words.forEach(function(word){
             if(word.length > 0){
                 wordCount = wordCount + 1;
-                console.log("Beginning:" +  word)
+                console.log("Beginning:" +  word);
                 let syllableCount = getSyllableCount(word);
                 console.log("End");
                 Bank.syllables.push(syllableCount);
@@ -212,6 +212,13 @@ let Sentences = {
               }
               //Edge function not placed here because the edge results would not be useful
         });
+        /*
+        if (typeof word == 'number') {
+          var num2words = new NumberToWords();
+          num2words.convert(word); //'eight hundred fifty'
+          word = num2words;
+        }
+        */
         return mutableParagraph;
     },
 }
