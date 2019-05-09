@@ -74,9 +74,7 @@ let Words = {
         words.forEach(function(word){
             if(word.length > 0){
                 wordCount = wordCount + 1;
-                console.log("Beginning:" +  word);
                 let syllableCount = getSyllableCount(word);
-                console.log("End");
                 Bank.syllables.push(syllableCount);
                 //Add a copy of the word in the word Bank
                 Bank.words.push(word);
@@ -229,9 +227,14 @@ let Paragraphs = {
     count: 0,
     process: function(target){
         //get text from input
-        let text = document.getElementById("" + target + "").value;
+        let text = document.getElementById("" + target + "").innerHTML;
+        console.log(text);
         //Explicitly type as string
         text = text.toString();
+        //Remove example breaks
+        text = text.replace("<br><br>", "\n");
+        //remove tabs
+        text = text.replace('\t','');
         //split text by spaces
         let newlined = text.split("\n");
         //Number of paragraphs
@@ -323,7 +326,7 @@ let Mediator = {
         let src = document.getElementById("" + element + "");
         //Only update the current state of chars
         //Keep values of textLog
-        Document.text = src.value.split("");
+        Document.text = src.innerHTML.split("");
     },
     handleNewPaste: function(event){
         // Stop data actually being pasted
