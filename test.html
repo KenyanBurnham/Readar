@@ -37,7 +37,7 @@
                 <div class="row button-group-sticky">
                     <div class="col-md-12" >
                         <div class="btn-group-vertical" style="float: right;">
-                            <button class="btn btn-lg " style="background-color: #C7FFED; box-shadow: 0 10px 6px -6px #777;" type="button" name="button" onclick="Paragraphs.process('inputTarget');"><img src="..\media\package\build\svg\sync.svg"></img></button>
+                            <button class="btn btn-lg " style="background-color: #C7FFED; box-shadow: 0 10px 6px -6px #777;" type="button" name="button" onclick="domInteraction('inputTarget');"><img src="..\media\package\build\svg\sync.svg"></img></button>
                             <button class="btn btn-lg" style="background-color: #C7FFED; opacity: .9; box-shadow: 0 10px 6px -6px #777;" type="button" name="button" onclick="console.log('keyboard');"><img src="..\media\package\build\svg\tools.svg"></img></button>
                             <button class="btn btn-lg" style="background-color: #C7FFED; opacity: .8; box-shadow: 0 10px 6px -6px #777;" type="button" name="button" onclick="console.log('keyboard');"><img src="..\media\package\build\svg\gear.svg"></img></button>
                         </div>
@@ -57,12 +57,21 @@
             </div>
             <div class="col-md-6">
               <article class="paper">
-                <div class="paper_in" contenteditable id="inputTarget" onkeyup="Mediator.handleNewKey(event, this);" onpaste=""> Welcome to Readar! <br><br> Readar is an analytical text-editor that gives statistics and line-by-line data. Text can be typed or pasted into this editor. <br><br>
-Lorem Ipsum am liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat. <br><br>
-Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. <br><br>
-Lorem Ipsum am liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat. <br><br>
-Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. <br><br>
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</div>
+                <div class="paper_in" contenteditable id="inputTarget" onkeyup="Mediator.handleNewKey(event, this);" onpaste="Mediator.handleNewPaste(event, this);">
+                    Welcome to Readar!
+                    <br><br>
+                    Readar is an analytical text-editor that gives statistics and line-by-line data. Text can be typed or pasted into this editor.
+                    <br><br>
+                    Lorem Ipsum am liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.
+                    <br><br>
+                    Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+                    <br><br>
+                    Lorem Ipsum am liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.
+                    <br><br>
+                    Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+                    <br><br>
+                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+                </div>
                 </article>
             </div>
             <div class="col-md-3">

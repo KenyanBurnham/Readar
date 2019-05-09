@@ -38,6 +38,96 @@ let Document = {
     bodyDebug: function(){
         console.log(Document.body);
     },
+    reset: function(){
+
+    }
+}
+
+/*
+  Remove any representation that is not just text from an html source
+*/
+let Decoupler = {
+      decouplerParagraphs: function(input){
+          //Usefull for removing IE/Opera insertions
+          return input.replace(/<p>/g, "").replace(/<\/div>/g, "");
+      },
+      decouplerDivs: function(input){
+          //Usefull for removing Chrome/Safari insertions
+          return input.replace(/<div>/g, "").replace(/<\/div>/g, "");
+      },
+      decouplerEscapedSpaces: function(input){
+          return input.replace(/&nbsp;/g, " ");
+      },
+      decouplerBreaks: function(input){
+          //Usefull for removing FireFox insertions
+          return input.replace(/<br>/g, "\n");
+      },
+      decouplerTrim: function(input){
+          return input.replace(/^\s+|\s+$/gm,'');
+      },
+      decouple: function(target){
+          // get the id of the element were getting data from
+          let source = document.getElementById("" + target + "").innerHTML;
+          //Explicitly type as string
+          source = source.toString();
+          //Trim whitespace
+          source = Decoupler.decouplerTrim(source);
+          //Remove example breaks
+          source = Decoupler.decouplerBreaks(source);
+          //Remove nbsp
+          source = Decoupler.decouplerEscapedSpaces(source);
+          //remove divs caused by article
+          source = Decoupler.decouplerDivs(source);
+          //remove divs caused by article
+          source = Decoupler.decouplerParagraphs(source);
+          //return filtered innerHTML
+          return source;
+      },
+}
+
+/*
+  Provides mathematical methods
+*/
+let Ariths = {
+    maxima: function(dataset){
+        let local = [];
+        for (var i = 0; i < dataset.length; i++) {
+          local[i] = Number(dataset[i]);
+        }
+        return Math.max(...local);
+    },
+    minima: function(dataset){
+        let local = [];
+        for (var i = 0; i < dataset.length; i++) {
+          local[i] = Number(dataset[i]);
+        }
+        return Math.min(...local);
+    },
+    median: function(dataset){
+        let targetSorted = dataset.sort((a, b) => a - b);
+        let lowMiddle = Math.floor((dataset.length - 1) / 2);
+        let highMiddle = Math.ceil((dataset.length - 1) / 2);
+        let median = (Number(targetSorted[lowMiddle]) + Number(targetSorted[highMiddle])) / 2;
+        return median;
+    },
+    average: function(dataset){
+        let sum = 0;
+        for(let i = 0; i < dataset.length; i++){
+            sum = sum + Number(dataset[i]);
+        }
+        let average = (sum/dataset.length);
+        return average;
+    },
+    deviation: function(dataset){
+        let average = getAverage(dataset);
+        let avgDev = [];
+        for (var i = 0; i < dataset.length; i++) {
+            avgDev[i] = Math.pow(Math.abs(average - Number(dataset[i])), 2);
+        }
+        let avgDeviation = getAverage(avgDev);
+        let standardDeviation = Math.sqrt(avgDeviation);
+        return standardDeviation;
+    }
 }
 
 function Record(eventObject, objectData, objectEventType, objectTimeStamp){
@@ -54,7 +144,15 @@ let Words = {
     wordLengths: [],
     syllables:[],
     breaths: [],
-
+    reset: function(){
+        // Set all global data to empty
+        this.globalWords = [];
+        this.words = [];
+        this.wordCount = 0;
+        this.wordLengths = [];
+        this.syllables = [];
+        this.breaths = []];
+    },
     processWords: function(sentence){
         //remove all non-word characters
         sentence = sentence.replace(/[\W_]+/g," ");
@@ -84,7 +182,6 @@ let Words = {
                 let breath = (word.length/syllableCount).toFixed(2);
                 //Add breath units to word Bank
                 Bank.breaths.push(breath);
-
                 //Add syllable counts to global Words
                 Words.syllables.push(syllableCount);
                 //Add word to the global Words
@@ -111,6 +208,12 @@ let Sentences = {
     sentences: [],
     sentenceCount: 0,
     fragmentCount: 0,
+    reset: function(){
+        // Set all global data to empty
+        this.sentences = [];
+        this.sentenceCount = 0;
+        this.fragmentCount = 0;
+    },
     splitFragments: function(sentence){
         //Create a copy of sentence to filter common punctuation for fragments
         let mutableSentence = sentence;
@@ -142,7 +245,10 @@ let Sentences = {
         //return sentences without punctuations or apostrophes
         return paragraph.split(". ");;
     },
-    splitSentences: function(paragraph){
+    process: function(paragraph){
+        //Reset global sentence storage
+        Sentences.reset();
+        //Initialize empty variable to store sentences in each pararaph
         let paragraphSentences = [];
         //remove common punctuation and split sentence by ". " pairs
         let sentences = Sentences.splitPunctuation(paragraph);
@@ -225,16 +331,15 @@ let Paragraphs = {
     paragraphs: [],
     strings: [],
     count: 0,
-    process: function(target){
-        //get text from input
-        let text = document.getElementById("" + target + "").innerHTML;
-        console.log(text);
-        //Explicitly type as string
-        text = text.toString();
-        //Remove example breaks
-        text = text.replace("<br><br>", "\n");
-        //remove tabs
-        text = text.replace('\t','');
+    reset: function(){
+        // Set all global data to empty
+        this.paragraphs = [];
+        this.strings = [];
+        this.count = 0;
+    },
+    process: function(text){
+        // Reset paragraph global data
+        Paragraphs.reset();
         //split text by spaces
         let newlined = text.split("\n");
         //Number of paragraphs
@@ -251,7 +356,7 @@ let Paragraphs = {
                 //Begin sentence filtering
                 let sentencesWithoutHonora = Sentences.filterHonora(paragraph);
                 //Split Sentences
-                let splitSentences = Sentences.splitSentences(paragraph);
+                let splitSentences = Sentences.process(paragraph);
                 //Create Paragraph object to store sentences
                 let Paragraph = new Object;
                 //Set original text to Paragraph object
@@ -268,26 +373,6 @@ let Paragraphs = {
         //Update the paragraph count
         this.count = paragraphCount;
         Document.body = Paragraphs.paragraphs;
-        Document.bodyDebug();
-    },
-
-    processDebug: function(){
-        console.log(this.paragraphs);
-        console.log(this.count);
-    },
-    sentenceDebug: function(){
-        Paragraphs.paragraphs.forEach(function(paragraph){
-            paragraph.sentences.forEach(function(sentence){
-                console.log(sentence);
-            });
-        });
-    },
-    fragmentDebug: function(){
-      Paragraphs.paragraphs.forEach(function(paragraph){
-          paragraph.sentences.forEach(function(sentence){
-              console.log(sentence.fragments);
-          });
-      });
     },
 };
 
@@ -329,9 +414,6 @@ let Mediator = {
         Document.text = src.innerHTML.split("");
     },
     handleNewPaste: function(event){
-        // Stop data actually being pasted
-        event.stopPropagation();
-        event.preventDefault();
         // Get pasted data via clipboard API
         let clipboardData = event.clipboardData || window.clipboardData;
         let pastedData = clipboardData.getData('Text');
@@ -340,14 +422,9 @@ let Mediator = {
         //Add a new record into observer
         let newRecord = new Record(event, splitData, "pasted", event.timeStamp);
         Observer.observe(newRecord);
-        //get element id from event
-        let src = event.srcElement.id;
-        //Paste text as if past event had completed
-        insertAtCaret(src, pastedData);
-        this.update(src);
+        //http://jsfiddle.net/SJR3H/7/
     },
     handleNewKey: function(event){
-        console.log(event);
         // Specific character
         key = event.key;
         //Time stamp when entered
@@ -364,6 +441,13 @@ let Mediator = {
         Document.updateKeyboard();
     }
 }
+
+function domInteraction(target){
+      let decoupledSource = Decoupler.decouple(target);
+      Paragraphs.process(decoupledSource);
+      Document.bodyDebug();
+}
+
 
 /*
 To dos
