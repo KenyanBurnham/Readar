@@ -347,6 +347,7 @@ let Mediator = {
         this.update(src);
     },
     handleNewKey: function(event){
+        console.log(event);
         // Specific character
         key = event.key;
         //Time stamp when entered
