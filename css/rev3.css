@@ -15,6 +15,11 @@ textarea {
   padding-right: 50px;
 }
 
+.marked{
+    background: #FFE066;
+    color: #50514F;
+}
+
 .big-container{
     background-color: white;
     box-shadow: 0 10px 6px -6px #777;
@@ -50,7 +55,13 @@ textarea {
 .button-group-sticky-2{
     position: -webkit-sticky;
     position: sticky;
-    top: 25rem;
+    top: 19rem;
+}
+
+.button-group-sticky-3{
+    position: -webkit-sticky;
+    position: sticky;
+    top: 30rem;
 }
 
 
