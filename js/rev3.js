@@ -94,8 +94,12 @@ let Resolver = {
             "iframesTimeout": 5000,
             "done": function(){},
             "each": function(node, range){
-                node.addEventListener("click", function(){
+                node.addEventListener("mouseover", function(){
                     console.log(this);
+                    //Add this?
+                    //https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_tooltip
+                    //or
+                    // https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_popup
                 });
             },
             "debug": false,
