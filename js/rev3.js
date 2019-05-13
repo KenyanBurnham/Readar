@@ -5,6 +5,8 @@ let Document = {
     body: [],
     edges: [],
     errorLog: [],
+    words: [],
+    wordKeys: [],
     createTimeStamp: function(){
         //creates a timeStamp
         let date = new Date();
@@ -28,7 +30,16 @@ let Document = {
         }
         Document.errorLog.push(CustomError);
     },
+    updateKeyboard: function(){
+        //this.textLog.forEach(function(){
+        //https://codepen.io/gschier/pen/VKgyaY
+        //    console.log("I'll use this to create a heat map of keys later.");
+        //});
+    },
 
+    reset: function(){
+
+    },
     debugText: function(){
         console.log(this.text);
     },
@@ -47,22 +58,18 @@ let Document = {
             console.log("No errors.");
         }
     },
-    updateKeyboard: function(){
-        //this.textLog.forEach(function(){
-        //https://codepen.io/gschier/pen/VKgyaY
-        //    console.log("I'll use this to create a heat map of keys later.");
-        //});
-    },
     bodyDebug: function(){
         console.log(Document.body);
     },
-    reset: function(){
-
+    wordsDebug: function(){
+        console.log(Document.words);
+        console.log(Document.wordKeys);
     }
 }
 
 let Resolver = {
       exceptions: [],
+      interpretations: [],
       mark: function(item){
           //https://markjs.io/
           // Create an instance of mark.js and pass an argument containing
@@ -88,19 +95,17 @@ let Resolver = {
       markMultiple: function(){
           var options = {
             "element": "span",
-            "className": "marked",
+            "className": "marked tool",
             "exclude": [],
             "iframes": false,
             "iframesTimeout": 5000,
             "done": function(){},
             "each": function(node, range){
-                node.addEventListener("mouseover", function(){
-                    console.log(this);
-                    //Add this?
-                    //https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_tooltip
-                    //or
-                    // https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_popup
+                node.addEventListener("dblclick", function(){
+                    document.getElementById("toInterpret").innerHTML = this.innerHTML;
+                    $('#exampleModal').modal();
                 });
+
             },
             "debug": false,
             "log": window.console
@@ -154,51 +159,6 @@ let Decoupler = {
       },
 }
 
-/*
-  Provides mathematical methods
-*/
-let Ariths = {
-    maxima: function(dataset){
-        let local = [];
-        for (var i = 0; i < dataset.length; i++) {
-          local[i] = Number(dataset[i]);
-        }
-        return Math.max(...local);
-    },
-    minima: function(dataset){
-        let local = [];
-        for (var i = 0; i < dataset.length; i++) {
-          local[i] = Number(dataset[i]);
-        }
-        return Math.min(...local);
-    },
-    median: function(dataset){
-        let targetSorted = dataset.sort((a, b) => a - b);
-        let lowMiddle = Math.floor((dataset.length - 1) / 2);
-        let highMiddle = Math.ceil((dataset.length - 1) / 2);
-        let median = (Number(targetSorted[lowMiddle]) + Number(targetSorted[highMiddle])) / 2;
-        return median;
-    },
-    average: function(dataset){
-        let sum = 0;
-        for(let i = 0; i < dataset.length; i++){
-            sum = sum + Number(dataset[i]);
-        }
-        let average = (sum/dataset.length);
-        return average;
-    },
-    deviation: function(dataset){
-        let average = getAverage(dataset);
-        let avgDev = [];
-        for (var i = 0; i < dataset.length; i++) {
-            avgDev[i] = Math.pow(Math.abs(average - Number(dataset[i])), 2);
-        }
-        let avgDeviation = getAverage(avgDev);
-        let standardDeviation = Math.sqrt(avgDeviation);
-        return standardDeviation;
-    }
-}
-
 function Record(eventObject, objectData, objectEventType, objectTimeStamp){
     this.recorded = eventObject;
     this.text = objectData;
@@ -232,7 +192,7 @@ let Words = {
         }
         //Remove word from sentence and write an error log globally and locally
     },
-    processWords: function(sentence){
+    processWords: function(sentence, caller){
         //remove all non-word characters
         sentence = sentence.replace(/[\W_]+/g," ");
         //Split words from sentence by spaces
@@ -272,16 +232,27 @@ let Words = {
                         Words.wordLengths.push(word.length);
                         //Add breath unit to global Words
                         Words.breaths.push(breath);
+                        //Push word into Document word bank
+                        if(caller == "sentence"){
+                            //Push words to Document word bank
+                            Document.words.push(word);
+                            //Push reference key to word
+                            Document.wordKeys.push(createKey());
+                        }
                     }else{
                         //Creates and edge case for word filtering, should output spaces and whitespace.
-                        Document.createEdge(word, "Created during word filtering.");
+                        if(caller == "sentence"){
+                            Document.createEdge(word, "Created during word filtering.");
+                        }
                     }
                 //Do not add word to word bank, putword in special case bank
                 }else{
-                    // There's still a word here, so it counts, but can't be processed
-                    wordCount = wordCount + 1;
-                    // we still want to keep track of the exceptions
-                    Resolver.exceptions.push(word);
+                    if(caller == "sentence"){
+                        // There's still a word here, so it counts, but can't be processed
+                        wordCount = wordCount + 1;
+                        // we still want to keep track of the exceptions
+                        Resolver.exceptions.push(word);
+                    }
                 }
         });
         //Add the number of words to the Bank
@@ -354,7 +325,7 @@ let Sentences = {
                 //Push current sentence into into sentence object
                 Sentence.sentence = sentence;
                 //get word data for sentence
-                Sentence.words = Words.processWords(sentence);
+                Sentence.words = Words.processWords(sentence, "sentence");
                 //Add an empty array for fragments
                 Sentence.fragments = [];
                 //Initialize the fragment count at 0
@@ -367,7 +338,7 @@ let Sentences = {
                         //Increase the count of total fragments
                         Sentence.fragmentCount = Sentence.fragmentCount + 1;
                         //save the "Word" object to a variable
-                        let fragmentWordObject = Words.processWords(fragment);
+                        let fragmentWordObject = Words.processWords(fragment, "fragment");
                         //Add original fragment to the Word object
                         fragmentWordObject.original = fragment;
                         //Set fragments to Sentence Object
