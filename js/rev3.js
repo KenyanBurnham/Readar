@@ -75,6 +75,12 @@ let Resolver = {
       resolveInterpretation: function(word){
           //get user input (replacement)
           //Add to definitions, rerun program
+          let interpretAs = document.getElementById("interpretation").value;
+          if((interpretAs == null) || (interpretAs.length == 0)){
+              //create edge, don't do anything? 
+          }else{
+              return Document.interpretatedAs;
+          }
       },
       mark: function(item){
           //https://markjs.io/
