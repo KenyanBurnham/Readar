@@ -172,7 +172,7 @@
 
     <!-- Modal Section-->
     <section>  <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="interpretationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document" style="border-radius: 0px;">
                   <div class="modal-content">
                         <div class="modal-body">
@@ -201,9 +201,9 @@
                             <div class="row" style="text-align: center;">
                                 <div class="col">
                                   <br>
-                                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Ignore</button>
+                                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal" onclick="Resolver.getInterpretation('ignore')">Ignore</button>
                                     or
-                                    <button type="button" class="btn btn-primary" style="background-color: #C7FFED; color: black; border-color: #C7FFED;">Save</button>
+                                    <button type="button" class="btn btn-primary" style="background-color: #C7FFED; color: black; border-color: #C7FFED;" onclick="Resolver.getInterpretation('save')">Save</button>
                                 </div>
                             </div>
                         </div>
