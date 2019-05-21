@@ -187,12 +187,14 @@ let Decoupler = {
               if(search != -1){
                   //The match is assumed to exist and it should be replaced
                   //with interpretAs of the same index
-                  input = input.replace(/interpretation/g, Document.interpretatedAs[index]);
-                  console.log("Decoupled interpretation '" + interpretation + "' changed to '" + Document.interpretatedAs[index] + "' in the abstraction.");
+                  let regularExpression = new RegExp(interpretation,"g");
+                  input = input.replace(regularExpression, Document.interpretatedAs[index]);
               }
               //Increment the index variable
               index = index + 1;
           });
+          console.log(input);
+          //Return modified input with interpretations
           return input;
       },
       decouplerParagraphs: function(input){
@@ -584,6 +586,9 @@ let Mediator = {
 function domInteraction(target){
       let decoupledSource = Decoupler.decouple(target);
       Paragraphs.process(decoupledSource);
+      /*
+        [WARNING THE INTERPETATIOn from decoupledSource is not even working]
+      */
       Document.bodyDebug();
       /*
         [WARNING ABSTRACTION HAS INTERPETATIONS NOT THE SOURCE]
