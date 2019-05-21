@@ -587,6 +587,7 @@ function domInteraction(target){
       Document.bodyDebug();
       /*
         [WARNING ABSTRACTION HAS INTERPETATIONS NOT THE SOURCE]
+        The mark.io functions in Resolver complicate processing
       */
       if(Resolver.exceptions.length > 0){
           Resolver.markMultiple();
