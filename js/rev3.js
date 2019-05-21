@@ -9,6 +9,7 @@ let Document = {
     wordKeys: [],
     interpretations: ["Revolution360"],
     interpretatedAs: ["Revolution Three Sixty"],
+    ignoredInterpretations: [],
     createTimeStamp: function(){
         //creates a timeStamp
         let date = new Date();
@@ -77,7 +78,7 @@ let Resolver = {
           //Add to definitions, rerun program
           let interpretAs = document.getElementById("interpretation").value;
           if((interpretAs == null) || (interpretAs.length == 0)){
-              //create edge, don't do anything? 
+              //create edge, don't do anything?
           }else{
               return Document.interpretatedAs;
           }
@@ -143,11 +144,15 @@ let Resolver = {
           return interpretationToReturn;
       },
       getInterpretation: function(command){
+          let toInterpret = document.getElementById("toInterpret").innerHTML;
+          let interpretation = document.getElementById("interpretation").value;
           if(command == "ignore"){
               //Then skip this word and don't count it
               // Add to the "unmark list" to have it ignored
+              console.log("Ignore: " + toInterpret);
           }if(command == "save"){
               //Then add to definitions and rerun
+              console.log("Save '" + toInterpret + "' as '" + interpretation + "'");
           }
       },
 }
