@@ -156,8 +156,12 @@ let Resolver = {
               //Add word to interpret to list of interpretations
               Document.interpretations.push(toInterpret);
               //Add actual interpretation of word to interpretAs
-              Document.interpretAs.push(interpretation);
+              Document.interpretatedAs.push(interpretation);
           }
+          //Need to set a timeout, display a message and close
+          
+          //Need to close out of modal
+          $('#interpretationModal').modal('hide');
       },
 }
 
