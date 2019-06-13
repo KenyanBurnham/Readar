@@ -33,16 +33,6 @@ let Document = {
         }
         Document.errorLog.push(CustomError);
     },
-    updateKeyboard: function(){
-        //this.textLog.forEach(function(){
-        //https://codepen.io/gschier/pen/VKgyaY
-        //    console.log("I'll use this to create a heat map of keys later.");
-        //});
-    },
-
-    reset: function(){
-
-    },
     debugText: function(){
         console.log(this.text);
     },
@@ -69,7 +59,7 @@ let Document = {
         console.log(Document.wordKeys);
     }
 }
-
+// TODO: Separate Resolver's functionality from the model
 let Resolver = {
       exceptions: [],
       interpretations: [],
@@ -84,6 +74,7 @@ let Resolver = {
           }
       },
       mark: function(item){
+          // TODO: Separate mark functions from the model
           //https://markjs.io/
           // Create an instance of mark.js and pass an argument containing
           // the DOM object of the context (where to search for matches)
@@ -105,6 +96,7 @@ let Resolver = {
           performMark();
       },
       markMultiple: function(){
+      // TODO: Separate from model
       //Adds CSS and listerner to words selected by Resolver exceptions
           var options = {
             "element": "span",
@@ -161,10 +153,10 @@ let Resolver = {
       },
 }
 
-/*
-  Decoupler modifies the original text before processing
-  Remove any representation that is not just text from an html source
-*/
+/*==============================================================================
+      Decoupler modifies the original text before processing
+      Remove any representation that is not just text from an html source
+==============================================================================*/
 let Decoupler = {
       decoupleInterpretations: function(input){
           /*
@@ -448,6 +440,7 @@ let Sentences = {
         return paragraphSentences;
     },
     filterHonora: function(paragraph){
+        // TODO: This can probably be handled by a library, but it's still necessary
         //create a mutable copy
         let mutableParagraph = paragraph;
         //initialize a count variable to access replacement words for various honorifics
@@ -517,6 +510,7 @@ let Paragraphs = {
     },
 };
 
+// TODO: ensure Observer is only local
 let Observer = {
     record: [],
     text: [],
@@ -546,6 +540,7 @@ let Observer = {
     }
 }
 
+// TODO: Ensire that mediator never makes it to the main function
 let Mediator = {
     update: function(element){
         // get the id of the element were getting data from
