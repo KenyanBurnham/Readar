@@ -1,6 +1,6 @@
-/*
-  Provides mathematical methods
-*/
+/*==============================================================================
+      Provides mathematical methods
+==============================================================================*/
 let Ariths = {
     maxima: function(dataset){
         let local = [];
@@ -141,6 +141,8 @@ function createKey(){
       }
       return generateID(20);
 }
+
+// TODO: Replace numbers with interpretations of the syllables of numbers
 
 
 /*
