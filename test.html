@@ -212,10 +212,36 @@
         </div>
     </section>
 
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-functions.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#config-web-app -->
+
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyBu9tL8yurUekxGQYO9-04jcCXC_I8zXrk",
+        authDomain: "readar-app.firebaseapp.com",
+        databaseURL: "https://readar-app.firebaseio.com",
+        projectId: "readar-app",
+        storageBucket: "",
+        messagingSenderId: "359586425497",
+        appId: "1:359586425497:web:0d49b76a7b25af9b"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+    </script>
+
     <!-- Scripts -->
     <script src="js/dictionary.js" type="text/javascript"></script>
     <script src="js/rev3-utility.js" type="text/javascript"></script>
 
     <script src="js/rev3.js" type="text/javascript"></script>
+    <script src="js/database-communication.js" type="text/javascript">
+
+    </script>
 </body>
 </html>

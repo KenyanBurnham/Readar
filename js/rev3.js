@@ -8,7 +8,7 @@ let Document = {
     words: [],
     wordKeys: [],
     interpretations: ["Revolution360"],
-    interpretatedAs: ["Revolution Three Sixty"],
+    interpretedAs: ["Revolution Three Sixty"],
     ignoredInterpretations: [],
     createTimeStamp: function(){
         //creates a timeStamp
@@ -80,7 +80,7 @@ let Resolver = {
           if((interpretAs == null) || (interpretAs.length == 0)){
               //create edge, don't do anything?
           }else{
-              return Document.interpretatedAs;
+              return Document.interpretedAs;
           }
       },
       mark: function(item){
@@ -134,7 +134,7 @@ let Resolver = {
               console.log(value + " + " + word);
               if(value == word){
                   interpretationToReturn.determiner = true;
-                  interpretationToReturn.interpretedAs = Document.interpretatedAs[index];
+                  interpretationToReturn.interpretedAs = Document.interpretedAs[index];
                   return interpretationToReturn;
               }else{
                   interpretationToReturn.determiner = false;
@@ -156,10 +156,10 @@ let Resolver = {
               //Add word to interpret to list of interpretations
               Document.interpretations.push(toInterpret);
               //Add actual interpretation of word to interpretAs
-              Document.interpretatedAs.push(interpretation);
+              Document.interpretedAs.push(interpretation);
           }
           //Need to set a timeout, display a message and close
-          
+
           //Need to close out of modal
           $('#interpretationModal').modal('hide');
       },
@@ -192,7 +192,7 @@ let Decoupler = {
                   //The match is assumed to exist and it should be replaced
                   //with interpretAs of the same index
                   let regularExpression = new RegExp(interpretation,"g");
-                  input = input.replace(regularExpression, Document.interpretatedAs[index]);
+                  input = input.replace(regularExpression, Document.interpretedAs[index]);
               }
               //Increment the index variable
               index = index + 1;
@@ -587,6 +587,7 @@ let Mediator = {
     }
 }
 
+//DOM Interactions calls the first instance of Readar
 function domInteraction(target){
       let decoupledSource = Decoupler.decouple(target);
       Paragraphs.process(decoupledSource);
@@ -603,6 +604,9 @@ function domInteraction(target){
       }
 
 }
+
+
+
 
 
 /*
