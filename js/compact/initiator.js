@@ -8,4 +8,6 @@ function initiatorFunction(target){
       Paragraphs.process(decoupledSource);
       //Return the output
       Debugger.debugBody();
+      //Begin to package output
+      Packager.package();
 }
