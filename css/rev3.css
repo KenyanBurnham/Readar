@@ -1,5 +1,5 @@
 body{
-    background-color: #BBC8CA;
+  background-color: #f0f0f0 !important;
 }
 
 textarea {
@@ -13,11 +13,6 @@ textarea {
   padding-top: 50px;
   padding-left: 50px;
   padding-right: 50px;
-}
-
-.marked{
-    background: #FFE066;
-    color: #50514F;
 }
 
 .big-container{

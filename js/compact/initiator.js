@@ -7,5 +7,5 @@ function initiatorFunction(target){
       //Send to the processor object.
       Paragraphs.process(decoupledSource);
       //Return the output
-      //Document.bodyDebug();
+      Debugger.debugBody();
 }

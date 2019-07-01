@@ -26,8 +26,6 @@ let Decoupler = {
           let source = document.getElementById("" + target + "").innerHTML;
           //Explicitly type as string
           source = source.toString();
-          //Resolve all interpretations
-          source = Decoupler.decoupleInterpretations(source);
           //Trim whitespace
           source = Decoupler.decouplerTrim(source);
           //Remove example breaks
