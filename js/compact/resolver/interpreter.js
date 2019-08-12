@@ -29,7 +29,6 @@ let Interpreter = {
     testForNumber: function (word){
         let areNumbers = word.match(/\d+/g);
         if(areNumbers != null){
-            console.log(areNumbers);
             return false;
         }else{
             return true;
