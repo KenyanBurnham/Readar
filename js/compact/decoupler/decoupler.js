@@ -10,7 +10,6 @@ let Decoupler = {
 
           // get the id of the element were getting data from
           let source = document.getElementById("" + target + "").innerText;
-          console.log(source);
           //Explicitly type as string
           source = source.toString();
           return source;
