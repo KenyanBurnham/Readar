@@ -10,14 +10,20 @@ let Document = {
         let date = new Date();
         return date.getTime();
     },
-    updateState: function(input){
+    updateDataState: function(input){
         // get only the text from the input
         let textSnapshot = document.getElementById(input).innerText;
         // save it as a state
         Document.state.push(textSnapshot);
     },
-    fetchState: function(){
+    fetchDataState: function(input){
+        //Let's make sure we have the most recent version
+        Document.updateDataState(input);
         //returns last known state
         return Document.state.pop();
+    },
+    fetchDOMState: function(input){
+        // get the text and HTML from the input
+        return document.getElementById(input).innerHTML;
     },
 }

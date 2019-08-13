@@ -14,6 +14,14 @@ let Interpreter = {
         Interpreter.image.push(image);
         Interpreter.abstract.push(abstract);
     },
+    addUnresolved: function(image){
+        // This method appends an unresolved word to the unresolved array
+        Interpreter.unresolved.push(image);
+    },
+    addUnresolvedSpanKey: function(key){
+        //This method pushes span keys to the spanIdentities array
+        Interpreter.spanIdentities.push(key);
+    },
     removeInterpretation: function(image){
         //This method removes an image/abstract pair
         // from Interpretations internal storage
@@ -45,6 +53,8 @@ let Interpreter = {
         return Interpreter.unresolved.includes(word);
     },
     testWord: function(word){
+        //Returns results from word tests to see if it's a number
+        //or a word that can be processed
         let TestResults = {
             containsNumber: Interpreter.testForNumber(word),
             containsInterpretation: Interpreter.testForInterpretation(word),
@@ -61,6 +71,9 @@ let Interpreter = {
         }else{
            return -1;
         }
+    },
+    getUnresolved: function(){
+        return this.unresolved;
     },
     resolveSpans: function(target){
         //get all of the spans in the target

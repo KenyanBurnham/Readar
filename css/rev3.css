@@ -15,6 +15,10 @@ textarea {
   padding-right: 50px;
 }
 
+.unresolved{
+    color: red !important;
+}
+
 .big-container{
     background-color: white;
     box-shadow: 0 10px 6px -6px #777;
@@ -96,7 +100,7 @@ input:focus, textarea {
   }
 
   .paper_in * {
-  color: #444 !important;
+  color: #444;
   margin: 0 !important;
   padding: 0 !important;
   font-size: 16px !important;

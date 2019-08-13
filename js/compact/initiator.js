@@ -4,7 +4,7 @@
 function initiatorFunction(target){
 
       //Get snapshot of document
-      Document.updateState(target);
+      Document.updateDataState(target);
       //test resolver
       Interpreter.resolveSpans(target);
 
@@ -13,9 +13,13 @@ function initiatorFunction(target){
 
       //Send to the processor object.
       Paragraphs.process(decoupledSource);
+
+      //Begin to package output
+      //Packager.package();
+      Decoupler.recouple(target);
+
       //Return the output
       Debugger.debugBody();
-      //Begin to package output
-      Packager.package();
+      Debugger.debriefInterpreter();
 
 }
