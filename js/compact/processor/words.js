@@ -1,3 +1,5 @@
+
+//Edit global to be "global" object
 let Words = {
     globalWords: [],
     words: [],
