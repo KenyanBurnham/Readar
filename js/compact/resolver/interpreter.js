@@ -67,9 +67,9 @@ let Interpreter = {
         //Returns results from word tests to see if it's a number
         //or a word that can be processed
         let TestResults = {
-            containsNumber: Interpreter.testForNumber(word),
-            containsInterpretation: Interpreter.testForInterpretation(word),
-            containsUnresolved: Interpreter.testForUnresolved(word),
+            containsNumber: this.testForNumber(word),
+            containsInterpretation: this.testForInterpretation(word),
+            containsUnresolved: this.testForUnresolved(word),
         };
         return TestResults;
     },
@@ -101,7 +101,7 @@ let Interpreter = {
                 //If this span contains an already resolved interpretation
                 //Then remove the span 'processor' knows how to handle the word
                 Decoupler.remount(target, span, span.innerText);
-                //Interpreter.removeUnresolved(span.innerText);
+                //this.removeUnresolved(span.innerText);
 
             }else{
                 console.log("unresolved span: " + span.innerText + "");

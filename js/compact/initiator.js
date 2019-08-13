@@ -16,6 +16,8 @@ function initiatorFunction(target){
 
       //Begin to package output
       //Packager.package();
+      
+      //Recouple target
       Decoupler.recouple(target);
 
       //Return the output
