@@ -46,8 +46,14 @@ let Interpreter = {
         }
     },
     testForNumber: function (word){
+        //Looks for numbers
         let areNumbers = word.match(/\d+/g);
-        if(areNumbers != null){
+        //Looks for numbers attached/inside to words
+        let areNumbersAttached = word.match(/\d+\B/g);
+        //Any symbol you can find on a standard keyboard
+        let areStandardKeyboardSymbols = word.match(/(?:[\d\#\%\&\^\@\!\-\_\=\+\+\(\)\[\]\`\~\;\:\,\.\<\>\/\\\|\'\"\{\}\*\$\^\?\\])/g);
+        //If any of these are true then they will return a value other than null
+        if((areNumbers != null) || (areNumbersAttached != null) || (areStandardKeyboardSymbols != null)){
             return false;
         }else{
             return true;
@@ -112,5 +118,6 @@ let Interpreter = {
 
             }
         }
+        console.log("spans resolved");
     },
 }

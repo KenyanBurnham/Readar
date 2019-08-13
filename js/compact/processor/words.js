@@ -106,8 +106,7 @@ let Words = {
                               1,
                               Words.calculateBreathUnit(wordLength, 1)
                           );
-                  }
-                  if((testResults.containsUnresolved == false) && (testResults.containsNumber != true)){
+                  }else if((testResults.containsUnresolved == false) && (testResults.containsNumber != true)){
                       //If there is no unresolved, add to unresolved
                       console.log("Contains New Unresolved:" + word);
                       wordCount = wordCount + 1;

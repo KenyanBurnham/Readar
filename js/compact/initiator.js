@@ -5,8 +5,6 @@ function initiatorFunction(target){
 
       //Get snapshot of document
       Document.updateDataState(target);
-      //test resolver
-      Interpreter.resolveSpans(target);
 
       //Grab source element and decouple text from DOM object.
       let decoupledSource = Decoupler.decouple(target);
@@ -16,7 +14,7 @@ function initiatorFunction(target){
 
       //Begin to package output
       //Packager.package();
-      
+
       //Recouple target
       Decoupler.recouple(target);
 
