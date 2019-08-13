@@ -4,6 +4,17 @@
 ==============================================================================*/
 
 let Decoupler = {
+      remount: function(element, target, replacement ){
+          //Generalized method for replacing elements and text
+          //get a current version of the text and HTML
+          let state = Document.fetchDOMState(element);
+          //replace the text/element with something else
+          state = state.replace(target, replacement);
+          //get the target again
+          let inputTarget = document.getElementById(element);
+          //replace the content
+          inputTarget = inputTarget.innerHTML = state;
+      },
       spanFactory: function(unresolved){
           // TODO: Add callback function
           let spans = [];
@@ -34,13 +45,10 @@ let Decoupler = {
           //for every unresolved word, create a span
           let spans = Decoupler.spanFactory(unresolved);
           //for every span
+          console.log(unresolved.length);
           for (let i = 0; i < unresolved.length; i++) {
               //replace the unresolved word with the span
-              state = state.replace(unresolved[i], spans[i]);
+              Decoupler.remount(target, unresolved[i], spans[i]);
           }
-          let inputTarget = document.getElementById(target);
-          //This updates the DOM with the new unresolved spans
-          inputTarget = inputTarget.innerHTML = state;
-          //update state
       },
 }

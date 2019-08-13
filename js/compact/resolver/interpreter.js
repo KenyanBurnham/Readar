@@ -34,6 +34,17 @@ let Interpreter = {
         }
         //If the image/abstraction pair doesn't exist, then we don't care
     },
+    removeUnresolved: function(resolved){
+        //This method removes an unresolved/spanIdentity pair
+        // from Interpretations internal storage
+        let unresolvedIndex = Interpreter.unresolved.indexOf(resolved);
+        if(unresolvedIndex != -1){
+            //Then the unresolved/spanIdentities pair does exist
+            //and needs to be removed
+            Interpreter.unresolved.splice(unresolvedIndex, 1);
+            Interpreter.spanIdentities.splice(unresolvedIndex, 1);
+        }
+    },
     testForNumber: function (word){
         let areNumbers = word.match(/\d+/g);
         if(areNumbers != null){
@@ -89,6 +100,8 @@ let Interpreter = {
                 console.log("resolved span: " + span.innerText + "");
                 //If this span contains an already resolved interpretation
                 //Then remove the span 'processor' knows how to handle the word
+                Decoupler.remount(target, span, span.innerText);
+                //Interpreter.removeUnresolved(span.innerText);
 
             }else{
                 console.log("unresolved span: " + span.innerText + "");

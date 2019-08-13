@@ -112,7 +112,7 @@ let Words = {
                           );
                   }
                   if((testResults.containsUnresolved == false) && (testResults.containsNumber != true)){
-                      //If there is no unresolved, add top unresolved
+                      //If there is no unresolved, add to unresolved
                       console.log("Contains New Unresolved:" + word);
                       wordCount = wordCount + 1;
                           //Add word to unresolved
@@ -127,6 +127,7 @@ let Words = {
                           );
                           //Adds word to unresolved
                           Interpreter.addUnresolved(word);
+
                   }
 
               // Word undergoes regular process
