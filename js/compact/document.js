@@ -14,13 +14,13 @@ let Document = {
         // get only the text from the input
         let textSnapshot = document.getElementById(input).innerText;
         // save it as a state
-        Document.state.push(textSnapshot);
+        this.state.push(textSnapshot);
     },
     fetchDataState: function(input){
         //Let's make sure we have the most recent version
-        Document.updateDataState(input);
+        this.updateDataState(input);
         //returns last known state
-        return Document.state.pop();
+        return this.state.pop();
     },
     fetchDOMState: function(input){
         // get the text and HTML from the input

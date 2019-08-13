@@ -43,12 +43,12 @@ let Decoupler = {
           //get all of the unresolved words
           let unresolved = Interpreter.getUnresolved();
           //for every unresolved word, create a span
-          let spans = Decoupler.spanFactory(unresolved);
+          let spans = this.spanFactory(unresolved);
           //for every span
           console.log(unresolved.length);
           for (let i = 0; i < unresolved.length; i++) {
               //replace the unresolved word with the span
-              Decoupler.remount(target, unresolved[i], spans[i]);
+              this.remount(target, unresolved[i], spans[i]);
           }
       },
 }

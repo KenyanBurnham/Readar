@@ -41,17 +41,17 @@ let Sentences = {
     },
     process: function(paragraph){
         //Reset global sentence storage
-        Sentences.reset();
+        this.reset();
         //Initialize empty variable to store sentences in each pararaph
         let paragraphSentences = [];
         //remove common punctuation and split sentence by ". " pairs
-        let sentences = Sentences.splitPunctuation(paragraph);
+        let sentences = this.splitPunctuation(paragraph);
         //For each sentence, remove any edge cases and push to larger object
         sentences.forEach(function(sentence){
             //Make random spaces filter out
             if(sentence.length > 0){
                 //Increment the sentenceCount variable
-                Sentences.sentenceCount = Sentences.sentenceCount + 1;
+                this.sentenceCount = this.sentenceCount + 1;
                 //create Sentence Object to save in sentences array of Sentences Object
                 let Sentence = new Object;
                 //Add an empty string of sentence to Sentence Object

@@ -10,11 +10,12 @@ let Paragraphs = {
     },
     process: function(text){
         // Reset paragraph global data
-        Paragraphs.reset();
+        this.reset();
         //split text by spaces
         let newlined = text.split("\n");
         //Number of paragraphs
         let paragraphCount = newlined.length;
+        //For each paragraph
         newlined.forEach(function(paragraph){
             //Deals with spurious return carriages.
             paragraphCount = paragraphCount - 1;
@@ -40,6 +41,6 @@ let Paragraphs = {
         });
         //Update the paragraph count
         this.count = paragraphCount;
-        Document.body = Paragraphs.paragraphs;
+        Document.body = this.paragraphs;
     },
 };

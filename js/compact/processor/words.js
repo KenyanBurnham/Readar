@@ -27,34 +27,30 @@ let Words = {
     },
     updateLocalAndGlobal: function(length, words, syllables, breaths){
         //This generalizes adding global and local variables
-
         //Pushes local word length
-        Words.local.lengths.push(length);
+        this.local.lengths.push(length);
         //Pushes local words
-        Words.local.words.push(words);
+        this.local.words.push(words);
         //Increments total local syllables
-        Words.local.syllables = Words.local.syllables + 1;
+        this.local.syllables = this.local.syllables + 1;
         //Pushes local breath units
-        Words.local.breaths.push(breaths);
-
+        this.local.breaths.push(breaths);
         //Add length to the global Words
-        Words.wordLengths.push(length);
+        this.wordLengths.push(length);
         //Add syllable counts to global Word Bank
-        Words.syllables = Words.syllables + 1;
+        this.syllables = this.syllables + 1;
         //Add word to the global Words
-        Words.globalWords.push(words);
+        this.globalWords.push(words);
         //Add breath unit to global Words
-        Words.breaths.push(breaths);
-
-        //Global word count is added at the end
+        this.breaths.push(breaths);
     },
     resetLocal: function(){
         //Resets the local word metrics at every sentence
-        Words.local.lengths = [];
-        Words.local.count = 0;
-        Words.local.words = [];
-        Words.local.syllables = 0;
-        Words.local.breaths = [];
+        this.local.lengths = [];
+        this.local.count = 0;
+        this.local.words = [];
+        this.local.syllables = 0;
+        this.local.breaths = [];
     },
     processWords: function(sentence, caller){
         //remove all non-word characters
@@ -63,7 +59,7 @@ let Words = {
         let words = sentence.split(" ");
 
         //Resets the local bank
-        Words.resetLocal();
+        this.resetLocal();
         //Initialize a wordCount variable
         let wordCount = 0;
 
@@ -158,11 +154,11 @@ let Words = {
               }
         });
         //Add the number of words to the Bank
-        Words.local.count = wordCount;
+        this.local.count = wordCount;
         //Bank.count = wordCount;
         //Push copy of word bank into global word bank
-        Words.wordCount = wordCount;
+        this.wordCount = wordCount;
         //Return Bank to Sentences
-        return Words.local;
+        return this.local;
     },
 }
