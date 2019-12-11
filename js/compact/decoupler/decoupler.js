@@ -15,6 +15,10 @@ let Decoupler = {
           //replace the content
           inputTarget = inputTarget.innerHTML = state;
       },
+      spanEvent: function(that){
+
+          console.log(that);
+      },
       spanFactory: function(unresolved){
           // TODO: Add callback function
           let spans = [];
@@ -22,7 +26,7 @@ let Decoupler = {
               //create a unique id for the array
               let spanKey = createKey();
               //create the span and add it to the returned array
-              spans[i] = '<span id="' + spanKey + '" class="unresolved">' + unresolved[i] +  "</span>";
+              spans[i] = '<span id="' + spanKey + '" class="unresolved" onclick="Decoupler.spanEvent(this.id)">' + unresolved[i] +  " </span>";
               //Add the key to the unresolved span key array
               Interpreter.addUnresolvedSpanKey(spanKey);
           }
