@@ -12,22 +12,24 @@ function initiatorFunction(target){
       //Send to the processor object.
       Paragraphs.process(decoupledSource);
 
+      //Return the output
+      Debugger.debugBody();
+      Debugger.debriefInterpreter();
+
       //Begin to package output
-      //Packager.package();
+      Packager.package();
 
       //Recouple target
       Decoupler.recouple(target);
 
-      //Return the output
-      Debugger.debugBody();
-      Debugger.debriefInterpreter();
+
 
 }
 
 // TODO: Fix the nexicon functionality, isolate it to its own js
 // Fix the Modal
 // have the changed word be reflected in the lexicon
-
+/*
 // Get the modal
 var modal = document.getElementById("myModal");
 
@@ -53,3 +55,4 @@ window.onclick = function(event) {
     modal.style.display = "none";
   }
 }
+*/

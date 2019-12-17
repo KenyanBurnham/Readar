@@ -159,7 +159,7 @@ let Words = {
         //Bank.count = wordCount;
         //Push copy of word bank into global word bank
         this.wordCount = wordCount;
-        //Return Bank to Sentences
+        //Return local to Sentences
         return this.local;
     },
 }
