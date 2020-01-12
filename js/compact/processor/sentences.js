@@ -79,7 +79,6 @@ let Sentences = {
                         Sentence.fragments.push(fragmentWordObject);
                     }
                 });
-
                 //Save a copy to the sentences object
                 Sentences.sentences.push(Sentence);
                 //Save a copy to return to paragraph
