@@ -22,8 +22,6 @@ function initiatorFunction(target){
       //Recouple target
       Decoupler.recouple(target);
 
-
-
 }
 
 // TODO: Fix the nexicon functionality, isolate it to its own js
