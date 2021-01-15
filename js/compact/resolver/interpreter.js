@@ -89,6 +89,17 @@ let Interpreter = {
            return -1;
         }
     },
+    getUnresolvedFromIdentity: function(identity){
+        //get index of name and use it to get the word itself
+        let locationOfUnresolved = this.spanIdentities.indexOf(identity);
+        return this.unresolved[locationOfUnresolved];
+    },
+    getIdentityFromUnresolved: function(unresolved){
+        //use unresolved word to get idenity
+        let identityPosition = this.unresolved.indexOf(unresolved);
+        //return idenity
+        return this.spanIdentities[identityPosition];
+    },
     getUnresolved: function(){
         return this.unresolved;
     },
@@ -103,14 +114,11 @@ let Interpreter = {
             //If there is a real interpretation
             //replace the span with the innerText
             if(interpretation != false){
-                console.log("resolved span: " + span.innerText + "");
                 //If this span contains an already resolved interpretation
                 //Then remove the span 'processor' knows how to handle the word
                 Decoupler.remount(target, span, span.innerText);
                 //this.removeUnresolved(span.innerText);
-
             }else{
-                console.log("unresolved span: " + span.innerText + "");
                 //If this span contains unresolved words,
                 //then save the word in unresolved
                 this.unresolved.push(span.innerText);
@@ -118,6 +126,20 @@ let Interpreter = {
 
             }
         }
-        console.log("spans resolved");
+    },
+    getAbstractFromNexicon: function(){
+        abstract = document.getElementById("nexiconInput").value;
+        unresolved = document.getElementById("nexiconAddition").innerText;
+        //get the unresolved spanIdentity
+        let target = this.getIdentityFromUnresolved(unresolved);
+        //Fetch the unresolved and remove it,
+        this.removeUnresolved(unresolved);
+        //Then add to the images and abstractions
+        this.addInterpretation(unresolved, abstract);
+        //Debugger.debriefInterpreter();
+        // reset the nexicon modal
+        View.resetNexicon();
+        //remove the span
+        Decoupler.remove(target, unresolved);
     },
 }

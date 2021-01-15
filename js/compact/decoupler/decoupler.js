@@ -16,8 +16,15 @@ let Decoupler = {
           inputTarget = inputTarget.innerHTML = state;
       },
       spanEvent: function(that){
-
-          console.log(that);
+          //that is the id for the span itself
+          //console.log(that);
+          let span = document.getElementById("" + that + "");
+          let word = Interpreter.getUnresolvedFromIdentity(that);
+          //gets the span that the nexicon uses to displays
+          //the word to be interpreted, then sets it
+          document.getElementById("nexiconAddition").innerHTML = word;
+          // Togglet the visibility to FALSE which is visible
+          View.toggleNexicon(false);
       },
       spanFactory: function(unresolved){
           // TODO: Add callback function
@@ -33,6 +40,7 @@ let Decoupler = {
           return spans;
       },
       decouple: function(target){
+          // Decouple gets the word from the unresolved span?
           // Resolve span Id's
           Interpreter.resolveSpans(target);
           // get the id of the element were getting data from
@@ -49,10 +57,16 @@ let Decoupler = {
           //for every unresolved word, create a span
           let spans = this.spanFactory(unresolved);
           //for every span
-          console.log(unresolved.length);
           for (let i = 0; i < unresolved.length; i++) {
               //replace the unresolved word with the span
               this.remount(target, unresolved[i], spans[i]);
           }
+      },
+      remove: function(target, image){
+          //provide the id and it will remove and replace with the word
+          let toBeRemoved = document.getElementById(target);
+          //and then resolve spans
+          toBeRemoved.replaceWith(image);
+
       },
 }

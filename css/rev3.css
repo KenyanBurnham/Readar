@@ -33,6 +33,11 @@ textarea {
     height: 100vh;
 }
 
+.nexicon-input{
+    resize: none;
+    border: 1px solid #EFEFEF;
+}
+
 .small-container{
     height: 100%;
     width: 100%;
