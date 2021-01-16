@@ -9,13 +9,16 @@ View = {
       }
   },
   resetNexicon: function(){
-    //hide the nexicon
-    this.toggleNexicon(true);
-    //reset the span that shows users the word
-    document.getElementById('nexiconAddition').innerText = "Word";
-    //reset the nexicon input
-    document.getElementById('nexiconInput').value = "Type Here";
+      //hide the nexicon
+      this.toggleNexicon(true);
+      //reset the span that shows users the word
+      document.getElementById('nexiconAddition').innerText = "Word";
+      //reset the nexicon input
+      document.getElementById('nexiconInput').value = "Type Here";
   },
+  clearNexiconInput: function(){
+      document.getElementById("nexiconInput").value = "";
+  }
 };
 
 // initializes the nexicon column invisble

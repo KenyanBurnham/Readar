@@ -29,8 +29,6 @@
     <a href="use.html" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Use Readar</a>
     <a href="#" class="w3-bar-item w3-button w3-hide-small w3-hover-white">News</a>
     <a href="#" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Contact</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-hide-medium w3-hover-white">Clients</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-hide-medium w3-hover-white">Partners</a>
   </div>
 </div>
 
@@ -55,7 +53,7 @@
 
       <div class="w3-row" style="margin-left: 150px;">
           <div class="row">
-              <button class="btn btn-lg btn-primary" type="button" name="button" onclick="initiatorFunction('inputTarget');">&#128260;</button>
+              <button class="btn btn-lg btn-primary" type="button" name="button" onclick="initiatorFunction('inputTarget');">Run</button>
           </div>
           <br><br>
           <div class="row">
@@ -85,17 +83,24 @@
                               <!-- Modal content -->
                               <div class="modal-content">
                                 <div class="modal-header">
-                                  <h2>Nexicon</h2>
                                   <span class="close">&times;</span>
                                 </div>
                                 <div class="modal-body">
-                                  <p>Type in an interpretation for the word: <span id="nexiconAddition">Word</span> </p>
+                                  <small>The word below can not be processed using the typical heuristics.</small>
                                   <br>
-                                  <textarea id="nexiconInput" name="nexiconInput" rows="4" cols="15" class="nexicon-input">Type Here</textarea>
+                                  <span id="nexiconAddition" class="nexicon-addition">Word</span>
+                                  <br>
+                                  <small>Type in a pronounciation of the word and click "update". This interpretation will be saved.</small>
+                                  <br>
+                                  <textarea id="nexiconInput" name="nexiconInput" rows="4" cols="25" class="nexicon-input" onclick="View.clearNexiconInput();">Type Here</textarea>
+                                </div>
+                                <!-- TODO: Ensure that the user experience includes some sort of input parsing -->
+                                <div class="alert alert-danger" role="alert" hidden>
+                                  Your pronounciation may only contain letter characters.
                                 </div>
                                 <div class="modal-footer">
-                                  <button type="button" name="button" onclick="Interpreter.getAbstractFromNexicon();">Update</button>
-                                  <button type="button" name="button" onclick="View.resetNexicon();">Cancel</button>
+                                  <button type="button" class="btn btn-info" name="button" onclick="Interpreter.getAbstractFromNexicon();">Update</button>
+                                  <button type="button" class="btn btn-light" name="button" onclick="View.resetNexicon();">Cancel</button>
                                 </div>
                               </div>
                           </div>
