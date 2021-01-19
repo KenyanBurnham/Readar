@@ -6,8 +6,6 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="manifest" href="manifest.json">
       <!-- Template Stylesheets-->
-      <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-      <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -17,112 +15,221 @@
       <link rel="stylesheet" href="css/mobile.css">
       <link rel="stylesheet" href="css/rev3.css">
       <!-- Scripts-->
+      <!-- TODO: Check to see if this still works -->
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
 
 <body>
+    <main class="container-fluid readar-container" id="useContainer">
 
-<!-- Navbar -->
-<div class="w3-top">
-  <div class="w3-bar nav-app-teal w3-top w3-left-align w3-large">
-    <a class="w3-bar-item w3-button w3-right w3-hide-large w3-hover-white w3-large nav-app-teal-faded" href="javascript:void(0)" onclick="w3_open()"><i class="fa fa-bars"></i></a>
-    <a href="https://github.com/KenyanBurnham/Readar" class="w3-bar-item w3-button nav-app-teal-faded">Readar</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-hover-white active-nav">About</a>
-    <a href="use.html" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Use Readar</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-hover-white">News</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Contact</a>
-  </div>
-</div>
-
-<!-- Sidebar -->
-<nav class="w3-sidebar w3-bar-block w3-collapse w3-large w3-theme-l5 w3-animate-left" id="mySidebar" style="background-color: white !important;">
-  <a href="javascript:void(0)" onclick="w3_close()" class="w3-right w3-xlarge w3-padding-large w3-hover-black w3-hide-large" title="Close Menu">
-    <i class="fa fa-remove"></i>
-  </a>
-  <h4 class="w3-bar-item app-faded-span"><b>Menu</b></h4>
-  <a class="w3-bar-item w3-button w3-hover-white btn btn-md btn-primary" style="text-align: center; margin-left: 5%; margin-right: 5%; width: 90%;" href="use.html">Use Readar</a>
-  <a class="w3-bar-item w3-button w3-hover-white active-nav" href="index.html">About</a>
-  <a class="w3-bar-item w3-button w3-hover-white" href="#">Link</a>
-  <a class="w3-bar-item w3-button w3-hover-white" href="#">Link</a>
-</nav>
-
-<!-- Overlay effect when opening sidebar on small screens -->
-<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
-
-    <!-- Main content: shift it to the right by 250 pixels when the sidebar is visible -->
-    <div class="w3-main" style="margin-left: 250px;">
-      <br><br><br><br>
-
-      <div class="w3-row" style="margin-left: 150px;">
-          <div class="row">
-              <button class="btn btn-lg btn-primary" type="button" name="button" onclick="initiatorFunction('inputTarget');">Run</button>
+<!--=========================================================================-->
+<!-- Controls Section -->
+<!--=========================================================================-->
+        <div class="row gx-5">
+            <div class="col">
+                &nbsp;
+            </div>
+            <div class="col-8">
+                <div class="row">
+                    <button class="btn btn-lg btn-primary" type="button" name="button" onclick="initiatorFunction('inputTarget');">Run</button>
+                    <button class="btn btn-lg btn-info" type="button" name="button" onclick="initiatorFunction('inputTarget');">Compile</button>
+                </div>
+            </div>
+            <div class="col">
+                &nbsp;
+            </div>
+        </div>
+        <br><br> <!-- Intentional vertical spacing -->
+<!--=========================================================================-->
+<!-- Editing Section -->
+<!--=========================================================================-->
+        <div class="row gx-5">
+          <div class="col">
+            &nbsp;
           </div>
-          <br><br>
-          <div class="row">
-              <section class="full-width-editor container-fluid">
-                  <div class="row">
-                      <div class="col-md-6">
-                        <article class="paper">
-                          <div class="paper_in" contenteditable id="inputTarget">
-                              Welcome to Readar!
-                              <span id="span01">rev360</span>
-                              Readar is an analytical text-editor that gives statistics and line-by-line data. Text can be typed or pasted into this editor.
-                              <br><br>
-                              Revolution lorem Entertainment720 Ipsum am liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.
-                              <br><br>
-                              Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-                              <br><br>
-                              Lorem Ipsum am liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.
-                              <br><br>
-                              Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-                              <br><br>
-                              Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-                          </div>
-                          </article>
+          <div class="col-8">
+              <div class="row gx-5">
+                  <section class="paper">
+                        <div class="paper_in" contenteditable id="inputTarget">
+                            Welcome to Readar!
+                            <span id="span01">rev360</span>
+                            Readar is an analytical text-editor that gives statistics and line-by-line data. Text can be typed or pasted into this editor.
+                            <br><br>
+                            Revolution lorem Entertainment720 Ipsum am liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.
+                            <br><br>
+                            Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+                            <br><br>
+                            Lorem Ipsum am liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.
+                            <br><br>
+                            Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+                            <br><br>
+                            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+                        </div>
+                  </section>
+              </div>
+          </div>
+          <div class="col">
+              <!-- Definition Changing Function-->
+              <div id="nexiconColumn" class="">
+                  <div class="row button-group-sticky" style="float: left;" >
+                      <!-- Modal content -->
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <span class="close" onclick="View.resetNexicon();">&times;</span>
+                        </div>
+                        <div class="modal-body">
+                          <small>The word below can not be processed using the typical heuristics.</small>
+                          <br>
+                          <span id="nexiconAddition" class="nexicon-addition">Word</span>
+                          <br>
+                          <small>Type in a pronounciation of the word and click "update". This interpretation will be saved.</small>
+                          <br>
+                          <textarea id="nexiconInput" name="nexiconInput" rows="4" cols="25" class="nexicon-input" onclick="View.clearNexiconInput();">Type Here</textarea>
+                        </div>
+                        <!-- TODO: Ensure that the user experience includes some sort of input parsing -->
+                        <div class="alert alert-danger" role="alert" hidden>
+                          Your pronounciation may only contain letter characters.
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-info" name="button" onclick="Interpreter.getAbstractFromNexicon();">Update</button>
+                          <button type="button" class="btn btn-light" name="button" onclick="View.resetNexicon();">Cancel</button>
+                        </div>
                       </div>
-                      <div id="nexiconColumn" class="col-md-3">
-                          <div class="row button-group-sticky" style="float: left;" >
-                              <!-- Modal content -->
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <span class="close">&times;</span>
-                                </div>
-                                <div class="modal-body">
-                                  <small>The word below can not be processed using the typical heuristics.</small>
-                                  <br>
-                                  <span id="nexiconAddition" class="nexicon-addition">Word</span>
-                                  <br>
-                                  <small>Type in a pronounciation of the word and click "update". This interpretation will be saved.</small>
-                                  <br>
-                                  <textarea id="nexiconInput" name="nexiconInput" rows="4" cols="25" class="nexicon-input" onclick="View.clearNexiconInput();">Type Here</textarea>
-                                </div>
-                                <!-- TODO: Ensure that the user experience includes some sort of input parsing -->
-                                <div class="alert alert-danger" role="alert" hidden>
-                                  Your pronounciation may only contain letter characters.
-                                </div>
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-info" name="button" onclick="Interpreter.getAbstractFromNexicon();">Update</button>
-                                  <button type="button" class="btn btn-light" name="button" onclick="View.resetNexicon();">Cancel</button>
-                                </div>
-                              </div>
-                          </div>
                   </div>
-              </section>
           </div>
-      </div>
-      <br><br>
+        </div>
+    </main>
 
-      <div class="row" id="myFooter" style="background-color: #007bff;">
-          <div class="col-sm-12">
-            <div class="footer-styling w3-center">
-              <br>
-              <p class="footer-text app-faded-span">Created by <a class="footer-text" href="https://www.linkedin.com/in/kenyan-burnham-0ba25582/" target="_blank">Kenyan Burnham</a>, <span >2019</span></p>
+<!--=========================================================================-->
+<!-- Results Section -->
+<!--=========================================================================-->
+    <section id="resultsContainer">
+        <div class="" id="publishedResults"></div>
+
+        <div class="row gx-5" hidden>
+            <div class="col">
+                &nbsp;
+            </div>
+            <div class="col-8">
+                <!-- Body Characteristics -->
+                <div class="row">
+                    <h1 class="">Body Statistics</h1>
+                    <br><br>
+                    <p class="">Below are the body statistics </p>
+                </div>
+                <div class="row">
+                    <table class="bodyTable">
+                        <thead>
+                            <tr>
+                                <td> &nbsp; </td>
+                                <td class="table-key-blue">Words</td>
+                                <td class="table-key-light-blue">Syllables</td>
+                                <td class="table-key-opaque-blue">Breath Units</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><b class="td-label">Average</b></td>
+                                <td class="td-word" id="wordAverage"></td>
+                                <td class="td-syl" id="syllableAverage"></td>
+                                <td class="td-breath" id="breathAverage"></td>
+                            </tr>
+                            <tr>
+                                <td><b class="td-label">Max.</b></td>
+                                <td class="td-word" id="wordMax"></td>
+                                <td class="td-syl" id="syllableMax"></td>
+                                <td class="td-breath" id="breathMax"></td>
+                            </tr>
+                            <tr>
+                                <td><b class="td-label">Min.</b></td>
+                                <td class="td-word" id="wordMin"></td>
+                                <td class="td-syl" id="syllableMin"></td>
+                                <td class="td-breath" id="breathMin"></td>
+                            </tr>
+                            <tr>
+                                <td><b class="td-label">Median</b></td>
+                                <td class="td-word" id="wordMedian"></td>
+                                <td class="td-syl" id="syllableMedian"></td>
+                                <td class="td-breath" id="breathMedian"></td>
+                            </tr>
+                            <tr>
+                                <td><b class="td-label">Stan. Dev.</b></td>
+                                <td class="td-word" id="wordDeviation"></td>
+                                <td class="td-syl" id="syllableDeviation"></td>
+                                <td class="td-breath" id="breathDeviation"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                  </div>
+
+                  <!-- Sentence Characteristics -->
+                  <div class="row gx-5">
+                      <div class="row">
+                          <h1 class="">Sentence Characteristics</h1>
+                          <br><br>
+                          <p class="">Below are the sentence statistics </p>
+                      </div>
+                      <br>
+                      <div class="row">
+                          <table class="outputTable">
+                              <tbody id="sentenceOutput"></tbody>
+                          </table>
+                      </div>
+                  </div>
+
+                  <!-- Body Graph -->
+                  <div class="row gx-5">
+                      <div class="row">
+                          <h1 class="">Body Chart</h1>
+                          <br><br>
+                          <p class="">Below are the sentence statistics </p>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <canvas id="bodyChart" width="300" height="200"></canvas>
+                  </div>
+
+              <!-- Word Graph -->
+              <div class="row gx-5">
+                  <div class="row">
+                      <h1 class="">Word Chart</h1>
+                      <br><br>
+                      <p class="">Below are the word statistics </p>
+                  </div>
+                  <div class="row">
+                      <canvas id="wordChart" width="300" height="200"></canvas>
+                  </div>
+              </div>
+
+              <!-- Syllable Graph -->
+              <div class="row gx-5">
+                  <div class="row">
+                      <h1 class="">Syllable Chart</h1>
+                      <br><br>
+                      <p class="">Below are the syllables statistics </p>
+                  </div>
+                  <div class="row">
+                      <canvas id="sylChart" width="300" height="200"></canvas>
+                  </div>
+              </div>
+
+              <!-- Breath Graph -->
+              <div class="row gx-5">
+                  <div class="row">
+                      <h1 class="">Breath Unit Chart</h1>
+                      <br><br>
+                      <p class="">Below are the breath units statistics </p>
+                  </div>
+                  <div class="row">
+                      <canvas id="breathChart" width="300" height="200"></canvas>
+                  </div>
+              </div>
+
+            </div> <!-- End of col-8-->
+            <div class="col">
+                &nbsp;
             </div>
           </div>
-      </div>
-    <!-- END MAIN -->
-    </div>
-    <footer >
-
-    </footer>
+    </section>
 
 
     <!-- Scripts -->

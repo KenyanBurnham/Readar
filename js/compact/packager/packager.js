@@ -1,5 +1,6 @@
 
-//Building the chartography bit
+//Packer create the output model
+//then redirects the building functions to View.js
 let Packager = {
     wrapper: function(body){
         //This separates the paragraphs
@@ -26,9 +27,7 @@ let Packager = {
                 //console.log("Maximum: " + maximumBreath);
             }
 
-            //Insert sentences into it with different color properties
-
-        }//End of first for loop
+        }//End of first for loop (paragraphs)
     },
     package: function(){
         //Gets the body from document
