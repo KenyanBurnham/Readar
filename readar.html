@@ -34,8 +34,10 @@
                     <button class="btn btn-lg btn-info" type="button" name="button" onclick="initiatorFunction('inputTarget');">Compile</button>
                 </div>
             </div>
-            <div class="col">
-                &nbsp;
+            <div class="col" style="float: right;">
+              <div class="spinner-grow text-info" role="status">
+                <span class="visually-hidden">Saving...</span>
+              </div>
             </div>
         </div>
         <br><br> <!-- Intentional vertical spacing -->
@@ -78,11 +80,11 @@
                         </div>
                         <div class="modal-body">
                           <small>The word below can not be processed using the typical heuristics.</small>
-                          <br>
-                          <span id="nexiconAddition" class="nexicon-addition">Word</span>
-                          <br>
+                          <div class="row">
+                              <span id="nexiconAddition" class="nexicon-addition" style="display: block; margin: auto;">Word</span>
+                          </div>
                           <small>Type in a pronounciation of the word and click "update". This interpretation will be saved.</small>
-                          <br>
+                          <br><br>
                           <textarea id="nexiconInput" name="nexiconInput" rows="4" cols="25" class="nexicon-input" onclick="View.clearNexiconInput();">Type Here</textarea>
                         </div>
                         <!-- TODO: Ensure that the user experience includes some sort of input parsing -->
@@ -104,131 +106,6 @@
 <!--=========================================================================-->
     <section id="resultsContainer">
         <div class="" id="publishedResults"></div>
-
-        <div class="row gx-5" hidden>
-            <div class="col">
-                &nbsp;
-            </div>
-            <div class="col-8">
-                <!-- Body Characteristics -->
-                <div class="row">
-                    <h1 class="">Body Statistics</h1>
-                    <br><br>
-                    <p class="">Below are the body statistics </p>
-                </div>
-                <div class="row">
-                    <table class="bodyTable">
-                        <thead>
-                            <tr>
-                                <td> &nbsp; </td>
-                                <td class="table-key-blue">Words</td>
-                                <td class="table-key-light-blue">Syllables</td>
-                                <td class="table-key-opaque-blue">Breath Units</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><b class="td-label">Average</b></td>
-                                <td class="td-word" id="wordAverage"></td>
-                                <td class="td-syl" id="syllableAverage"></td>
-                                <td class="td-breath" id="breathAverage"></td>
-                            </tr>
-                            <tr>
-                                <td><b class="td-label">Max.</b></td>
-                                <td class="td-word" id="wordMax"></td>
-                                <td class="td-syl" id="syllableMax"></td>
-                                <td class="td-breath" id="breathMax"></td>
-                            </tr>
-                            <tr>
-                                <td><b class="td-label">Min.</b></td>
-                                <td class="td-word" id="wordMin"></td>
-                                <td class="td-syl" id="syllableMin"></td>
-                                <td class="td-breath" id="breathMin"></td>
-                            </tr>
-                            <tr>
-                                <td><b class="td-label">Median</b></td>
-                                <td class="td-word" id="wordMedian"></td>
-                                <td class="td-syl" id="syllableMedian"></td>
-                                <td class="td-breath" id="breathMedian"></td>
-                            </tr>
-                            <tr>
-                                <td><b class="td-label">Stan. Dev.</b></td>
-                                <td class="td-word" id="wordDeviation"></td>
-                                <td class="td-syl" id="syllableDeviation"></td>
-                                <td class="td-breath" id="breathDeviation"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                  </div>
-
-                  <!-- Sentence Characteristics -->
-                  <div class="row gx-5">
-                      <div class="row">
-                          <h1 class="">Sentence Characteristics</h1>
-                          <br><br>
-                          <p class="">Below are the sentence statistics </p>
-                      </div>
-                      <br>
-                      <div class="row">
-                          <table class="outputTable">
-                              <tbody id="sentenceOutput"></tbody>
-                          </table>
-                      </div>
-                  </div>
-
-                  <!-- Body Graph -->
-                  <div class="row gx-5">
-                      <div class="row">
-                          <h1 class="">Body Chart</h1>
-                          <br><br>
-                          <p class="">Below are the sentence statistics </p>
-                      </div>
-                  </div>
-                  <div class="row">
-                      <canvas id="bodyChart" width="300" height="200"></canvas>
-                  </div>
-
-              <!-- Word Graph -->
-              <div class="row gx-5">
-                  <div class="row">
-                      <h1 class="">Word Chart</h1>
-                      <br><br>
-                      <p class="">Below are the word statistics </p>
-                  </div>
-                  <div class="row">
-                      <canvas id="wordChart" width="300" height="200"></canvas>
-                  </div>
-              </div>
-
-              <!-- Syllable Graph -->
-              <div class="row gx-5">
-                  <div class="row">
-                      <h1 class="">Syllable Chart</h1>
-                      <br><br>
-                      <p class="">Below are the syllables statistics </p>
-                  </div>
-                  <div class="row">
-                      <canvas id="sylChart" width="300" height="200"></canvas>
-                  </div>
-              </div>
-
-              <!-- Breath Graph -->
-              <div class="row gx-5">
-                  <div class="row">
-                      <h1 class="">Breath Unit Chart</h1>
-                      <br><br>
-                      <p class="">Below are the breath units statistics </p>
-                  </div>
-                  <div class="row">
-                      <canvas id="breathChart" width="300" height="200"></canvas>
-                  </div>
-              </div>
-
-            </div> <!-- End of col-8-->
-            <div class="col">
-                &nbsp;
-            </div>
-          </div>
     </section>
 
 
