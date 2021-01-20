@@ -5,6 +5,8 @@ let Document = {
     body: [],
     words: [],
     wordKeys: [],
+    breaths: [],
+    averageBreath: 0,
     createTimeStamp: function(){
         //creates a timeStamp
         let date = new Date();

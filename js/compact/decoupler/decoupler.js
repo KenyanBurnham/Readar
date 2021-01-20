@@ -26,7 +26,7 @@ let Decoupler = {
           // Togglet the visibility to FALSE which is visible
           View.toggleNexicon(false);
       },
-      spanFactory: function(unresolved){
+      spanFactoryInterpretations: function(unresolved){
           // TODO: Add callback function
           let spans = [];
           for (var i = 0; i < unresolved.length; i++) {
@@ -40,7 +40,7 @@ let Decoupler = {
           return spans;
       },
       decouple: function(target){
-          // Decouple gets the word from the unresolved span?
+          // Decouple gets the word from the unresolved span
           // Resolve span Id's
           Interpreter.resolveSpans(target);
           // get the id of the element were getting data from
@@ -55,7 +55,7 @@ let Decoupler = {
           //get all of the unresolved words
           let unresolved = Interpreter.getUnresolved();
           //for every unresolved word, create a span
-          let spans = this.spanFactory(unresolved);
+          let spans = this.spanFactoryInterpretations(unresolved);
           //for every span
           for (let i = 0; i < unresolved.length; i++) {
               //replace the unresolved word with the span

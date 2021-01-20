@@ -32,12 +32,12 @@ let Ariths = {
         return average;
     },
     deviation: function(dataset){
-        let average = getAverage(dataset);
+        let average = this.average(dataset);
         let avgDev = [];
         for (var i = 0; i < dataset.length; i++) {
             avgDev[i] = Math.pow(Math.abs(average - Number(dataset[i])), 2);
         }
-        let avgDeviation = getAverage(avgDev);
+        let avgDeviation = this.average(avgDev);
         let standardDeviation = Math.sqrt(avgDeviation);
         return standardDeviation;
     }

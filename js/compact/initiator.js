@@ -12,16 +12,21 @@ function initiatorFunction(target){
       //Send to the processor object.
       Paragraphs.process(decoupledSource);
 
-      //Return the output
-      Debugger.debugBody();
-      Debugger.debriefInterpreter();
+      //Calculate the global breath
+      getGlobalBreath();
+
+          //Return the output
+          Debugger.debugBody();
 
       //Begin to package output
-      Packager.package();
+      Packager.package(target);
 
       //Recouple target
       Decoupler.recouple(target);
 
+        //Debug the spanFactoryInterpretations
+        Debugger.debriefInterpreter();
+        console.log(Packager.packagedSpans);
 }
 
 //Sets a display message for the console

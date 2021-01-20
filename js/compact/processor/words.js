@@ -47,7 +47,7 @@ let Words = {
               //If there is a known interpretation for the word
               if((testResults.containsInterpretation == true)){
                   //Then the word is already known
-                  console.log("Contains Interpretation: " + word);
+                  //console.log("Contains Interpretation: " + word);
                   //Go ahead and get the interpretation
                   let interpretation = Interpreter.getInterpretation(word);
                   //And the syllable count for the interpretation
@@ -72,7 +72,7 @@ let Words = {
                       //Is there a known unresolved word?
                       //CAVEAT: THIS WILL CREATE A DIP IN THE representation
                       // DEFAULT BEHAVIOR IS TO ASSIGN SYLLABLES TO 1
-                      console.log("Contains Known Unresolved: " + word);
+                      //console.log("Contains Known Unresolved: " + word);
                       wordCount = wordCount + 1;
                           //This creates a spike in the representation of the word
                           //Add the wordlength to the bank,
@@ -91,7 +91,7 @@ let Words = {
                   //Adds to the unresolved object
                   }else if((testResults.containsUnresolved == false) && (testResults.containsNumber != true)){
                       //If there is no unresolved, add to unresolved
-                      console.log("Contains New Unresolved:" + word);
+                      //console.log("Contains New Unresolved:" + word);
                       wordCount = wordCount + 1;
                           //This creates a spike in the representation of the word
                           //Add the wordlength to the bank,
@@ -145,6 +145,11 @@ let Words = {
 
         //Add the number of words to the Bank
         Bank.count = wordCount;
+        //This adds all of the breaths to a central repository
+        // Used for calculating the global breaths
+        for (var k = 0; k < Bank.breaths.length; k++) {
+            Document.breaths.push(Bank.breaths[k]);
+        }
         //Push copy of word bank into global word bank
         this.wordCount = wordCount;
         //Return local to Sentences
