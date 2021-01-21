@@ -4,6 +4,7 @@
 ==============================================================================*/
 
 let Decoupler = {
+      sentencesPrior: [],
       remount: function(element, target, replacement ){
           //Generalized method for replacing elements and text
           //get a current version of the text and HTML
@@ -74,29 +75,49 @@ let Decoupler = {
               //the id's of each sentence
               let target = Packager.packagedSpans[i];
               let element = document.getElementById("" + target + "");
-              let text = element.innerText;
-              console.log(text);
-              element.replaceWith(text);
+              try {
+                  // This is here because there sometimes are duplicates
+                  // of sentences and they get removed in previous steps
+                  let text = element.innerText;
+                  console.log(text);
+                  element.replaceWith(text);
+              } catch (e) {
+                  console.log("an error happened");
+              }
           }
       },
       spanFactorySentences: function(sentence, target){
-        // TODO: Ensure parts of this functionality are moved to decoupler
+        // TODO: Rectify their being multiple sentences with the same id
           //this asks the document state for the exact splice where a sentence occurs
           //and then splices it and puts a span around it
-          let state = Document.fetchDOMState(target);
-          //create a unique id for the array
-          let spanKey = createKey();
-          //Create the span
-          let replacement = "<span id='" + spanKey + "' onclick='Packager.spanEvent(this.id)'>" + sentence + "</span>";
-          //console.log("Sentence in question: " + sentence);
-          state = state.replace(sentence, replacement);
-          //put the HTML back on the DOM
-          document.getElementById(target).innerHTML = state;
-          // add the span id to the packed spans list
-          Packager.packagedSpans.push(spanKey);
-          //Color solution?
-          //https://stackoverflow.com/questions/3080421/javascript-color-gradient
-          var tmp = generateColor('#000000','#ff0ff0',10);
-          console.log(tmp.length);
+          let proceed = true;
+          for (var i = 0; i < this.sentencesPrior.length; i++) {
+            if (sentence == sentencesPrior[i]) {
+                proceed = false;
+            }
+          }
+
+          // This is here because in the test data their were repeat sentences
+          // which could be a real probelm
+          if (proceed == true) {
+              let state = Document.fetchDOMState(target);
+              //create a unique id for the array
+              let spanKey = createKey();
+              //Create the span
+              let replacement = "<span id='" + spanKey + "' onclick='Packager.spanEvent(this.id)'>" + sentence + "</span>";
+              //convert sentence into a regular expression
+              let regexp = new RegExp(sentence, 'g');
+              //console.log("Sentence in question: " + sentence);
+              state = state.replace(regexp, replacement);
+              //put the HTML back on the DOM
+              document.getElementById(target).innerHTML = state;
+              // add the span id to the packed spans list
+              Packager.packagedSpans.push(spanKey);
+              //Color solution?
+              //https://stackoverflow.com/questions/3080421/javascript-color-gradient
+              var tmp = generateColor('#000000','#ff0ff0',10);
+              console.log(tmp.length);
+          }
+
       },
 }

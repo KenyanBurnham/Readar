@@ -21,7 +21,6 @@ let Packager = {
                 //Adds a span wrapper on the sentence
                 Decoupler.spanFactorySentences(sentence.sentence, target);
 
-
                 //get breaths in sentence
                 let breaths = sentence.words.breaths;
                 //Take the average of breath units in the sentence
