@@ -7,11 +7,6 @@ let Document = {
     wordKeys: [],
     breaths: [],
     averageBreath: 0,
-    createTimeStamp: function(){
-        //creates a timeStamp
-        let date = new Date();
-        return date.getTime();
-    },
     updateDataState: function(input){
         // get only the text from the input
         let textSnapshot = document.getElementById(input).innerText;
