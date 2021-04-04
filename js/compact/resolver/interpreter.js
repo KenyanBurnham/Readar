@@ -123,7 +123,6 @@ let Interpreter = {
                 //then save the word in unresolved
                 this.unresolved.push(span.innerText);
                 //and remove the span
-
             }
         }
     },

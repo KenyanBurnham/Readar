@@ -18,8 +18,10 @@ let Decoupler = {
       },
       spanEvent: function(that){
           //that is the id for the span itself
-          //console.log(that);
+          console.log(that);
           let span = document.getElementById("" + that + "");
+          let sentence = span.innerText;
+          console.log(sentence);
           let word = Interpreter.getUnresolvedFromIdentity(that);
           //gets the span that the nexicon uses to displays
           //the word to be interpreted, then sets it
@@ -70,6 +72,7 @@ let Decoupler = {
           toBeRemoved.replaceWith(image);
       },
       decoupleSentenceSpans: function(){
+          //TODO: Figure out why the error is happening
           //for all sentence spans, remove them
           for (var i = 0; i < Packager.packagedSpans.length; i++) {
               //the id's of each sentence
@@ -82,7 +85,7 @@ let Decoupler = {
                   console.log(text);
                   element.replaceWith(text);
               } catch (e) {
-                  console.log("an error happened");
+                  console.log("An error happened decoupling a span with id: " + target + "");
               }
           }
       },
@@ -115,7 +118,7 @@ let Decoupler = {
               Packager.packagedSpans.push(spanKey);
               //Color solution?
               //https://stackoverflow.com/questions/3080421/javascript-color-gradient
-              var tmp = generateColor('#000000','#ff0ff0',10);
+              var tmp = generateColor('#000000','#007bff',10);
               console.log(tmp.length);
           }
 

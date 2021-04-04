@@ -4,7 +4,14 @@
 let Packager = {
     packagedSpans: [],
     spanEvent: function(identity){
+        //parrots the id
         console.log(identity);
+        // get the element
+        let span = document.getElementById(identity);
+        let sentence = span.innerText;
+        //send the sentence to the sentence preview
+        // disabled for now
+        //View.updatePreview(sentence);
     },
     wrapper: function(body, target){
         //This separates the paragraphs
