@@ -91,6 +91,7 @@ let Decoupler = {
       },
       spanFactorySentences: function(sentence, target){
         // TODO: Rectify their being multiple sentences with the same id
+
           //this asks the document state for the exact splice where a sentence occurs
           //and then splices it and puts a span around it
           let proceed = true;
@@ -103,6 +104,7 @@ let Decoupler = {
           // This is here because in the test data their were repeat sentences
           // which could be a real probelm
           if (proceed == true) {
+              console.log("proceed true.");
               let state = Document.fetchDOMState(target);
               //create a unique id for the array
               let spanKey = createKey();
