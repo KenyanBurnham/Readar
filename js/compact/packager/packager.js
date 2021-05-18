@@ -24,7 +24,6 @@ let Packager = {
             for (var j = 0; j < paragraph.sentences.length; j++) {
                 //Get individual sentence
                 let sentence = paragraph.sentences[j];
-
                 //Adds a span wrapper on the sentence
                 Decoupler.spanFactorySentences(sentence.sentence, target);
 

@@ -3,6 +3,9 @@
 //Target specifies the DOM Object to target
 function initiatorFunction(target){
 
+      //Clear previous spans
+      Decoupler.removeAllSpans();
+
       //Get snapshot of document
       Document.updateDataState(target);
 

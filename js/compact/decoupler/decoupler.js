@@ -94,35 +94,49 @@ let Decoupler = {
 
           //this asks the document state for the exact splice where a sentence occurs
           //and then splices it and puts a span around it
-          let proceed = true;
+          /* let proceed = true;
           for (var i = 0; i < this.sentencesPrior.length; i++) {
             if (sentence == sentencesPrior[i]) {
                 proceed = false;
             }
           }
+          */
 
           // This is here because in the test data their were repeat sentences
           // which could be a real probelm
-          if (proceed == true) {
-              console.log("proceed true.");
+          //if (proceed == true) {
+              //console.log("proceed true.");
               let state = Document.fetchDOMState(target);
               //create a unique id for the array
               let spanKey = createKey();
               //Create the span
               let replacement = "<span id='" + spanKey + "' onclick='Packager.spanEvent(this.id)'>" + sentence + "</span>";
               //convert sentence into a regular expression
-              let regexp = new RegExp(sentence, 'g');
-              //console.log("Sentence in question: " + sentence);
-              state = state.replace(regexp, replacement);
+              try {
+                state = state.replace(sentence, replacement);
+              } catch (e) {
+                console.log("error replacing sentence with span: " + e);
+              } finally {
+                console.log(state);
+              }
               //put the HTML back on the DOM
               document.getElementById(target).innerHTML = state;
               // add the span id to the packed spans list
               Packager.packagedSpans.push(spanKey);
               //Color solution?
               //https://stackoverflow.com/questions/3080421/javascript-color-gradient
-              var tmp = generateColor('#000000','#007bff',10);
-              console.log(tmp.length);
+              //var tmp = generateColor('#000000','#007bff', 10);
+              //console.log(tmp.length);
+          //}
+      },
+      removeAllSpans: function(){
+          let spanIdenitities = Interpreter.spanIdentities;
+          let images = Interpreter.image;
+          console.log(spanIdenitities);
+          if(spanIdenitities > 0){
+            for (var i = 0; i < spanIdenitities.length; i++) {
+                this.remove(spanIdenitities[i], images[i]);
+            }
           }
-
       },
 }
