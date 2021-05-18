@@ -129,14 +129,25 @@ let Decoupler = {
               //console.log(tmp.length);
           //}
       },
-      removeAllSpans: function(){
+      removeAllSpans: function(target){
+
+          //for spans specifically related to interpretations
           let spanIdenitities = Interpreter.spanIdentities;
           let images = Interpreter.image;
           console.log(spanIdenitities);
+
           if(spanIdenitities > 0){
             for (var i = 0; i < spanIdenitities.length; i++) {
                 this.remove(spanIdenitities[i], images[i]);
             }
+          }
+
+          //for all remaining spans
+          elementList = document.getElementById(target).querySelectorAll("span");
+          console.log(elementList);
+
+          for (var j = 0; j < elementList.length; j++) {
+              this.remove(elementList[j].id, elementList[j].innerText);
           }
       },
 }

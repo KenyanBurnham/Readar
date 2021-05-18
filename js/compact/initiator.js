@@ -4,7 +4,7 @@
 function initiatorFunction(target){
 
       //Clear previous spans
-      Decoupler.removeAllSpans();
+      Decoupler.removeAllSpans(target);
 
       //Get snapshot of document
       Document.updateDataState(target);
