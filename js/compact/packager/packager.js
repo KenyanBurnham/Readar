@@ -48,7 +48,18 @@ let Packager = {
         //Assembles the chartograph in Packager.wrapper
         this.wrapper(body, target);
         //Then mount to dom
-        // mounting function goes here
+        // originally envisioned mounting function going here
+        //located in Decoupler.spanfactorysentences
+
+        // TODO: This is where the programmatic breath unit assignment should happen
+
+        let gradient = generateColor('#000000','#007bff', this.packagedSpans.length);
+
+        for (var i = 0; i < this.packagedSpans.length; i++) {
+          console.log(gradient[i]);
+          document.getElementById(this.packagedSpans[i]).style.color = "#" + gradient[i] + "";
+        }
+
 
 
         //KEY

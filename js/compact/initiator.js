@@ -24,10 +24,12 @@ function initiatorFunction(target){
       //Begin to package output
       Packager.package(target);
 
+      Chartographer.initiate();
+
       //Recouple target
       Decoupler.recouple(target);
 
         //Debug the spanFactoryInterpretations
-        Debugger.debriefInterpreter();
-        console.log(Packager.packagedSpans);
+        //Debugger.debriefInterpreter();
+        //console.log(Packager.packagedSpans);
 }

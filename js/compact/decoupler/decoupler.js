@@ -72,7 +72,6 @@ let Decoupler = {
           toBeRemoved.replaceWith(image);
       },
       decoupleSentenceSpans: function(){
-          //TODO: Figure out why the error is happening
           //for all sentence spans, remove them
           for (var i = 0; i < Packager.packagedSpans.length; i++) {
               //the id's of each sentence
@@ -82,7 +81,6 @@ let Decoupler = {
                   // This is here because there sometimes are duplicates
                   // of sentences and they get removed in previous steps
                   let text = element.innerText;
-                  console.log(text);
                   element.replaceWith(text);
               } catch (e) {
                   console.log("An error happened decoupling a span with id: " + target + "");
@@ -115,26 +113,22 @@ let Decoupler = {
               try {
                 state = state.replace(sentence, replacement);
               } catch (e) {
-                console.log("error replacing sentence with span: " + e);
+                //console.log("error replacing sentence with span: " + e);
               } finally {
-                console.log(state);
+                //console.log(state);
               }
               //put the HTML back on the DOM
               document.getElementById(target).innerHTML = state;
               // add the span id to the packed spans list
               Packager.packagedSpans.push(spanKey);
-              //Color solution?
-              //https://stackoverflow.com/questions/3080421/javascript-color-gradient
-              //var tmp = generateColor('#000000','#007bff', 10);
-              //console.log(tmp.length);
           //}
       },
       removeAllSpans: function(target){
-
+          //function gets called at the beginning to remove artifacts
+          //from the previous analysis
           //for spans specifically related to interpretations
           let spanIdenitities = Interpreter.spanIdentities;
           let images = Interpreter.image;
-          console.log(spanIdenitities);
 
           if(spanIdenitities > 0){
             for (var i = 0; i < spanIdenitities.length; i++) {
@@ -144,7 +138,6 @@ let Decoupler = {
 
           //for all remaining spans
           elementList = document.getElementById(target).querySelectorAll("span");
-          console.log(elementList);
 
           for (var j = 0; j < elementList.length; j++) {
               this.remove(elementList[j].id, elementList[j].innerText);

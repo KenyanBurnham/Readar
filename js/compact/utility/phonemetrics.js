@@ -41,7 +41,12 @@ function getGlobalBreath(){
     Document.averageBreath = Ariths.average(breaths).toFixed(2);
 }
 
-// testing a color generator
+/** ============================================================================
+      Color generator for graphing
+
+      Source:
+      https://stackoverflow.com/questions/3080421/javascript-color-gradient
+=============================================================================**/
 
 function hex (c) {
   var s = "0123456789abcdef";
@@ -76,27 +81,19 @@ function generateColor(colorStart,colorEnd,colorCount){
 
 	// The end of your gradient
 	var end   = convertToRGB (colorEnd);
-
 	// The number of colors to compute
 	var len = colorCount;
 
 	//Alpha blending amount
 	var alpha = 0.0;
-
 	var saida = [];
-
 	for (i = 0; i < len; i++) {
 		var c = [];
 		alpha += (1.0/len);
-
 		c[0] = start[0] * alpha + (1 - alpha) * end[0];
 		c[1] = start[1] * alpha + (1 - alpha) * end[1];
 		c[2] = start[2] * alpha + (1 - alpha) * end[2];
-
 		saida.push(convertToHex (c));
-
 	}
-
 	return saida;
-
 }
