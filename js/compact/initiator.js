@@ -24,12 +24,9 @@ function initiatorFunction(target){
       //Begin to package output
       Packager.package(target);
 
+      //this assigns the color pattern to the paper
       Chartographer.initiate();
 
       //Recouple target
       Decoupler.recouple(target);
-
-        //Debug the spanFactoryInterpretations
-        //Debugger.debriefInterpreter();
-        //console.log(Packager.packagedSpans);
 }
