@@ -81,5 +81,12 @@ let Ariths = {
           sum += 0.5;
 
           return sum;
-    }
+    },
+    sum: function(dataset){
+        let sum = 0;
+        for(let i = 0; i < dataset.length; i++){
+            sum = sum + Number(dataset[i]);
+        }
+        return sum;
+    },
 }

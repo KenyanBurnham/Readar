@@ -11,6 +11,7 @@ let Packager = {
         let sentence = span.innerText;
         //send the sentence to the sentence preview
         // disabled for now
+        // TODO: Descide if this needs to be a feature
         //View.updatePreview(sentence);
     },
     wrapper: function(body, target){

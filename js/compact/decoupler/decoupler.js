@@ -68,8 +68,15 @@ let Decoupler = {
       remove: function(target, image){
           //provide the id and it will remove and replace with the word
           let toBeRemoved = document.getElementById(target);
-          //and then resolve spans
-          toBeRemoved.replaceWith(image);
+          try {
+              //and then resolve spans
+              toBeRemoved.replaceWith(image);
+          } catch (e) {
+              console.log("Error trying to replace: " + toBeRemoved + " with: " + image);
+          } finally {
+              console.log("Carried on anyways.");
+          }
+
       },
       decoupleSentenceSpans: function(){
           //for all sentence spans, remove them
