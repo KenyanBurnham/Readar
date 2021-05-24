@@ -23,4 +23,4 @@ let Document = {
         // get the text and HTML from the input
         return document.getElementById(input).innerHTML;
     },
-}
+};

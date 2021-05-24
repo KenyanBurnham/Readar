@@ -155,4 +155,4 @@ let Words = {
         //Return local to Sentences
         return Bank;
     },
-}
+};

@@ -121,6 +121,9 @@ let Decoupler = {
               document.getElementById(target).innerHTML = state;
               // add the span id to the packed spans list
               Packager.packagedSpans.push(spanKey);
+              //return spanKey to be updated into sentence.spanIdenity
+              //for each sentence
+              return spanKey;
           //}
       },
       removeAllSpans: function(target){
@@ -130,17 +133,22 @@ let Decoupler = {
           let spanIdenitities = Interpreter.spanIdentities;
           let images = Interpreter.image;
 
+          // removes all of the span ids stored for the purpose of internal
+          // word representation
           if(spanIdenitities > 0){
             for (var i = 0; i < spanIdenitities.length; i++) {
                 this.remove(spanIdenitities[i], images[i]);
             }
           }
 
-          //for all remaining spans
+          // Clean the original packaged span array
+          Packager.packagedSpans.splice(0, Packager.packagedSpans.length);
+
+          //for all remaining spans left on the DOM
           elementList = document.getElementById(target).querySelectorAll("span");
 
           for (var j = 0; j < elementList.length; j++) {
               this.remove(elementList[j].id, elementList[j].innerText);
           }
       },
-}
+};

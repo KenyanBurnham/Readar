@@ -64,6 +64,8 @@ let Sentences = {
                 Sentence.fragments = [];
                 //Initialize the fragment count at 0
                 Sentence.fragmentCount = 0;
+                //create a space where the sentence spanIdentity can be placed
+                Sentence.spanIdentity = "";
                 //Create a variable from sentence split by in-sentence punctuation
                 let fragments = Sentences.splitFragments(sentence);
                 //Filter out the empty fragments casused by splitting
@@ -87,4 +89,4 @@ let Sentences = {
         });
         return paragraphSentences;
     },
-}
+};

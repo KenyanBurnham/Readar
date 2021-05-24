@@ -17,6 +17,7 @@ let Packager = {
         //This separates the paragraphs
         for (var i = 0; i < body.length; i++) {
             //console.log("paragraph:" + i);
+            // TODO: Make a body wrapper
             //let bodySpan = document.createElement("span");
             //grab the specific paragraphs
             let paragraph = body[i];
@@ -25,19 +26,11 @@ let Packager = {
                 //Get individual sentence
                 let sentence = paragraph.sentences[j];
                 //Adds a span wrapper on the sentence
-                Decoupler.spanFactorySentences(sentence.sentence, target);
-
-                //get breaths in sentence
-                let breaths = sentence.words.breaths;
-                //Take the average of breath units in the sentence
-                let averageBreath = Ariths.average(breaths);
-                let minimumBreath = Ariths.minima(breaths);
-                let maximumBreath = Ariths.maxima(breaths);
-                //console.log("Average: " + averageBreath);
-                //console.log("Minimum: " + minimumBreath);
-                //console.log("Maximum: " + maximumBreath);
+                let spanIdentity = Decoupler.spanFactorySentences(sentence.sentence, target);
+                //give the sentence an idenity that can be refered to
+                //based on the span it belongs to
+                paragraph.sentences[j].spanIdentity = spanIdentity;
             }
-
         }//End of first for loop (paragraphs)
     },
     package: function(target){
@@ -51,17 +44,6 @@ let Packager = {
         // originally envisioned mounting function going here
         //located in Decoupler.spanfactorysentences
 
-        // TODO: This is where the programmatic breath unit assignment should happen
-
-        let gradient = generateColor('#000000','#007bff', this.packagedSpans.length);
-
-        for (var i = 0; i < this.packagedSpans.length; i++) {
-          console.log(gradient[i]);
-          document.getElementById(this.packagedSpans[i]).style.color = "#" + gradient[i] + "";
-        }
-
-
-
         //KEY
         //body[whichParagraph].sentences[whichSentence].words.breaths[whichBreaths]
         //body[whichParagraph].sentences[whichSentence].words.count;
@@ -72,4 +54,4 @@ let Packager = {
         //console.log(body[1].originText);
         //console.log(Document.state[0]);
     },
-}
+};
