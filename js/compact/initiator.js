@@ -3,6 +3,7 @@
 //Target specifies the DOM Object to target
 function initiatorFunction(target){
 
+//Stage 1: pre-process and removing errors
       //Clear previous spans
       Decoupler.removeAllSpans(target);
 
@@ -15,18 +16,22 @@ function initiatorFunction(target){
       //Send to the processor object.
       Paragraphs.process(decoupledSource);
 
-      //Calculate the global breath
-      getGlobalBreath();
-
           //Return the output
           Debugger.debugBody();
 
       //Begin to package output
       Packager.package(target);
 
-      //this assigns the color pattern to the paper
-      Chartographer.initiate();
-
       //Recouple target
       Decoupler.recouple(target);
+
+//Stage 2: outputting a visual
+
+      //this assigns the color pattern to the paper
+      if(Interpreter.unresolved.length == 0){
+           Chartographer.initiate();
+      }
+
+      //debrief all errors
+      Debugger.debriefErrors();
 }

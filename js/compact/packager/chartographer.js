@@ -21,8 +21,8 @@ let Chartographer = {
                 span.style.color = "#" + gradient[i] + "";
                 span.setAttribute("data-percentile", "" + percentileInOrder[i].toFixed(2) + "");
             } catch (e) {
-                console.log("The error is: " + e);
-                console.log("It happened at: " + spansInOrder[i]);
+                let message = "In Chartographer.assign(), " + e + " which happened with: " + spansInOrder[i] + "";
+                Debugger.submitErrorReport(message);
             }
 
         }

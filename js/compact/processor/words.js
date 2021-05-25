@@ -23,6 +23,8 @@ let Words = {
     processWords: function(sentence, caller){
         //remove all non-word characters
         sentence = sentence.replace(/[\W_]+/g," ");
+        //turn sentences to non-capitalized
+        sentence = sentence.toLowerCase();
         //Split words from sentence by spaces
         let words = sentence.split(" ");
         //Initialize a wordCount variable

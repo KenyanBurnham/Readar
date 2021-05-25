@@ -9,12 +9,11 @@ function filterWithRegEx(a){
             a = a.replace(/^y/, '');
             //Produces a length that accounts for dipthongs
             a = a.match(/[aeiouy]{1,2}/g).length;
-        }else{
-            console.log(a);
         }
         return a;
     } catch (e) {
-        console.log("An error: "+ e + " occured trying to get a syllable count on:" + a);
+        let message = "In Phonemetrics.filterWithRegEx(), " + e + " which happened with: " + a + "";
+        Debugger.submitErrorReport(message);
     }
 }
 
@@ -37,16 +36,9 @@ function getSyllableCount(a){
             return a;
         }
     } catch (e) {
-        console.log("An error: "+ e + " occured trying to get a syllabel count on:" + a);
+        let message = "In Phonemetrics.getSyllableCount(), " + e + " which happened with: " + a + "";
+        Debugger.submitErrorReport(message);
     }
-}
-
-/** ============================================================================
-      Compiles all breath counts, gets the average
-=============================================================================**/
-function getGlobalBreath(){
-    let breaths = Document.breaths;
-    Document.averageBreath = Ariths.average(breaths).toFixed(2);
 }
 
 /** ============================================================================

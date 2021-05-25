@@ -18,10 +18,8 @@ let Decoupler = {
       },
       spanEvent: function(that){
           //that is the id for the span itself
-          console.log(that);
           let span = document.getElementById("" + that + "");
           let sentence = span.innerText;
-          console.log(sentence);
           let word = Interpreter.getUnresolvedFromIdentity(that);
           //gets the span that the nexicon uses to displays
           //the word to be interpreted, then sets it
@@ -72,11 +70,9 @@ let Decoupler = {
               //and then resolve spans
               toBeRemoved.replaceWith(image);
           } catch (e) {
-              console.log("Error trying to replace: " + toBeRemoved + " with: " + image);
-          } finally {
-              console.log("Carried on anyways.");
+              let message = "In Decoupler.remove(), " + e + " which happened trying to replace : " + toBeRemoved + " with " + image + "";
+              Debugger.submitErrorReport(message);
           }
-
       },
       decoupleSentenceSpans: function(){
           //for all sentence spans, remove them
@@ -90,7 +86,8 @@ let Decoupler = {
                   let text = element.innerText;
                   element.replaceWith(text);
               } catch (e) {
-                  console.log("An error happened decoupling a span with id: " + target + "");
+                  let message = "In Decoupler.decoupleSentenceSpans(), " + e + " which happened trying decouple a span with id: " + target + "";
+                  Debugger.submitErrorReport(message);
               }
           }
       },
@@ -118,11 +115,10 @@ let Decoupler = {
               let replacement = "<span id='" + spanKey + "' onclick='Packager.spanEvent(this.id)'>" + sentence + "</span>";
               //convert sentence into a regular expression
               try {
-                state = state.replace(sentence, replacement);
+                  state = state.replace(sentence, replacement);
               } catch (e) {
-                //console.log("error replacing sentence with span: " + e);
-              } finally {
-                //console.log(state);
+                  let message = "In Decoupler.spanFactorySentences(), " + e + " which happened with trying to replace: " + sentence + " with span ID: " + spanKey + "";
+                  Debugger.submitErrorReport(message);
               }
               //put the HTML back on the DOM
               document.getElementById(target).innerHTML = state;
@@ -143,9 +139,9 @@ let Decoupler = {
           // removes all of the span ids stored for the purpose of internal
           // word representation
           if(spanIdenitities > 0){
-            for (var i = 0; i < spanIdenitities.length; i++) {
-                this.remove(spanIdenitities[i], images[i]);
-            }
+              for (var i = 0; i < spanIdenitities.length; i++) {
+                  this.remove(spanIdenitities[i], images[i]);
+              }
           }
 
           // Clean the original packaged span array

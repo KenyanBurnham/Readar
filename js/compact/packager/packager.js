@@ -1,11 +1,8 @@
 
-//Packer create the output model
-//then redirects the building functions to View.js
+//Packer tracks and adds spans to the DOM, does not deal with the final output
 let Packager = {
     packagedSpans: [],
     spanEvent: function(identity){
-        //parrots the id
-        console.log(identity);
         // get the element
         let span = document.getElementById(identity);
         let sentence = span.innerText;
@@ -44,15 +41,5 @@ let Packager = {
         //Then mount to dom
         // originally envisioned mounting function going here
         //located in Decoupler.spanfactorysentences
-
-        //KEY
-        //body[whichParagraph].sentences[whichSentence].words.breaths[whichBreaths]
-        //body[whichParagraph].sentences[whichSentence].words.count;
-        //body[whichParagraph].sentences[whichSentence].words.lengths[whichLengths]
-        //body[whichParagraph].sentences[whichSentence].words.syllables[whichSylls]
-        //body[whichParagraph].sentences[whichSentence].words.words[whichWords]
-        //console.log(body[0].originText);
-        //console.log(body[1].originText);
-        //console.log(Document.state[0]);
     },
 };
