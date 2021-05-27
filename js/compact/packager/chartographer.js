@@ -1,49 +1,65 @@
 /*==============================================================================
-      Chartographer
+      Chartographer, this will be a DOM function
 ==============================================================================*/
 
 let Chartographer = {
     spanToSort: [],
     breathsGlobal: [],
+    storedGradient: [],
     reset: function(){
       //this will reset the chartographer object after assign
       //clear breaths global and spanToSort
       this.spanToSort.splice(0, this.spanToSort.length);
       this.breathsGlobal.splice(0, this.breathsGlobal.length);
     },
-    assign: function(spansInOrder, percentileInOrder){
+    gradient: function(spanNumber){
+        let gradientBlue;
+        let gradientTeal;
+        //check whether the number of span-covered sentences are even
+        if(Ariths.isEven(spanNumber) == true){
+            //make an even gradient between the two colors
+            gradientBlue = generateColor('#000000','#007bff', (spanNumber)/2);
+            gradientTeal = generateColor('#00A6A6','#000000', (spanNumber)/2);
+        } else if (Ariths.isEven(spanNumber) == false) {
+            gradientBlue = generateColor('#000000','#007bff', Math.floor(spanNumber)/2);
+            gradientTeal = generateColor('#00A6A6','#000000', Math.floor(spanNumber)/2);
+            gradientTeal.push("#000000");
+        }
+        //push the gradient together
+        for (var j = 0; j < gradientTeal.length; j++) {
+            //add the teal graident to the blue one
+            gradientBlue.push(gradientTeal[j]);
+        }
+        //splice the whole array until empty
+        this.storedGradient.splice(0, this.storedGradient.length);
+        //then add the new gradient
+        this.storedGradient = gradientBlue;
+        // then return this gradient to the function that called it
+        return gradientBlue;
+    },
+    assign: function(){
         //this is where the gradient will be assigned
-        let gradient = generateColor('#000000','#007bff', spansInOrder.length);
+        let gradient = this.gradient(this.spanToSort.length);
         //assign gradient to the text
-        for (var i = 0; i < spansInOrder.length; i++) {
-            let span = document.getElementById(spansInOrder[i]);
+        for (var i = 0; i < this.spanToSort.length; i++) {
+            let span = document.getElementById(this.spanToSort[i].identity);
             try {
                 span.style.color = "#" + gradient[i] + "";
-                span.setAttribute("data-percentile", "" + percentileInOrder[i].toFixed(2) + "");
+                span.setAttribute("data-percentile", "" + this.spanToSort[i].percentile.toFixed(2) + "");
             } catch (e) {
-                let message = "In Chartographer.assign(), " + e + " which happened with: " + spansInOrder[i] + "";
+                let message = "In Chartographer.assign(), " + e + " which happened with: " + this.spanToSort[i].identity + "";
                 Debugger.submitErrorReport(message);
             }
 
         }
     },
     sort: function(){
-        let spansInOrder = [];
-        let percentileInOrder = [];
         //this sorts the spans into the highest and lowest breath unit
         // this array will sort in descending order (first is highest)
-        let sortedArray = this.breathsGlobal.sort(function(a,b){return b-a});
-        for (var j = 0; j < this.breathsGlobal.length; j++) {
-            for (var i = 0; i < this.spanToSort.length; i++) {
-                if ((this.spanToSort[i].breathAverage) == (this.breathsGlobal[j])) {
-                    //push the correspinding span identity if it matches the highest
-                    //to low order
-                    spansInOrder.push(this.spanToSort[i].identity);
-                    percentileInOrder.push(this.spanToSort[i].percentile);
-                }
-            }
-        }
-        this.assign(spansInOrder, percentileInOrder);
+        this.spanToSort.sort((a,b) =>(a.percentile < b.percentile) ? 1 : -1);
+        this.assign();
+        //A problem I forsee is that if there are equivalent percentage values
+        // although unlikely, this could cause issues
     },
     calculate: function(){
         //starts the process
@@ -80,8 +96,6 @@ let Chartographer = {
             //after all sentences have been processed calculate the p values for all spans
             this.calculate();
         }
-
-
         //KEY
         //body[whichParagraph].sentences[whichSentence].words.breaths[whichBreaths]
         //body[whichParagraph].sentences[whichSentence].words.count;

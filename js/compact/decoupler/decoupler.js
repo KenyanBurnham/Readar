@@ -28,6 +28,7 @@ let Decoupler = {
           View.toggleNexicon(false);
       },
       spanFactoryInterpretations: function(unresolved){
+          // This is for uninterpreted words
           // TODO: Add callback function
           let spans = [];
           for (var i = 0; i < unresolved.length; i++) {
@@ -41,7 +42,8 @@ let Decoupler = {
           return spans;
       },
       decouple: function(target){
-          // Decouple gets the word from the unresolved span
+          // This function tries to resolve words that might have an interpretation
+          // then it decouples the text from the DOM and returns it as a string 
           // Resolve span Id's
           Interpreter.resolveSpans(target);
           // get the id of the element were getting data from
@@ -51,6 +53,7 @@ let Decoupler = {
           return source;
       },
       recouple: function(target){
+          // This is for uninterpreted words
           //get a current version of the text and HTML
           let state = Document.fetchDOMState(target);
           //get all of the unresolved words

@@ -89,4 +89,13 @@ let Ariths = {
         }
         return sum;
     },
+    isEven: function(number){
+        if(number % 2 == 0){
+            //number is even
+            return true;
+        } else {
+            //number is odd
+            return false;
+        }
+    },
 }

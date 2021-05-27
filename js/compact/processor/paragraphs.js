@@ -11,7 +11,7 @@ let Paragraphs = {
     process: function(text){
         // Reset paragraph global data
         this.reset();
-        //split text by spaces
+        //split text by new lines / carriage returns
         let newlined = text.split("\n");
         //Number of paragraphs
         let paragraphCount = newlined.length;

@@ -37,7 +37,7 @@ let Sentences = {
         paragraph = paragraph.replace(/’/g,"");
         //Split paragraph by "SPACE + ." pairs
         //return sentences without punctuations or apostrophes
-        return paragraph.split(". ");;
+        return paragraph.split(". ");
     },
     process: function(paragraph){
         //Reset global sentence storage
