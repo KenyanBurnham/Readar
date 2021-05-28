@@ -6,6 +6,7 @@ let Packager = {
         // get the element
         let span = document.getElementById(identity);
         let sentence = span.innerText;
+        let percentile = span.getAttribute("data-percentile");
         //send the sentence to the sentence preview
         // disabled for now
         // TODO: Descide if this needs to be a feature

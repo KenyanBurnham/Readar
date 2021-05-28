@@ -43,7 +43,7 @@ let Decoupler = {
       },
       decouple: function(target){
           // This function tries to resolve words that might have an interpretation
-          // then it decouples the text from the DOM and returns it as a string 
+          // then it decouples the text from the DOM and returns it as a string
           // Resolve span Id's
           Interpreter.resolveSpans(target);
           // get the id of the element were getting data from
@@ -82,10 +82,11 @@ let Decoupler = {
           for (var i = 0; i < Packager.packagedSpans.length; i++) {
               //the id's of each sentence
               let target = Packager.packagedSpans[i];
+              //get the element associated with that id
               let element = document.getElementById("" + target + "");
               try {
-                  // This is here because there sometimes are duplicates
-                  // of sentences and they get removed in previous steps
+                  // This is here because sometimes there is an error replacing
+                  //the text
                   let text = element.innerText;
                   element.replaceWith(text);
               } catch (e) {
@@ -93,6 +94,17 @@ let Decoupler = {
                   Debugger.submitErrorReport(message);
               }
           }
+      },
+      quoteSeparator: function(sentence){
+
+
+
+
+          //sentence = sentence.replace(/"/g, '&quot;');
+          //sentence = sentence.replace(rightDoubleQuote, '*$');
+
+
+          return sentence;
       },
       spanFactorySentences: function(sentence, target){
         // TODO: Rectify their being multiple sentences with the same id
@@ -107,6 +119,12 @@ let Decoupler = {
           }
           */
 
+          //I think the quotation marks are messing things up,
+          //I'm going to try and substitute with HTML entities
+
+          quoteReplacedSentence = this.quoteSeparator(sentence);
+
+
           // This is here because in the test data their were repeat sentences
           // which could be a real probelm
           //if (proceed == true) {
@@ -118,7 +136,11 @@ let Decoupler = {
               let replacement = "<span id='" + spanKey + "' onclick='Packager.spanEvent(this.id)'>" + sentence + "</span>";
               //convert sentence into a regular expression
               try {
+                  //console.log(state);
                   state = state.replace(sentence, replacement);
+                  //console.log(sentence);
+                  //console.log(replacement);
+                  //console.log(state);
               } catch (e) {
                   let message = "In Decoupler.spanFactorySentences(), " + e + " which happened with trying to replace: " + sentence + " with span ID: " + spanKey + "";
                   Debugger.submitErrorReport(message);
