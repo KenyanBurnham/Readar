@@ -37,6 +37,28 @@ let Chartographer = {
         // then return this gradient to the function that called it
         return gradientBlue;
     },
+    gradientMount: function(gradient){
+        //clear tr
+        let tr = document.getElementById("visualKeyTable");
+        //remove all child nodes (td)
+        while (tr.hasChildNodes()) {
+            tr.removeChild(tr.firstChild);
+        }
+        // add td elements the size of the gradient
+        for (var i = 0; i < gradient.length; i++) {
+            let td = document.createElement("td");
+            //give the child a gradient color
+            td.style.background = "#" + gradient[i] + "";
+            let space = document.createTextNode(" ");
+            td.appendChild(space);
+            //add the new child node
+            tr.appendChild(td);
+        }
+        let dense = document.createTextNode("-");
+        let lessDense = document.createTextNode("+");
+        tr.firstChild.appendChild(dense);
+        tr.lastChild.appendChild(lessDense);
+    },
     assign: function(){
         //this is where the gradient will be assigned
         let gradient = this.gradient(this.spanToSort.length);
@@ -52,6 +74,7 @@ let Chartographer = {
             }
 
         }
+        this.gradientMount(gradient);
     },
     sort: function(){
         //this sorts the spans into the highest and lowest breath unit
