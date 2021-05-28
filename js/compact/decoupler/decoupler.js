@@ -95,17 +95,6 @@ let Decoupler = {
               }
           }
       },
-      quoteSeparator: function(sentence){
-
-
-
-
-          //sentence = sentence.replace(/"/g, '&quot;');
-          //sentence = sentence.replace(rightDoubleQuote, '*$');
-
-
-          return sentence;
-      },
       spanFactorySentences: function(sentence, target){
         // TODO: Rectify their being multiple sentences with the same id
 
@@ -119,12 +108,6 @@ let Decoupler = {
           }
           */
 
-          //I think the quotation marks are messing things up,
-          //I'm going to try and substitute with HTML entities
-
-          quoteReplacedSentence = this.quoteSeparator(sentence);
-
-
           // This is here because in the test data their were repeat sentences
           // which could be a real probelm
           //if (proceed == true) {
@@ -134,13 +117,20 @@ let Decoupler = {
               let spanKey = createKey();
               //Create the span
               let replacement = "<span id='" + spanKey + "' onclick='Packager.spanEvent(this.id)'>" + sentence + "</span>";
+              console.log("sentence length: " + sentence.length);
+              console.log("replacement length: " + replacement.length);
               //convert sentence into a regular expression
               try {
-                  //console.log(state);
+                  let result = state.search(sentence);
+                  console.log("result of search: " + result);
                   state = state.replace(sentence, replacement);
-                  //console.log(sentence);
-                  //console.log(replacement);
-                  //console.log(state);
+                  if (result == -1) {
+                      console.log("search failed to find: " + sentence);
+                      //This is the index where the sentence begins in the
+                      //internal saved state of the document
+                      let indexOfSearch = state.indexOf(sentence);
+                      console.log(indexOfSearch);
+                  }
               } catch (e) {
                   let message = "In Decoupler.spanFactorySentences(), " + e + " which happened with trying to replace: " + sentence + " with span ID: " + spanKey + "";
                   Debugger.submitErrorReport(message);
@@ -158,6 +148,7 @@ let Decoupler = {
           //function gets called at the beginning to remove artifacts
           //from the previous analysis
           //for spans specifically related to interpretations
+
           let spanIdenitities = Interpreter.spanIdentities;
           let images = Interpreter.image;
 
@@ -165,6 +156,7 @@ let Decoupler = {
           // word representation
           if(spanIdenitities > 0){
               for (var i = 0; i < spanIdenitities.length; i++) {
+                  console.log("remove function called:" + spanIdenitities[i] + ":" + images[i] + "");
                   this.remove(spanIdenitities[i], images[i]);
               }
           }

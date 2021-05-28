@@ -60,7 +60,6 @@ let Chartographer = {
         let lessDense = document.createTextNode("+");
         tr.firstChild.appendChild(dense);
         tr.lastChild.appendChild(lessDense);
-        console.log(tr.hasChildNodes());
     },
     assign: function(){
         //this is where the gradient will be assigned
