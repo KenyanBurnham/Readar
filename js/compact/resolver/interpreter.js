@@ -4,8 +4,8 @@
   "Abstract": The internal representation of a word or set of characters
 */
 let Interpreter = {
-    image: ["rev360"],
-    abstract: ["rev three sixty"],
+    image: ["rev360", "1950s", "1960s", "1980s"],
+    abstract: ["rev three sixty", "nineteen fifties", "nineteen sixties", "nineteen eighties"],
     spanIdentities: [],
     unresolved: [],
     addInterpretation: function(image, abstract){

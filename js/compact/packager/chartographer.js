@@ -54,10 +54,13 @@ let Chartographer = {
             //add the new child node
             tr.appendChild(td);
         }
+        //indicates sentences that are very dense
         let dense = document.createTextNode("-");
+        //indicates sentences that are too light
         let lessDense = document.createTextNode("+");
         tr.firstChild.appendChild(dense);
         tr.lastChild.appendChild(lessDense);
+        console.log(tr.hasChildNodes());
     },
     assign: function(){
         //this is where the gradient will be assigned

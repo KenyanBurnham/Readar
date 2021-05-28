@@ -35,3 +35,7 @@ function initiatorFunction(target){
       //debrief all errors
       Debugger.debriefErrors();
 }
+
+// TODO: Make a config that allows customization
+// TODO: Make a greyscale version for accesibility purposes
+// TODO: make an option to highlight the top and bottom _% of sentences
