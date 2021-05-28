@@ -113,23 +113,30 @@ let Decoupler = {
           //if (proceed == true) {
               //console.log("proceed true.");
               let state = Document.fetchDOMState(target);
+              state = state.toString();
+              sentence = sentence.toString();
               //create a unique id for the array
               let spanKey = createKey();
               //Create the span
               let replacement = "<span id='" + spanKey + "' onclick='Packager.spanEvent(this.id)'>" + sentence + "</span>";
-              console.log("sentence length: " + sentence.length);
-              console.log("replacement length: " + replacement.length);
-              //convert sentence into a regular expression
+              //maybe it just needs to be explicitly type-casted
+              replacement = replacement.toString();
+              //according to online, the problem is that these sentences contain
+              // "()" or "[]", which somehow is interpreted as a regular expression
+              /*
+                var n = str.search(/\[]/); escape the "[]"
+              */
               try {
                   let result = state.search(sentence);
-                  console.log("result of search: " + result);
-                  state = state.replace(sentence, replacement);
+
                   if (result == -1) {
                       console.log("search failed to find: " + sentence);
                       //This is the index where the sentence begins in the
                       //internal saved state of the document
                       let indexOfSearch = state.indexOf(sentence);
                       console.log(indexOfSearch);
+                  } else {
+                      state = state.replace(sentence, replacement);
                   }
               } catch (e) {
                   let message = "In Decoupler.spanFactorySentences(), " + e + " which happened with trying to replace: " + sentence + " with span ID: " + spanKey + "";
