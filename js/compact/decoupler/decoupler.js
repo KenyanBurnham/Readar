@@ -126,22 +126,61 @@ let Decoupler = {
               /*
                 var n = str.search(/\[]/); escape the "[]"
               */
-              try {
-                  let result = state.search(sentence);
 
+              //replace all of the problematic characters with dummy values
+              state = state.replace(/\(/g, "$*");
+              state = state.replace(/\)/g, "*$");
+              state = state.replace(/\[/g, "#%");
+              state = state.replace(/\]/g, "%#");
+
+              state = state.replace(/\-/g, "#&");
+              state = state.replace(/\:/g, "&#");
+              state = state.replace(/\;/g, "~#");
+
+              sentence = sentence.replace(/\(/g, "$*");
+              sentence = sentence.replace(/\)/g, "*$");
+              sentence = sentence.replace(/\[/g, "#%");
+              sentence = sentence.replace(/\]/g, "%#");
+
+              sentence = sentence.replace(/\-/g, "#&");
+              sentence = sentence.replace(/\:/g, "&#");
+              sentence = sentence.replace(/\;/g, "~#");
+              try {
+                /*
+                  let result = state.search(sentence);
                   if (result == -1) {
                       console.log("search failed to find: " + sentence);
                       //This is the index where the sentence begins in the
                       //internal saved state of the document
                       let indexOfSearch = state.indexOf(sentence);
-                      console.log(indexOfSearch);
+                      let lastIndexOfSearch = state.lastIndexOf(sentence);
+                      console.log("sentence.length: " + sentence.length + ", replacement.length: " + replacement.length);
+                      console.log("index[0]: " + indexOfSearch + ", index[n]: " + lastIndexOfSearch + "");
+
+                      compare string literals and string objects at
+                      https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
+
+                      What if I replace all "()" and "[]" in both state and sentence with $* and *$ and then replace them afterwards?
+                      similar to Sentences.splitFragments
+                      mutableSentence = mutableSentence.replace(/\(/g, "$*");
+
                   } else {
                       state = state.replace(sentence, replacement);
-                  }
+                  } */
+                  state = state.replace(sentence, replacement);
               } catch (e) {
                   let message = "In Decoupler.spanFactorySentences(), " + e + " which happened with trying to replace: " + sentence + " with span ID: " + spanKey + "";
                   Debugger.submitErrorReport(message);
               }
+              state = state.replace(/\$\*/g, "(");
+              state = state.replace(/\*\$/g, ")");
+              state = state.replace(/\#\%/g, "[");
+              state = state.replace(/\%\#/g, "]");
+
+              state = state.replace(/\#\&/g, "-");
+              state = state.replace(/\&\#/g, ":");
+              state = state.replace(/\~\#/g, ";");
+
               //put the HTML back on the DOM
               document.getElementById(target).innerHTML = state;
               // add the span id to the packed spans list
