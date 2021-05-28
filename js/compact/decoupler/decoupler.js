@@ -146,8 +146,8 @@ let Decoupler = {
               sentence = sentence.replace(/\:/g, "&#");
               sentence = sentence.replace(/\;/g, "~#");
               try {
-                /*
-                  let result = state.search(sentence);
+                let result = state.search(sentence);
+
                   if (result == -1) {
                       console.log("search failed to find: " + sentence);
                       //This is the index where the sentence begins in the
@@ -157,16 +157,10 @@ let Decoupler = {
                       console.log("sentence.length: " + sentence.length + ", replacement.length: " + replacement.length);
                       console.log("index[0]: " + indexOfSearch + ", index[n]: " + lastIndexOfSearch + "");
 
-                      compare string literals and string objects at
-                      https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
+                      //compare string literals and string objects at
+                      //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
 
-                      What if I replace all "()" and "[]" in both state and sentence with $* and *$ and then replace them afterwards?
-                      similar to Sentences.splitFragments
-                      mutableSentence = mutableSentence.replace(/\(/g, "$*");
-
-                  } else {
-                      state = state.replace(sentence, replacement);
-                  } */
+                  }
                   state = state.replace(sentence, replacement);
               } catch (e) {
                   let message = "In Decoupler.spanFactorySentences(), " + e + " which happened with trying to replace: " + sentence + " with span ID: " + spanKey + "";
