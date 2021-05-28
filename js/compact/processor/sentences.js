@@ -34,7 +34,9 @@ let Sentences = {
         paragraph = paragraph.replace("?", ".");
         paragraph = paragraph.replace("...", ".");
         //Remove apostrophes (’) and replace with nothing to preserve words
-        paragraph = paragraph.replace(/’/g,"");
+        paragraph = paragraph.replace(/\’/g,"");
+        //remove dashes ('-') and replace with space
+        paragraph = paragraph.replace(/\"-"/g," ");
         //Split paragraph by "SPACE + ." pairs
         //return sentences without punctuations or apostrophes
         return paragraph.split(". ");
