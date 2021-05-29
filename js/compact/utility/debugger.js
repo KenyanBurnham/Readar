@@ -15,6 +15,16 @@ let Debugger = {
         console.log("Span Identities:" + Interpreter.spanIdentities);
         console.log("Unresolved: " + Interpreter.unresolved);
     },
+    debriefChartographer: function(){
+        console.log("SpansToSort.length: " + Chartographer.spanToSort.length);
+        console.log("Packer.packagedSpans: " + Packager.packagedSpans);
+        for (var i = 0; i < Chartographer.spanToSort.length; i++) {
+            console.log(Chartographer.spanToSort[i].identity);
+        }
+    },
+    debriefDocumentDataState: function(){
+        console.log(Document.viewDataState());
+    },
     submitErrorReport: function(message){
         this.errors.push(message);
     },

@@ -146,13 +146,12 @@ let Decoupler = {
               let replacement = "<span id='" + spanKey + "' onclick='Packager.spanEvent(this.id)'>" + sentence + "</span>";
               //maybe it just needs to be explicitly type-casted
               replacement = replacement.toString();
-
               try {
                   // this means that there is some non-word character that
                   //is influencing String.replace()
                   state = this.proxify(state);
-                  state = this.proxify(sentence);
-                  state = this.proxify(replacement);
+                  sentence = this.proxify(sentence);
+                  replacement = this.proxify(replacement);
                   state = state.replace(sentence, replacement);
                   //this removes all the unique proxies placed to avoid TypeErrors
                   //with String.replace()
@@ -161,11 +160,15 @@ let Decoupler = {
                   let message = "In Decoupler.spanFactorySentences(), " + e + " which happened with trying to replace: " + sentence + " with span ID: " + spanKey + "";
                   Debugger.submitErrorReport(message);
               }
-
-              //put the HTML back on the DOM
-              document.getElementById(target).innerHTML = state;
-              // add the span id to the packed spans list
-              Packager.packagedSpans.push(spanKey);
+              try {
+                  //put the HTML back on the DOM
+                  document.getElementById(target).innerHTML = state;
+                  //ensure the document object is being updated properly
+                  Document.updateDataState(target);
+                  //Debugger.debriefDocumentDataState();
+              } catch (e) {
+                  console.log("Error: " + e + "; Occured in Decoupler.spanFactorySentences when trying to remoount: " + state + "; onto the DOM");
+              }
               //return spanKey to be updated into sentence.spanIdenity
               //for each sentence
               return spanKey;

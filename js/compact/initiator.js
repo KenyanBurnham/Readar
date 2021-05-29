@@ -34,6 +34,7 @@ function initiatorFunction(target){
 
       //debrief all errors
       Debugger.debriefErrors();
+      //Debugger.debriefChartographer();
 }
 
 // TODO: Make a config that allows customization

@@ -26,6 +26,7 @@ let Packager = {
                 let sentence = paragraph.sentences[j];
                 //Adds a span wrapper on the sentence
                 let spanIdentity = Decoupler.spanFactorySentences(sentence.sentence, target);
+                this.packagedSpans.push(spanIdentity);
                 //give the sentence an idenity that can be refered to
                 //based on the span it belongs to
                 paragraph.sentences[j].spanIdentity = spanIdentity;
@@ -41,6 +42,7 @@ let Packager = {
         this.wrapper(body, target);
         //Then mount to dom
         // originally envisioned mounting function going here
+        //now it is
         //located in Decoupler.spanfactorysentences
     },
 };

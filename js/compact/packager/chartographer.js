@@ -11,6 +11,8 @@ let Chartographer = {
       //clear breaths global and spanToSort
       this.spanToSort.splice(0, this.spanToSort.length);
       this.breathsGlobal.splice(0, this.breathsGlobal.length);
+      //splice the whole array until empty
+      this.storedGradient.splice(0, this.storedGradient.length);
     },
     gradient: function(spanNumber){
         let gradientBlue;
@@ -30,8 +32,6 @@ let Chartographer = {
             //add the teal graident to the blue one
             gradientBlue.push(gradientTeal[j]);
         }
-        //splice the whole array until empty
-        this.storedGradient.splice(0, this.storedGradient.length);
         //then add the new gradient
         this.storedGradient = gradientBlue;
         // then return this gradient to the function that called it
@@ -66,8 +66,8 @@ let Chartographer = {
         let gradient = this.gradient(this.spanToSort.length);
         //assign gradient to the text
         for (var i = 0; i < this.spanToSort.length; i++) {
-            let span = document.getElementById(this.spanToSort[i].identity);
             try {
+                let span = document.getElementById(this.spanToSort[i].identity);
                 span.style.color = "#" + gradient[i] + "";
                 span.setAttribute("data-percentile", "" + this.spanToSort[i].percentile.toFixed(2) + "");
             } catch (e) {
@@ -91,13 +91,12 @@ let Chartographer = {
         let mean = Ariths.average(this.breathsGlobal);
         let sigma = Ariths.deviation(this.breathsGlobal);
         for (var i = 0; i < this.spanToSort.length; i++) {
-          //for each span to sort calculate it's p value
-          let observation = this.spanToSort[i].breathAverage;
-          let z = Ariths.z(observation, mean, sigma);
-          let p = Ariths.p(z);
-          this.spanToSort[i].percentile = p;
+            //for each span to sort calculate it's p value
+            let observation = this.spanToSort[i].breathAverage;
+            let z = Ariths.z(observation, mean, sigma);
+            let p = Ariths.p(z);
+            this.spanToSort[i].percentile = p;
         }
-        this.sort();
     },
     initiate: function(){
         //reset all the variables in case of concurrent use
@@ -121,6 +120,8 @@ let Chartographer = {
             //after all sentences have been processed calculate the p values for all spans
             this.calculate();
         }
+
+        this.sort();
         //KEY
         //body[whichParagraph].sentences[whichSentence].words.breaths[whichBreaths]
         //body[whichParagraph].sentences[whichSentence].words.count;
