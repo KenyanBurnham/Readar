@@ -6,7 +6,7 @@ let Debugger = {
     },
     debriefErrors: function(){
         for (var i = 0; i < this.errors.length; i++) {
-           console.log(this.errors[i]);
+           console.error(this.errors[i]);
         }
     },
     debriefInterpreter: function(){

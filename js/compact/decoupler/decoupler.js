@@ -95,6 +95,30 @@ let Decoupler = {
               }
           }
       },
+      unproxify: function(state){
+          //This method removes proxy expressions placed in text for the prupose
+          // of avoiding TypeErrors with String.replace()
+          let proxies = [/\~\#\*\&\$\^/g, /\#\*\&\$\^\~/g, /\*\&\$\^\~\#/g, /\&\$\^\~\#\*/g, /\$\^\~\#\*\&/g, /\^\~\#\*\&\$/g, /\^\#\~\*\&\$/g, /\^\#\*\~\&\$/g, /\^\#\*\&\~\$/g];
+          let expressions = ["(", ")", "[", "]", "-", ":", ";", '"', "'"];
+          for (var i = 0; i < proxies.length; i++) {
+              //might have to specifically typecast as a regExp
+              state = state.replace(proxies[i], expressions[i]);
+          }
+          return state;
+      },
+      proxify: function(state){
+          //This method adds proxy expressions in text for the purpose
+          // of avoiding TypeErrors with String.replace()
+          // this function actually will proxify the state, sentence, and
+          //replacement sentence of this.spanFactorySentences
+          let proxies = ["~#*&$^", "#*&$^~", "*&$^~#", "&$^~#*", "$^~#*&", "^~#*&$", "^#~*&$", "^#*~&$", "^#*&~$"];
+          let expressions = [/\(/g, /\)/g, /\[/g, /\]/g, /\-/g, /\:/g, /\;/g, /\"/g, /\'/g];
+          for (var i = 0; i < proxies.length; i++) {
+              //might have to specifically typecast as a regExp
+              state = state.replace(expressions[i], proxies[i]);
+          }
+          return state;
+      },
       spanFactorySentences: function(sentence, target){
         // TODO: Rectify their being multiple sentences with the same id
 
@@ -113,6 +137,7 @@ let Decoupler = {
           //if (proceed == true) {
               //console.log("proceed true.");
               let state = Document.fetchDOMState(target);
+              //explicitly typing in case there is a regExp error
               state = state.toString();
               sentence = sentence.toString();
               //create a unique id for the array
@@ -121,59 +146,21 @@ let Decoupler = {
               let replacement = "<span id='" + spanKey + "' onclick='Packager.spanEvent(this.id)'>" + sentence + "</span>";
               //maybe it just needs to be explicitly type-casted
               replacement = replacement.toString();
-              //according to online, the problem is that these sentences contain
-              // "()" or "[]", which somehow is interpreted as a regular expression
-              /*
-                var n = str.search(/\[]/); escape the "[]"
-              */
 
-              //replace all of the problematic characters with dummy values
-              state = state.replace(/\(/g, "$*");
-              state = state.replace(/\)/g, "*$");
-              state = state.replace(/\[/g, "#%");
-              state = state.replace(/\]/g, "%#");
-
-              state = state.replace(/\-/g, "#&");
-              state = state.replace(/\:/g, "&#");
-              state = state.replace(/\;/g, "~#");
-
-              sentence = sentence.replace(/\(/g, "$*");
-              sentence = sentence.replace(/\)/g, "*$");
-              sentence = sentence.replace(/\[/g, "#%");
-              sentence = sentence.replace(/\]/g, "%#");
-
-              sentence = sentence.replace(/\-/g, "#&");
-              sentence = sentence.replace(/\:/g, "&#");
-              sentence = sentence.replace(/\;/g, "~#");
               try {
-                let result = state.search(sentence);
-
-                  if (result == -1) {
-                      console.log("search failed to find: " + sentence);
-                      //This is the index where the sentence begins in the
-                      //internal saved state of the document
-                      let indexOfSearch = state.indexOf(sentence);
-                      let lastIndexOfSearch = state.lastIndexOf(sentence);
-                      console.log("sentence.length: " + sentence.length + ", replacement.length: " + replacement.length);
-                      console.log("index[0]: " + indexOfSearch + ", index[n]: " + lastIndexOfSearch + "");
-
-                      //compare string literals and string objects at
-                      //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
-
-                  }
+                  // this means that there is some non-word character that
+                  //is influencing String.replace()
+                  state = this.proxify(state);
+                  state = this.proxify(sentence);
+                  state = this.proxify(replacement);
                   state = state.replace(sentence, replacement);
+                  //this removes all the unique proxies placed to avoid TypeErrors
+                  //with String.replace()
+                  state = this.unproxify(state);
               } catch (e) {
                   let message = "In Decoupler.spanFactorySentences(), " + e + " which happened with trying to replace: " + sentence + " with span ID: " + spanKey + "";
                   Debugger.submitErrorReport(message);
               }
-              state = state.replace(/\$\*/g, "(");
-              state = state.replace(/\*\$/g, ")");
-              state = state.replace(/\#\%/g, "[");
-              state = state.replace(/\%\#/g, "]");
-
-              state = state.replace(/\#\&/g, "-");
-              state = state.replace(/\&\#/g, ":");
-              state = state.replace(/\~\#/g, ";");
 
               //put the HTML back on the DOM
               document.getElementById(target).innerHTML = state;
