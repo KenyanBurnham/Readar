@@ -153,6 +153,8 @@ let Decoupler = {
                   sentence = this.proxify(sentence);
                   replacement = this.proxify(replacement);
                   state = state.replace(sentence, replacement);
+                  //console.log("Replacement" + replacement);
+                  //console.log("State:" + state);
                   //this removes all the unique proxies placed to avoid TypeErrors
                   //with String.replace()
                   state = this.unproxify(state);
@@ -165,10 +167,10 @@ let Decoupler = {
                   document.getElementById(target).innerHTML = state;
                   //ensure the document object is being updated properly
                   Document.updateDataState(target);
-                  //Debugger.debriefDocumentDataState();
               } catch (e) {
                   console.log("Error: " + e + "; Occured in Decoupler.spanFactorySentences when trying to remoount: " + state + "; onto the DOM");
               }
+              console.log(document.getElementById(target).innerHTML);
               //return spanKey to be updated into sentence.spanIdenity
               //for each sentence
               return spanKey;
