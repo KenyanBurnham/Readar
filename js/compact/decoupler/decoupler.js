@@ -140,12 +140,15 @@ let Decoupler = {
               //explicitly typing in case there is a regExp error
               state = state.toString();
               sentence = sentence.toString();
+              console.log("sentence: " + sentence);
               //create a unique id for the array
               let spanKey = createKey();
               //Create the span
               let replacement = "<span id='" + spanKey + "' onclick='Packager.spanEvent(this.id)'>" + sentence + "</span>";
               //maybe it just needs to be explicitly type-casted
               replacement = replacement.toString();
+              //First we have to sort through the state string replace the
+              //original sentence with a span-wrapped sentence
               try {
                   // this means that there is some non-word character that
                   //is influencing String.replace()
@@ -162,15 +165,20 @@ let Decoupler = {
                   let message = "In Decoupler.spanFactorySentences(), " + e + " which happened with trying to replace: " + sentence + " with span ID: " + spanKey + "";
                   Debugger.submitErrorReport(message);
               }
+              //Then we have to take the current DOM contetn and replace it with
+              // our modified version with the new span
               try {
+                  //tried emptying the target element first, but that still
+                  //doesn't seem to change the result
+                  document.getElementById(target).innerHTML = "";
                   //put the HTML back on the DOM
                   document.getElementById(target).innerHTML = state;
                   //ensure the document object is being updated properly
                   Document.updateDataState(target);
               } catch (e) {
-                  console.log("Error: " + e + "; Occured in Decoupler.spanFactorySentences when trying to remoount: " + state + "; onto the DOM");
+                  let message = "In Decoupler.spanFactorySentences(), " + e + "when happened when trying to remount the modified state with span onto the DOM.";
+                  Debugger.submitErrorReport(message);
               }
-              console.log(document.getElementById(target).innerHTML);
               //return spanKey to be updated into sentence.spanIdenity
               //for each sentence
               return spanKey;

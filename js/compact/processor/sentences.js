@@ -59,6 +59,8 @@ let Sentences = {
                 //Add an empty string of sentence to Sentence Object
                 Sentence.sentence = "";
                 //Push current sentence into into sentence object
+                sentence = sentence.trim();
+                //removes excess whitespace to ensure there isn't any sort of error
                 Sentence.sentence = sentence;
                 //get word data for sentence
                 Sentence.words = Words.processWords(sentence, "sentence");

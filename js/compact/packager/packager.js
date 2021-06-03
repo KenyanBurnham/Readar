@@ -24,12 +24,25 @@ let Packager = {
             for (var j = 0; j < paragraph.sentences.length; j++) {
                 //Get individual sentence
                 let sentence = paragraph.sentences[j];
+                console.log(sentence);
                 //Adds a span wrapper on the sentence
                 let spanIdentity = Decoupler.spanFactorySentences(sentence.sentence, target);
                 this.packagedSpans.push(spanIdentity);
                 //give the sentence an idenity that can be refered to
                 //based on the span it belongs to
                 paragraph.sentences[j].spanIdentity = spanIdentity;
+                try {
+                    let test = document.getElementById(spanIdentity);
+                    console.log(test);
+                    if (test == null) {
+                        //this means that the span-wrapped sentence never made
+                        //it to the DOM
+                        let message = "In Packer.wrapper(); it was noted that the span with identity: " + spanIdentity + " was never remounted to the DOM.";
+                        Debugger.submitErrorReport(message);
+                    }
+                } catch (e) {
+                    console.log("Test for element on the dom failed: " + e);
+                }
             }
         }//End of first for loop (paragraphs)
     },
