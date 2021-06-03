@@ -140,7 +140,6 @@ let Decoupler = {
               //explicitly typing in case there is a regExp error
               state = state.toString();
               sentence = sentence.toString();
-              console.log("sentence: " + sentence);
               //create a unique id for the array
               let spanKey = createKey();
               //Create the span
@@ -196,7 +195,6 @@ let Decoupler = {
           // word representation
           if(spanIdenitities > 0){
               for (var i = 0; i < spanIdenitities.length; i++) {
-                  console.log("remove function called:" + spanIdenitities[i] + ":" + images[i] + "");
                   this.remove(spanIdenitities[i], images[i]);
               }
           }

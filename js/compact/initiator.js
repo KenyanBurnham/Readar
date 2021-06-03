@@ -40,3 +40,7 @@ function initiatorFunction(target){
 // TODO: Make a config that allows customization
 // TODO: Make a greyscale version for accesibility purposes
 // TODO: make an option to highlight the top and bottom _% of sentences
+// TODO: Consider making an ignore highlighting too that will exhempt selections from analysis
+// TODO: figure out why the sentence below breaks Decoupler.spanFactorySentences()
+  /* This sentence was resolved by removing the "!":
+  "In response to increased close-source programming, Stallman created the GNU "GNU's Not Linux!".""*/

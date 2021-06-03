@@ -33,7 +33,6 @@ let Packager = {
                 paragraph.sentences[j].spanIdentity = spanIdentity;
                 try {
                     let test = document.getElementById(spanIdentity);
-                    console.log(test);
                     if (test == null) {
                         //this means that the span-wrapped sentence never made
                         //it to the DOM
