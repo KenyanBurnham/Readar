@@ -19,12 +19,3 @@ Inputer = {
         };
     },
 };
-
-
-/*
-
-Need to call a new FileReader()
-Need to specify the item as a Blob object?
-Then use FileReader.readAsText()
-
-*/
