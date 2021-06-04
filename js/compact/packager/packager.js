@@ -10,7 +10,7 @@ let Packager = {
         //send the sentence to the sentence preview
         // disabled for now
         // TODO: Descide if this needs to be a feature
-        //View.updatePreview(sentence);
+        View.updatePreview(sentence);
     },
     wrapper: function(body, target){
         //This separates the paragraphs
@@ -24,7 +24,6 @@ let Packager = {
             for (var j = 0; j < paragraph.sentences.length; j++) {
                 //Get individual sentence
                 let sentence = paragraph.sentences[j];
-                console.log(sentence);
                 //Adds a span wrapper on the sentence
                 let spanIdentity = Decoupler.spanFactorySentences(sentence.sentence, target);
                 this.packagedSpans.push(spanIdentity);

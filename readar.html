@@ -28,8 +28,11 @@
             </div>
             <div class="col-8">
                 <div class="row">
-                    <button class="btn btn-lg btn-primary" type="button" name="button" onclick="initiatorFunction('inputTarget');">&#9654;</button>
-                    <button class="btn btn-lg btn-primary" type="button" name="button" onclick="Debugger.debriefInterpreter();">&#127987;</button>
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button class="btn btn-lg btn-primary" type="button" name="button" onclick="initiatorFunction('inputTarget');">&#9654;</button>
+                        <button class="btn btn-lg btn-info" type="button" name="button" onclick="Debugger.debriefInterpreter();">&#127987;</button>
+                        <button type="button" name="button"><input type="file" id="myfile" name="myfile" accept="text/plain" onchange="Inputer.initiate(this);"></button>
+                    </div>
                 </div>
             </div>
             <div class="col" style="float: right;">
@@ -47,7 +50,7 @@
             &nbsp;
           </div>
           <div class="col-8">
-              <div class="row gx-5">
+              <div class="row">
                       <section>
                         <div class="visual-key" id="visualKey">
                           <table>
@@ -135,6 +138,8 @@
 
     <script src="js/compact/document.js" type="text/javascript"></script>
     <script src="js/compact/initiator.js" type="text/javascript"></script>
+
+    <script src="js/compact/inputFromFile.js" type="text/javascript"></script>
 
 
 </body>
