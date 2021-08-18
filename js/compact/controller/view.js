@@ -1,16 +1,21 @@
 View = {
-  toggleNexicon: function(state){
-      nexiconColumn = document.getElementById('nexiconColumn');
+  toggleNexiconDisplay: function(state){
+      // get element
+      let alertBody = document.getElementById('nexiconStateDisplay');
+
       if(state == true){
-          nexiconColumn.style.visibility = "hidden";
+          alertBody.innerHTML = '';
       }
-      if( state == false){
-          nexiconColumn.style.visibility = "visible";
+      if(state == false){
+          //reset the div before adding the alert
+          alertBody.innerHTML = '';
+          let alert = '<div id="nexiconAlertDisplay" class="alert alert-secondary" role="alert">No words need to be interpreted at this moment.</div>';
+          alertBody.innerHTML = alert;
       }
   },
   resetNexicon: function(){
-      //hide the nexicon
-      this.toggleNexicon(true);
+      //this removes the alert that says there isn't anything
+      View.toggleNexiconDisplay(false);
       //reset the span that shows users the word
       document.getElementById('nexiconAddition').innerText = "Word";
       //reset the nexicon input
@@ -18,13 +23,6 @@ View = {
   },
   clearNexiconInput: function(){
       document.getElementById("nexiconInput").value = "";
-  },
-  initializePreview: function(){
-      // get preview element and set to blank
-      let preview = document.getElementById("sentencePreview").innerHTML = "";
-  },
-  updatePreview: function(sentence){
-      document.getElementById("sentencePreview").innerHTML = "" + sentence + "";
   },
   toggleSentencePreview: function(selected){
       //controls the selection boxes
@@ -45,8 +43,3 @@ View = {
 
   },
 };
-
-// initializes the nexicon column invisble
-document.getElementById('nexiconColumn').style.visibility = "hidden";
-//intialize the sentence preview tab
-View.initializePreview();

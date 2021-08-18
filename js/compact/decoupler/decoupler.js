@@ -24,18 +24,17 @@ let Decoupler = {
           //gets the span that the nexicon uses to displays
           //the word to be interpreted, then sets it
           document.getElementById("nexiconAddition").innerHTML = word;
-          // Togglet the visibility to FALSE which is visible
-          View.toggleNexicon(false);
+          //this removes the alert that says there isn't anything
+          View.toggleNexiconDisplay(true);
       },
       spanFactoryInterpretations: function(unresolved){
           // This is for uninterpreted words
-          // TODO: Add callback function
           let spans = [];
           for (var i = 0; i < unresolved.length; i++) {
               //create a unique id for the array
               let spanKey = createKey();
               //create the span and add it to the returned array
-              spans[i] = '<span id="' + spanKey + '" class="unresolved" onclick="Decoupler.spanEvent(this.id)">' + unresolved[i] +  " </span>";
+              spans[i] = '<span id="' + spanKey + '" class="unresolved" onclick="Decoupler.spanEvent(this.id)" data-toggle="modal" data-target="#nexiconModal">' + unresolved[i] +  " </span>";
               //Add the key to the unresolved span key array
               Interpreter.addUnresolvedSpanKey(spanKey);
           }
