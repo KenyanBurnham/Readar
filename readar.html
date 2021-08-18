@@ -29,19 +29,14 @@
               </button>
             </div>
             <div class="modal-body">
-                <h4>Tools</h4>
+                <h4>New Text File Project (.txt)</h4>
+                <button type="button" name="button"><input type="file" id="myfile" name="myfile" accept="text/plain" onchange="Inputer.initiate(this);"></button>
                 <br>
-                <p><b>Sentence Preview</b></p>
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input" checked="true">
-                    <label class="custom-control-label" for="customRadioInline1">On</label>
-                </div>
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="customRadioInline2" name="customRadioInline2" class="custom-control-input">
-                    <label class="custom-control-label" for="customRadioInline2">Off</label>
-                </div>
-                <br><br>
-                <p><b>Density Key Display</b></p>
+                <br>
+                <hr>
+                <h4>Feature Preferences</h4>
+                <br>
+                <p><b>Density Display</b></p>
                 <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" id="customRadioInline3" name="customRadioInline3" class="custom-control-input" checked="true">
                     <label class="custom-control-label" for="customRadioInline3">On</label>
@@ -53,10 +48,24 @@
                 <br>
                 <hr>
                 <br>
-                <h4>Display</h4>
+                <h4>Display Customizations</h4>
                 <br>
-                Nexicon color
-                Density display color
+                <p><b>Nexicon Color</b></p>
+                <label for="nexiconTextColor">Text Color:</label>
+                <input type="color" id="nexiconTextColor" name="nexiconTextColor" value="#FFC107"><br><br>
+                <label for="nexiconHighlightColor">Highlight Color:</label>
+                <input type="color" id="nexiconHighlightColor" name="nexiconHighlightColor" value="#FFFFFF"><br><br>
+
+                <p><b>Density Display Color</b></p>
+                <!-- will need to ensure white is not slectable-->
+                <label for="densityHighColor">High Density Color:</label>
+                <input type="color" id="densityHighColor" name="densityHighColor" value="#007bff"><br><br>
+                <label for="densityLowColor">Low Density Color:</label>
+                <input type="color" id="densityLowColor" name="densityLowColor" value="#00A6A6"><br><br>
+
+                <label for="customRange3" class="form-label">Percentage of Density Displayed</label>
+                <p>Show <span id="percentageDensityFeedback">100%</span></p>
+                <input type="range" class="form-range" min="0" max="10" step="0.5" id="customRange3" value="10">
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -67,7 +76,8 @@
       </div>
     </main>
 
-    <div class="modal" tabindex="-1" role="dialog">
+    <!-- Nexicon Modal -->
+    <div class="modal" id="nexiconModal" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -77,11 +87,28 @@
             </button>
           </div>
           <div class="modal-body">
-            <p>Modal body text goes here.</p>
+              <div id="displayNothingInNexicon">
+                <div class="alert alert-secondary" role="alert">
+                    No words need to be interpreted at this moment.
+                </div>
+              </div>
+              <div class="">
+                  <small>The word below can not be processed using the typical heuristics.</small>
+                  <div class="row">
+                      <span id="nexiconAddition" class="nexicon-addition" style="display: block; margin: auto;">Word</span>
+                  </div>
+                  <small>Type in a pronounciation of the word and click "update". This interpretation will be saved.</small>
+                  <br><br>
+                  <textarea id="nexiconInput" name="nexiconInput" rows="4" cols="25" class="nexicon-input" onclick="View.clearNexiconInput();">Type Here</textarea>
+              </div>
+          </div>
+              <!-- TODO: Ensure that the user experience includes some sort of input parsing -->
+          <div class="alert alert-danger" role="alert" hidden>
+              Your pronounciation may only contain letter characters.
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary">Save changes</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-info" name="button" onclick="Interpreter.getAbstractFromNexicon();">Update</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="View.resetNexicon();">Cancel</button>
           </div>
         </div>
       </div>
@@ -92,45 +119,30 @@
 <!--=========================================================================-->
 <!-- Controls Section -->
 <!--=========================================================================-->
-        <div class="row gx-5">
-            <div class="col">
-                &nbsp;
-            </div>
-            <div class="col-8">
-                <div class="row">
-                    <div class="btn-group" role="group" aria-label="Basic example">
-                        <button class="btn btn-lg btn-primary" type="button" name="button" onclick="initiatorFunction('inputTarget');">&#9654;</button>
-                        <button class="btn btn-lg btn-info" type="button" name="button" onclick="Debugger.debriefInterpreter();">&#127987;</button>
-                        <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModalLong">&#9881;</button>
-                        <button type="button" name="button"><input type="file" id="myfile" name="myfile" accept="text/plain" onchange="Inputer.initiate(this);"></button>
-                    </div>
-                </div>
-            </div>
-            <div class="col" style="float: right;">
-              <div class="spinner-grow text-info" role="status">
-                <span class="visually-hidden">Saving...</span>
-              </div>
-            </div>
-        </div>
+        <nav class="navbar sticky-top navbar-light bg-light" style="padding-left: 10px;">
+                  <div class="btn-group" role="group" aria-label="Basic example">
+                  <button class="btn btn-lg btn-primary" type="button" name="button" onclick="initiatorFunction('inputTarget');">&#9654; Analyze</button>
+                  <button type="button" class="btn btn-lg" style="background-color: #0dcaf0; color: white;" data-toggle="modal" data-target="#nexiconModal">&#9881; Define</button>
+                  <button class="btn btn-lg btn-info" type="button" name="button" onclick="Debugger.debriefInterpreter();">&#127987; Debug</button>
+                  <!-- Button trigger modal -->
+                  <button type="button" class="btn btn-lg btn-secondary" data-toggle="modal" data-target="#exampleModalLong">&#9881; Settings</button>
+                  </div>
+                  <div class="spinner-grow text-info" role="status" style="float: right;">
+                    <span class="visually-hidden">Saving...</span>
+                  </div>
+        </nav>
         <br><br> <!-- Intentional vertical spacing -->
 <!--=========================================================================-->
 <!-- Editing Section -->
 <!--=========================================================================-->
         <div class="row gx-5">
-          <div class="col">
-            &nbsp;
-          </div>
-          <div class="col-8">
+          <div class="col-12">
               <div class="row">
                       <section>
                         <div class="visual-key" id="visualKey">
                           <table>
                             <tr id="visualKeyTable"></tr>
                           </table>
-                        </div>
-                        <div class="sentence-preview" id=sentencePreview>
-                            Welcome to Readar!
                         </div>
                   </section>
                   <section class="paper">
@@ -150,37 +162,6 @@
                   </section>
               </div>
           </div>
-          <div class="col">
-              <!-- Definition Changing Function-->
-              <div id="nexiconColumn" class="">
-                  <div class="row button-group-sticky" style="float: left;" >
-                      <!-- Modal content -->
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <span class="close" onclick="View.resetNexicon();">&times;</span>
-                        </div>
-                        <div class="modal-body">
-                          <small>The word below can not be processed using the typical heuristics.</small>
-                          <div class="row">
-                              <span id="nexiconAddition" class="nexicon-addition" style="display: block; margin: auto;">Word</span>
-                          </div>
-                          <small>Type in a pronounciation of the word and click "update". This interpretation will be saved.</small>
-                          <br><br>
-                          <textarea id="nexiconInput" name="nexiconInput" rows="4" cols="25" class="nexicon-input" onclick="View.clearNexiconInput();">Type Here</textarea>
-                        </div>
-                        <!-- TODO: Ensure that the user experience includes some sort of input parsing -->
-                        <div class="alert alert-danger" role="alert" hidden>
-                          Your pronounciation may only contain letter characters.
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-info" name="button" onclick="Interpreter.getAbstractFromNexicon();">Update</button>
-                          <button type="button" class="btn btn-light" name="button" onclick="View.resetNexicon();">Cancel</button>
-                        </div>
-                      </div>
-                  </div>
-          </div>
-        </div>
-
 
 
     <!-- Enterprise Scripts-->

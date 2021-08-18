@@ -26,6 +26,24 @@ View = {
   updatePreview: function(sentence){
       document.getElementById("sentencePreview").innerHTML = "" + sentence + "";
   },
+  toggleSentencePreview: function(selected){
+      //controls the selection boxes
+      let on = document.getElementById('sentencePreviewOn');
+      let off = document.getElementById('sentencePreviewOff');
+      if (selected == on.id) {
+          if ((on.checked == true) && (off.checked == true)) {
+              off.checked = false;
+          }
+      }
+      if (selected == off.id) {
+        if ((on.checked == true) && (off.checked == true)) {
+            on.checked = false;
+        }
+      }
+  },
+  resolveVisuals: function(){
+
+  },
 };
 
 // initializes the nexicon column invisble

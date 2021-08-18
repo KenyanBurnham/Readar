@@ -20,12 +20,12 @@ let Chartographer = {
         //check whether the number of span-covered sentences are even
         if(Ariths.isEven(spanNumber) == true){
             //make an even gradient between the two colors
-            gradientBlue = generateColor('#000000','#007bff', (spanNumber)/2);
-            gradientTeal = generateColor('#00A6A6','#000000', (spanNumber)/2);
+            gradientBlue = generateColor('#FFFFFF','#007bff', (spanNumber)/2);
+            gradientTeal = generateColor('#00A6A6','#FFFFFF', (spanNumber)/2);
         } else if (Ariths.isEven(spanNumber) == false) {
-            gradientBlue = generateColor('#000000','#007bff', Math.floor(spanNumber)/2);
-            gradientTeal = generateColor('#00A6A6','#000000', Math.floor(spanNumber)/2);
-            gradientTeal.push("#000000");
+            gradientBlue = generateColor('#FFFFFF','#007bff', Math.floor(spanNumber)/2);
+            gradientTeal = generateColor('#00A6A6','#FFFFFF', Math.floor(spanNumber)/2);
+            gradientTeal.push("#FFFFFF");
         }
         //push the gradient together
         for (var j = 0; j < gradientTeal.length; j++) {

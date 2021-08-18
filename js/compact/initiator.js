@@ -3,6 +3,16 @@
 //Target specifies the DOM Object to target
 function initiatorFunction(target){
 
+//Stage 0:
+
+/*
+    When server functionality is added,
+    1. preferences will be saved and will need to be set on load
+    2. projects and current work will need to be set and saved
+*/
+      //Acts as a default for now, this sets things based on the current settings
+      //View.resolveVisuals();
+
 //Stage 1: pre-process and removing errors
       //Clear previous spans
       Decoupler.removeAllSpans(target);
@@ -16,7 +26,7 @@ function initiatorFunction(target){
       //Send to the processor object.
       Paragraphs.process(decoupledSource);
 
-          //Return the output
+          //Return the output TESTING ONLY
           Debugger.debugBody();
 
       //Begin to package output
@@ -28,6 +38,7 @@ function initiatorFunction(target){
 //Stage 2: outputting a visual
 
       //this assigns the color pattern to the paper
+      //this is the main visual feedback
       if(Interpreter.unresolved.length == 0){
            Chartographer.initiate();
       }
@@ -35,6 +46,8 @@ function initiatorFunction(target){
       //debrief all errors
       Debugger.debriefErrors();
       //Debugger.debriefChartographer();
+
+      View.resolveVisuals();
 }
 
 // TODO: Make a config that allows customization
