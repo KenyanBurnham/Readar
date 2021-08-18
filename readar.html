@@ -119,33 +119,31 @@
 <!--=========================================================================-->
 <!-- Controls Section -->
 <!--=========================================================================-->
-        <nav class="navbar sticky-top navbar-light bg-light" style="padding-left: 10px;">
+        <nav class="navbar sticky-top navbar-light bg-light" style="padding-left: 10px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
                   <div class="btn-group" role="group" aria-label="Basic example">
-                  <button class="btn btn-lg btn-primary" type="button" name="button" onclick="initiatorFunction('inputTarget');">&#9654; Analyze</button>
-                  <button type="button" class="btn btn-lg" style="background-color: #0dcaf0; color: white;" data-toggle="modal" data-target="#nexiconModal">&#9881; Define</button>
-                  <button class="btn btn-lg btn-info" type="button" name="button" onclick="Debugger.debriefInterpreter();">&#127987; Debug</button>
-                  <!-- Button trigger modal -->
-                  <button type="button" class="btn btn-lg btn-secondary" data-toggle="modal" data-target="#exampleModalLong">&#9881; Settings</button>
+                    <button class="btn btn-lg btn-primary" type="button" name="button" onclick="initiatorFunction('inputTarget');">&#9654; Analyze</button>
+                    <button type="button" class="btn btn-lg" style="background-color: #0dcaf0; color: white;" data-toggle="modal" data-target="#nexiconModal">&#9881; Define</button>
+                    <button class="btn btn-lg btn-info" type="button" name="button" onclick="Debugger.debriefInterpreter();">&#127987; Debug</button>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-lg btn-secondary" data-toggle="modal" data-target="#exampleModalLong">&#9881; Settings</button>
                   </div>
-                  <div class="spinner-grow text-info" role="status" style="float: right;">
-                    <span class="visually-hidden">Saving...</span>
+                  <br>
+                  <!-- Where the visual key table happens-->
+                  <div class="visual-key" id="visualKey">
+                      <hr>
+                      <table>
+                        <tr id="visualKeyTable"></tr>
+                      </table>
                   </div>
         </nav>
         <br><br> <!-- Intentional vertical spacing -->
+
 <!--=========================================================================-->
 <!-- Editing Section -->
 <!--=========================================================================-->
-        <div class="row gx-5">
           <div class="col-12">
               <div class="row">
-                      <section>
-                        <div class="visual-key" id="visualKey">
-                          <table>
-                            <tr id="visualKeyTable"></tr>
-                          </table>
-                        </div>
-                  </section>
-                  <section class="paper">
+                  <section class="paper" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
                         <div class="paper_in" contenteditable id="inputTarget">
                           Programming languages have been around since the early 1950s? As languages and practices evolve, they culminate into rich cultural identity built around specific software communities. This culture can revolve around a specific language, a certain practice, the profession, or an ideology. The most recent ideological culture is the open-source software culture.
                           <br/>
@@ -162,6 +160,8 @@
                   </section>
               </div>
           </div>
+
+        </main>
 
 
     <!-- Enterprise Scripts-->
