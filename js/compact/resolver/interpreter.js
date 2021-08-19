@@ -4,8 +4,8 @@
   "Abstract": The internal representation of a word or set of characters
 */
 let Interpreter = {
-    image: ["rev360", "1950s"],
-    abstract: ["rev three sixty", "nineteen fifties"],
+    image: ["1950s"],
+    abstract: ["nineteen fifties"],
     spanIdentities: [],
     unresolved: [],
     getImages: function(){
@@ -148,5 +148,7 @@ let Interpreter = {
         View.resetNexicon();
         //remove the span
         Decoupler.remove(target, unresolved);
+        //need to go back to the nexiconStateDisplay view
+        View.toggleNexiconTab("addTab");
     },
 }

@@ -117,7 +117,7 @@
                             <span id="nexiconAddition" class="nexicon-addition" style="display: block; margin: auto;">Word</span>
                         </div>
                         <small>Type in a pronounciation of the word and click "Update". This interpretation will be saved and stored in the "Manage" tab.</small>
-                        <textarea id="nexiconInput" name="nexiconInput" rows="2" cols="35" class="nexicon-input" onclick="View.clearNexiconInput();">Type Here</textarea>
+                        <textarea id="nexiconInput" name="nexiconInput" rows="2" cols="35" class="nexicon-input" placeholder="Type Here" oninput="View.runSantitizationCheck();"></textarea>
                         </br>
                         <button id="nexiconUpdateButton" type="button" class="btn btn-info" name="button" onclick="Interpreter.getAbstractFromNexicon();" style="visibility: hidden;">Update</button>
                     </div>
@@ -125,7 +125,7 @@
             </div>
           </div>
               <!-- TODO: Ensure that the user experience includes some sort of input parsing -->
-          <div class="alert alert-danger" role="alert" hidden>
+          <div id="sanitizeWarning" class="alert alert-danger" role="alert" style="visibility: hidden;">
               Your pronounciation may only contain letter characters.
           </div>
           <div class="modal-footer">

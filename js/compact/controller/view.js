@@ -51,7 +51,8 @@ View = {
       //reset the span that shows users the word
       document.getElementById('nexiconAddition').innerText = "Word";
       //reset the nexicon input
-      document.getElementById('nexiconInput').value = "Type Here";
+      document.getElementById('nexiconInput').value = "";
+      document.getElementById("nexiconInput").placeholder = "Type here.";
       //This updates the badge icon; only included in this function since this
       //is part of the cancel operation of the modal
       View.updateNexiconBadge(Interpreter.unresolved.length);
@@ -82,6 +83,38 @@ View = {
           }
       } else{
           //add a thing that displays "will go here"
+      }
+  },
+  sanitizeNexiconInput: function(interpretation){
+      //remove whitespace and then run through
+      //standardize into lower case
+      let modifiedInterpretation = interpretation.toLowerCase();
+      //remove other white space
+      modifiedInterpretation += modifiedInterpretation.trim();
+      //remove spaces
+      modifiedInterpretation += modifiedInterpretation.replace(/\s/g, '');
+      //test for numbers and other non word characters
+      let testResults = Interpreter.testForNumber(modifiedInterpretation);
+      //if not odd characters are returned "false" then it'll return true
+      if (testResults == false) {
+          return true;
+      } else {
+          return false;
+      }
+  },
+  runSantitizationCheck: function(){
+
+      //set update button to disabled
+      document.getElementById("nexiconUpdateButton").disabled = true;
+      console.log("is this happening?");
+      let test = this.sanitizeNexiconInput(document.getElementById('nexiconInput').value);
+      console.log(test);
+      if (test == false) {
+          document.getElementById('sanitizeWarning').style.visibility = "hidden";
+          document.getElementById("nexiconUpdateButton").disabled = false;
+      } else {
+          document.getElementById('sanitizeWarning').style.visibility = "visible";
+          document.getElementById("nexiconUpdateButton").disabled = true;
       }
   },
   addNewInterpretationCallback: function(identity){
