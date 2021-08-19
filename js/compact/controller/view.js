@@ -25,17 +25,25 @@ View = {
       //unresolved is changed
       //needs to also be updated after the modal is closed
       let nexiconBadge = document.getElementById("nexiconBadge");
+      let nexiconAddBadge = document.getElementById("nexiconAddBadge");
       //updates in the case that their are some
       if (unresolvedLength > 0) {
           //display the number of unresolved
           nexiconBadge.innerHTML = "";
           nexiconBadge.innerHTML = "" + unresolvedLength + "";
           nexiconBadge.style.visibility = "visible";
+          //change the badge inside the modal too
+          nexiconAddBadge.innerHTML = "";
+          nexiconAddBadge.innerHTML = "" + unresolvedLength + "";
+          nexiconAddBadge.style.visibility = "visible";
       }
       // updates in the case that there are none
       if (unresolvedLength == 0) {
           nexiconBadge.innerHTML = "";
           nexiconBadge.style.visibility = "hidden";
+          //change the badge inside the modal too
+          nexiconAddBadge.innerHTML = "";
+          nexiconAddBadge.style.visibility = "hidden";
       }
   },
   resetNexicon: function(){
@@ -53,7 +61,9 @@ View = {
       document.getElementById("nexiconInput").value = "";
   },
   createNexiconListItem:function(identity, image, interpretation){
-      let newTab = "<a id='listItem" + identity + "' href='#' class='list-group-item list-group-item-action' aria-current='true' onclick='View.toggleNexiconManageListItems(this.id);'><p class='mb-1'>" + image + "</p><small>Interpreted as: <i>'" + interpretation + "</i>'</small></a>";
+      let syllables = getSyllableCount(interpretation);
+      console.log(syllables);
+      let newTab = "<a id='listItem" + identity + "' class='list-group-item list-group-item-action' aria-current='true' onclick='View.toggleNexiconManageListItems(this.id);'><p class='mb-1'>" + image + "</p><small>Interpreted as: '<i>" + interpretation + "</i>', Syllables: " + syllables + "</small></a>";
       document.getElementById("manageTabListItemGroup").innerHTML += newTab;
   },
   toggleNexiconManageListItems: function(identity){
@@ -63,7 +73,7 @@ View = {
   },
   updateNexiconManageTab: function(){
       //clear the modal group
-      document.getElementById("manageTabListItemGroup").innerHTML = "</br>";
+      document.getElementById("manageTabListItemGroup").innerHTML = "</br><small style='color: gray;'>Click on saved words to edit.</small></br>";
       //then add the images and items
       let images = Interpreter.getImages();
       let abstracts = Interpreter.getAbstracts();
@@ -76,8 +86,27 @@ View = {
           //add a thing that displays "will go here"
       }
   },
+  addNewInterpretationCallback: function(identity){
+      this.toggleNexiconManageListItems(identity);
+      this.toggleNexiconDisplay(true);
+      //let image = document.getElementById(identity).getAttribute("data-image");
+      //console.log(image);
+      //use id to get the data hidden inside the object
+  },
   updateNexiconAddTab: function(){
-
+      //reset the add items tab
+      let unresolved = Interpreter.getUnresolved();
+      if (unresolved.length > 0) {
+          //hide the alert
+          document.getElementById('nexiconAlertDisplay').style.visibility = "hidden";
+          for (var i = 0; i < unresolved.length; i++) {
+              let image = unresolved[i];
+              let newTab = "<a id='listItemAdd" + i + "' data-image='" + image + "' class='list-group-item list-group-item-action' aria-current='true' onclick='View.addNewInterpretationCallback(this.id);'><p class='mb-1'>" + image + "</p></a>";
+              document.getElementById("nexiconStateDisplay").innerHTML += newTab;
+          }
+      } else {
+          document.getElementById('nexiconAlertDisplay').style.visibility = "visible";
+      }
 
       //get unresolved
       //display them

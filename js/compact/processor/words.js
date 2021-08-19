@@ -49,7 +49,6 @@ let Words = {
               //If there is a known interpretation for the word
               if((testResults.containsInterpretation == true)){
                   //Then the word is already known
-                  //console.log("Contains Interpretation: " + word);
                   //Go ahead and get the interpretation
                   let interpretation = Interpreter.getInterpretation(word);
                   //And the syllable count for the interpretation

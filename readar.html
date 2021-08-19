@@ -93,7 +93,7 @@
                       <button class="nav-link active" id="manageTab" data-bs-toggle="tab" data-bs-target="#nexiconManageTab" type="button" role="tab" aria-controls="nexiconManageTab" aria-selected="true" onclick="View.toggleNexiconTab(this.id);">Manage</button>
                   </li>
                   <li class="nav-item" role="presentation">
-                      <button class="nav-link" id="addTab" data-bs-toggle="tab" data-bs-target="#nexiconAddTab" type="button" role="tab" aria-controls="nexiconAddTab" aria-selected="false" onclick="View.toggleNexiconTab(this.id);">Add</button>
+                      <button class="nav-link" id="addTab" data-bs-toggle="tab" data-bs-target="#nexiconAddTab" type="button" role="tab" aria-controls="nexiconAddTab" aria-selected="false" onclick="View.toggleNexiconTab(this.id);">Add <span id="nexiconAddBadge" class="badge bg-secondary" style="visibility: hidden;"></span></button>
                   </li>
             </ul>
             <div class="tab-content" id="myTabContent">
@@ -103,11 +103,11 @@
                 <div class="tab-pane fade show" id="nexiconAddTab" role="tabpanel" aria-labelledby="nexiconAddTab-tab">
                     <!-- Tells the user that there isn't any alerts -->
                     <div id="nexiconStateDisplay">
-                    </br>
+                        </br></br>
                         <div id="nexiconAlertDisplay" class="alert alert-secondary" role="alert">
                             No words need to be interpreted at this moment.
-                          </br>
-                            <small>Run analysis to discover words that need internal definition.</small>
+                            </br>
+                            <small>Run analysis to discover words that need internal definitions.</small>
                         </div>
                     </div>
                     <!-- Tells the user to how to internall change the unprocessible words-->
@@ -118,6 +118,8 @@
                         </div>
                         <small>Type in a pronounciation of the word and click "Update". This interpretation will be saved and stored in the "Manage" tab.</small>
                         <textarea id="nexiconInput" name="nexiconInput" rows="2" cols="35" class="nexicon-input" onclick="View.clearNexiconInput();">Type Here</textarea>
+                        </br>
+                        <button id="nexiconUpdateButton" type="button" class="btn btn-info" name="button" onclick="Interpreter.getAbstractFromNexicon();" style="visibility: hidden;">Update</button>
                     </div>
                 </div>
             </div>
@@ -127,7 +129,6 @@
               Your pronounciation may only contain letter characters.
           </div>
           <div class="modal-footer">
-              <button id="nexiconUpdateButton" type="button" class="btn btn-info" name="button" onclick="Interpreter.getAbstractFromNexicon();" style="visibility: hidden;">Update</button>
               <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="View.resetNexicon();">Cancel</button>
           </div>
         </div>
