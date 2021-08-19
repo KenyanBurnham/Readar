@@ -90,34 +90,35 @@
 
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                   <li class="nav-item" role="presentation">
-                      <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Manage</button>
+                      <button class="nav-link active" id="manageTab" data-bs-toggle="tab" data-bs-target="#nexiconManageTab" type="button" role="tab" aria-controls="nexiconManageTab" aria-selected="true" onclick="View.toggleNexiconTab(this.id);">Manage</button>
                   </li>
                   <li class="nav-item" role="presentation">
-                      <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Add</button>
+                      <button class="nav-link" id="addTab" data-bs-toggle="tab" data-bs-target="#nexiconAddTab" type="button" role="tab" aria-controls="nexiconAddTab" aria-selected="false" onclick="View.toggleNexiconTab(this.id);">Add</button>
                   </li>
             </ul>
             <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="nexiconManageTab" role="tabpanel" aria-labelledby="home-tab">
-                      <!-- Tells the user that there isn't any alerts -->
-                      <div id="nexiconStateDisplay">
-                          <br>
-                          <div id="nexiconAlertDisplay" class="alert alert-secondary" role="alert">
-                              No words need to be interpreted at this moment.
-                          </div>
-                      </div>
-                      <!-- Tells the user to how to internall change the unprocessible words-->
-                      <div id="nexiconInputDisplay" style="visibility: hidden; text-align: center;">
-                          <small>The word below can not be processed using the typical heuristics.</small>
-                          <div class="row">
-                              <span id="nexiconAddition" class="nexicon-addition" style="display: block; margin: auto;">Word</span>
-                          </div>
-                          <small>Type in a pronounciation of the word and click "update". This interpretation will be saved.</small>
-                          <br><br>
-                          <textarea id="nexiconInput" name="nexiconInput" rows="2" cols="35" class="nexicon-input" onclick="View.clearNexiconInput();">Type Here</textarea>
-                      </div>
+                <div class="tab-pane fade show active" id="nexiconManageTab" role="tabpanel" aria-labelledby="nexiconManageTab-tab">
+                    <div id="manageTabListItemGroup" class="list-group"></div>
                 </div>
-                <div class="tab-pane fade" id="nexiconAddTab" role="tabpanel" aria-labelledby="profile-tab">
-                    define new
+                <div class="tab-pane fade show" id="nexiconAddTab" role="tabpanel" aria-labelledby="nexiconAddTab-tab">
+                    <!-- Tells the user that there isn't any alerts -->
+                    <div id="nexiconStateDisplay">
+                    </br>
+                        <div id="nexiconAlertDisplay" class="alert alert-secondary" role="alert">
+                            No words need to be interpreted at this moment.
+                          </br>
+                            <small>Run analysis to discover words that need internal definition.</small>
+                        </div>
+                    </div>
+                    <!-- Tells the user to how to internall change the unprocessible words-->
+                    <div id="nexiconInputDisplay" class="mx-auto" style="visibility: hidden;">
+                        <small>The word below cannot be assigned syllables.</small>
+                        <div class="row">
+                            <span id="nexiconAddition" class="nexicon-addition" style="display: block; margin: auto;">Word</span>
+                        </div>
+                        <small>Type in a pronounciation of the word and click "Update". This interpretation will be saved and stored in the "Manage" tab.</small>
+                        <textarea id="nexiconInput" name="nexiconInput" rows="2" cols="35" class="nexicon-input" onclick="View.clearNexiconInput();">Type Here</textarea>
+                    </div>
                 </div>
             </div>
           </div>
@@ -141,7 +142,7 @@
         <nav class="navbar sticky-top nav-justified navbar-light bg-light" style="padding-left: 10px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
                   <div class="btn-group" role="group" aria-label="Basic example">
                     <button class="btn btn-lg btn-primary" type="button" name="button" onclick="initiatorFunction('inputTarget');"> Analyze </button>
-                    <button type="button" class="btn btn-lg" style="background-color: #0dcaf0; color: white;" data-toggle="modal" data-target="#nexiconModal"> Define  <span id="nexiconBadge" class="badge bg-secondary" style="visibility: hidden;"></span> </button>
+                    <button type="button" class="btn btn-lg" style="background-color: #0dcaf0; color: white;" data-toggle="modal" data-target="#nexiconModal" onclick="View.updateNexiconManageTab();"> Define  <span id="nexiconBadge" class="badge bg-secondary" style="visibility: hidden;"></span> </button>
                     <button class="btn btn-lg btn-info" type="button" name="button" onclick="Debugger.debriefInterpreter();"> Debrief</button>
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-lg btn-secondary" data-toggle="modal" data-target="#exampleModalLong"> Personalize</button>

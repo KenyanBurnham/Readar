@@ -26,6 +26,8 @@ let Decoupler = {
           document.getElementById("nexiconAddition").innerHTML = word;
           //this removes the alert that says there isn't anything
           View.toggleNexiconDisplay(true);
+          //this turns the nexicon tab to the right place
+          View.toggleNexiconTab("addTab");
       },
       spanFactoryInterpretations: function(unresolved){
           // This is for uninterpreted words

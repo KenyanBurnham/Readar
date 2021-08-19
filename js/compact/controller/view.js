@@ -52,22 +52,73 @@ View = {
   clearNexiconInput: function(){
       document.getElementById("nexiconInput").value = "";
   },
-  toggleSentencePreview: function(selected){
-      //controls the selection boxes
-      let on = document.getElementById('sentencePreviewOn');
-      let off = document.getElementById('sentencePreviewOff');
-      if (selected == on.id) {
-          if ((on.checked == true) && (off.checked == true)) {
-              off.checked = false;
+  createNexiconListItem:function(identity, image, interpretation){
+      let newTab = "<a id='listItem" + identity + "' href='#' class='list-group-item list-group-item-action' aria-current='true' onclick='View.toggleNexiconManageListItems(this.id);'><p class='mb-1'>" + image + "</p><small>Interpreted as: <i>'" + interpretation + "</i>'</small></a>";
+      document.getElementById("manageTabListItemGroup").innerHTML += newTab;
+  },
+  toggleNexiconManageListItems: function(identity){
+      //grab id of list item tab clicked and add the active class
+      document.getElementById(identity).classList.add("active");
+      //then add the add Nexicon functionality again
+  },
+  updateNexiconManageTab: function(){
+      //clear the modal group
+      document.getElementById("manageTabListItemGroup").innerHTML = "</br>";
+      //then add the images and items
+      let images = Interpreter.getImages();
+      let abstracts = Interpreter.getAbstracts();
+      //if there are any images, the let's build a few list items
+      if(images.length > 0){
+          for (var i = 0; i < images.length; i++) {
+              this.createNexiconListItem(i, images[i], abstracts[i]);
           }
-      }
-      if (selected == off.id) {
-        if ((on.checked == true) && (off.checked == true)) {
-            on.checked = false;
-        }
+      } else{
+          //add a thing that displays "will go here"
       }
   },
-  resolveVisuals: function(){
+  updateNexiconAddTab: function(){
 
+
+      //get unresolved
+      //display them
+      //add a callback that calls
+      //Decoupler.spanEvent("spanidentity");
+      //call this.updateNexiconManageTab();
   },
+  toggleNexiconTab: function(identity){
+      //this method essentially tries to replicte the bootstrap tabs functions
+      //that for some reason are not working correctly
+      let nexManageTab = document.getElementById("nexiconManageTab");
+      let nexAddTab = document.getElementById("nexiconAddTab");
+      let manageButton = document.getElementById("manageTab");
+      let addButton = document.getElementById("addTab");
+      switch (identity) {
+          case "manageTab":
+              //manage tab selected
+              //make sure the right tab is being shown
+              nexAddTab.classList.remove("active");
+              nexManageTab.classList.add("active");
+              nexAddTab.classList.remove("show");
+              nexManageTab.classList.add("show");
+              //make sure the tab looks the same
+              addButton.classList.remove("active");
+              manageButton.classList.add("active");
+              //Add functionality for resetting
+              this.updateNexiconManageTab();
+            break;
+          case "addTab":
+              // add tab selected
+              //make sure the right tab is being shown
+              nexManageTab.classList.remove("active");
+              nexAddTab.classList.add("active");
+              nexManageTab.classList.remove("show");
+              nexAddTab.classList.add("show");
+              //make sure the tab looks the same
+              manageButton.classList.remove("active");
+              addButton.classList.add("active");
+              //add functionality for resetting
+              this.updateNexiconAddTab();
+            break;
+        }
+    },
 };

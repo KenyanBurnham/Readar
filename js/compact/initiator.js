@@ -47,7 +47,6 @@ function initiatorFunction(target){
       Debugger.debriefErrors();
       //Debugger.debriefChartographer();
 
-      View.resolveVisuals();
 }
 
 // TODO: Make a config that allows customization

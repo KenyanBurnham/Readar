@@ -8,6 +8,12 @@ let Interpreter = {
     abstract: ["rev three sixty", "nineteen fifties"],
     spanIdentities: [],
     unresolved: [],
+    getImages: function(){
+        return this.image;
+    },
+    getAbstracts: function(){
+        return this.abstract;
+    },
     addInterpretation: function(image, abstract){
         // This method appends and image abstraction pair to
         //Interpreter's internal storage
