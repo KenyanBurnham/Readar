@@ -81,33 +81,52 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Nexicon</h5>
+            <h5 class="modal-title">Lexicon</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-              <div id="nexiconStateDisplay">
-                  <div id="nexiconAlertDisplay" class="alert alert-secondary" role="alert">
-                      No words need to be interpreted at this moment.
-                  </div>
-              </div>
-              <div class="">
-                  <small>The word below can not be processed using the typical heuristics.</small>
-                  <div class="row">
-                      <span id="nexiconAddition" class="nexicon-addition" style="display: block; margin: auto;">Word</span>
-                  </div>
-                  <small>Type in a pronounciation of the word and click "update". This interpretation will be saved.</small>
-                  <br><br>
-                  <textarea id="nexiconInput" name="nexiconInput" rows="4" cols="25" class="nexicon-input" onclick="View.clearNexiconInput();">Type Here</textarea>
-              </div>
+
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                  <li class="nav-item" role="presentation">
+                      <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Manage</button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                      <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Add</button>
+                  </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="nexiconManageTab" role="tabpanel" aria-labelledby="home-tab">
+                      <!-- Tells the user that there isn't any alerts -->
+                      <div id="nexiconStateDisplay">
+                          <br>
+                          <div id="nexiconAlertDisplay" class="alert alert-secondary" role="alert">
+                              No words need to be interpreted at this moment.
+                          </div>
+                      </div>
+                      <!-- Tells the user to how to internall change the unprocessible words-->
+                      <div id="nexiconInputDisplay" style="visibility: hidden; text-align: center;">
+                          <small>The word below can not be processed using the typical heuristics.</small>
+                          <div class="row">
+                              <span id="nexiconAddition" class="nexicon-addition" style="display: block; margin: auto;">Word</span>
+                          </div>
+                          <small>Type in a pronounciation of the word and click "update". This interpretation will be saved.</small>
+                          <br><br>
+                          <textarea id="nexiconInput" name="nexiconInput" rows="2" cols="35" class="nexicon-input" onclick="View.clearNexiconInput();">Type Here</textarea>
+                      </div>
+                </div>
+                <div class="tab-pane fade" id="nexiconAddTab" role="tabpanel" aria-labelledby="profile-tab">
+                    define new
+                </div>
+            </div>
           </div>
               <!-- TODO: Ensure that the user experience includes some sort of input parsing -->
           <div class="alert alert-danger" role="alert" hidden>
               Your pronounciation may only contain letter characters.
           </div>
           <div class="modal-footer">
-              <button type="button" class="btn btn-info" name="button" onclick="Interpreter.getAbstractFromNexicon();">Update</button>
+              <button id="nexiconUpdateButton" type="button" class="btn btn-info" name="button" onclick="Interpreter.getAbstractFromNexicon();" style="visibility: hidden;">Update</button>
               <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="View.resetNexicon();">Cancel</button>
           </div>
         </div>
@@ -119,19 +138,19 @@
 <!--=========================================================================-->
 <!-- Controls Section -->
 <!--=========================================================================-->
-        <nav class="navbar sticky-top navbar-light bg-light" style="padding-left: 10px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+        <nav class="navbar sticky-top nav-justified navbar-light bg-light" style="padding-left: 10px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
                   <div class="btn-group" role="group" aria-label="Basic example">
-                    <button class="btn btn-lg btn-primary" type="button" name="button" onclick="initiatorFunction('inputTarget');"><svg xmlns="http://www.w3.org/2000/svg" width="8" height="16" viewBox="0 0 8 16"><path fill-rule="evenodd" d="M7.5 8l-5 5L1 11.5 4.75 8 1 4.5 2.5 3l5 5z"/></svg> Analyze</button>
-                    <button type="button" class="btn btn-lg" style="background-color: #0dcaf0; color: white;" data-toggle="modal" data-target="#nexiconModal"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"/></svg> Define</button>
-                    <button class="btn btn-lg btn-info" type="button" name="button" onclick="Debugger.debriefInterpreter();"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M11 10h3V9h-3V8l3.17-1.03-.34-.94L11 7V6c0-.55-.45-1-1-1V4c0-.48-.36-.88-.83-.97L10.2 2H12V1H9.8l-2 2h-.59L5.2 1H3v1h1.8l1.03 1.03C5.36 3.12 5 3.51 5 4v1c-.55 0-1 .45-1 1v1l-2.83-.97-.34.94L4 8v1H1v1h3v1L.83 12.03l.34.94L4 12v1c0 .55.45 1 1 1h1l1-1V6h1v7l1 1h1c.55 0 1-.45 1-1v-1l2.83.97.34-.94L11 11v-1zM9 5H6V4h3v1z"/></svg> Debug</button>
+                    <button class="btn btn-lg btn-primary" type="button" name="button" onclick="initiatorFunction('inputTarget');"> Analyze </button>
+                    <button type="button" class="btn btn-lg" style="background-color: #0dcaf0; color: white;" data-toggle="modal" data-target="#nexiconModal"> Define  <span id="nexiconBadge" class="badge bg-secondary" style="visibility: hidden;"></span> </button>
+                    <button class="btn btn-lg btn-info" type="button" name="button" onclick="Debugger.debriefInterpreter();"> Debrief</button>
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-lg btn-secondary" data-toggle="modal" data-target="#exampleModalLong"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><path fill-rule="evenodd" d="M14 8.77v-1.6l-1.94-.64-.45-1.09.88-1.84-1.13-1.13-1.81.91-1.09-.45-.69-1.92h-1.6l-.63 1.94-1.11.45-1.84-.88-1.13 1.13.91 1.81-.45 1.09L0 7.23v1.59l1.94.64.45 1.09-.88 1.84 1.13 1.13 1.81-.91 1.09.45.69 1.92h1.59l.63-1.94 1.11-.45 1.84.88 1.13-1.13-.92-1.81.47-1.09L14 8.75v.02zM7 11c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"/></svg> Settings</button>
+                    <button type="button" class="btn btn-lg btn-secondary" data-toggle="modal" data-target="#exampleModalLong"> Personalize</button>
                   </div>
                   <br>
                   <!-- Where the visual key table happens-->
                   <div class="visual-key" id="visualKey">
                       <hr>
-                      <table>
+                      <table style="width: 100%;">
                         <tr id="visualKeyTable"></tr>
                       </table>
                   </div>

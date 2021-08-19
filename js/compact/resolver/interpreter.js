@@ -4,8 +4,8 @@
   "Abstract": The internal representation of a word or set of characters
 */
 let Interpreter = {
-    image: ["rev360", "1950s", "1960s"],
-    abstract: ["rev three sixty", "nineteen fifties", "nineteen sixties"],
+    image: ["rev360", "1950s"],
+    abstract: ["rev three sixty", "nineteen fifties"],
     spanIdentities: [],
     unresolved: [],
     addInterpretation: function(image, abstract){
@@ -101,6 +101,8 @@ let Interpreter = {
         return this.spanIdentities[identityPosition];
     },
     getUnresolved: function(){
+        //looking for the right place to update this
+        View.updateNexiconBadge(this.unresolved.length);
         return this.unresolved;
     },
     resolveSpans: function(target){
