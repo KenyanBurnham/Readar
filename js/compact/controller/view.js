@@ -9,12 +9,11 @@ View = {
           alertBody.innerHTML = '';
           inputBody.style.visibility = "visible";
           nexiconButton.style.visibility = "visible";
-
       }
       if(state == false){
           //reset the div before adding the alert
           alertBody.innerHTML = '';
-          let alert = '<div id="nexiconAlertDisplay" class="alert alert-secondary" role="alert">No words need to be interpreted at this moment.</div>';
+          let alert = '</br><div id="nexiconAlertDisplay" class="alert alert-secondary" role="alert">No words need to be interpreted at this moment.</br><small>Run analysis to discover words that need internal definitions.</small></div>';
           alertBody.innerHTML = alert;
           inputBody.style.visibility = "hidden";
           nexiconButton.style.visibility = "hidden";
@@ -62,7 +61,6 @@ View = {
   },
   createNexiconListItem:function(identity, image, interpretation){
       let syllables = getSyllableCount(interpretation);
-      console.log(syllables);
       let newTab = "<a id='listItem" + identity + "' class='list-group-item list-group-item-action' aria-current='true' onclick='View.toggleNexiconManageListItems(this.id);'><p class='mb-1'>" + image + "</p><small>Interpreted as: '<i>" + interpretation + "</i>', Syllables: " + syllables + "</small></a>";
       document.getElementById("manageTabListItemGroup").innerHTML += newTab;
   },
@@ -89,9 +87,10 @@ View = {
   addNewInterpretationCallback: function(identity){
       this.toggleNexiconManageListItems(identity);
       this.toggleNexiconDisplay(true);
-      //let image = document.getElementById(identity).getAttribute("data-image");
-      //console.log(image);
-      //use id to get the data hidden inside the object
+      //remove image hidden in element id, which was destroyed
+      let image = identity.replace("listItemAdd", '');
+      //call nexicon Addfunction
+      document.getElementById("nexiconAddition").innerHTML = image;
   },
   updateNexiconAddTab: function(){
       //reset the add items tab
@@ -101,18 +100,12 @@ View = {
           document.getElementById('nexiconAlertDisplay').style.visibility = "hidden";
           for (var i = 0; i < unresolved.length; i++) {
               let image = unresolved[i];
-              let newTab = "<a id='listItemAdd" + i + "' data-image='" + image + "' class='list-group-item list-group-item-action' aria-current='true' onclick='View.addNewInterpretationCallback(this.id);'><p class='mb-1'>" + image + "</p></a>";
+              let newTab = "<a id='listItemAdd" + image + "' data-image='" + image + "' class='list-group-item list-group-item-action' aria-current='true' onclick='View.addNewInterpretationCallback(this.id);'><p class='mb-1'>" + image + "</p></a>";
               document.getElementById("nexiconStateDisplay").innerHTML += newTab;
           }
       } else {
           document.getElementById('nexiconAlertDisplay').style.visibility = "visible";
       }
-
-      //get unresolved
-      //display them
-      //add a callback that calls
-      //Decoupler.spanEvent("spanidentity");
-      //call this.updateNexiconManageTab();
   },
   toggleNexiconTab: function(identity){
       //this method essentially tries to replicte the bootstrap tabs functions
