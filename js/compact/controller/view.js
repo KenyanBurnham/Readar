@@ -102,8 +102,7 @@ View = {
           return false;
       }
   },
-  runSantitizationCheck: function(){
-
+  runNexiconSantitizationCheck: function(){
       //set update button to disabled
       document.getElementById("nexiconUpdateButton").disabled = true;
       console.log("is this happening?");
@@ -175,5 +174,12 @@ View = {
               this.updateNexiconAddTab();
             break;
         }
+    },
+    toggleDefineState: function(){
+        //disable the analyze button until unresolved = zero
+    },
+    toggleEditingState: function(){
+        //find all the spans,
+        //turn them off
     },
 };
