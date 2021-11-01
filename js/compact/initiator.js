@@ -47,6 +47,7 @@ function initiatorFunction(target){
 
       //debrief all errors
       Debugger.debriefErrors();
+      Debugger.debugWordsAndSyllables();
       //Debugger.debriefChartographer();
 
 }

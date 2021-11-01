@@ -22,6 +22,11 @@ let Debugger = {
             console.log(Chartographer.spanToSort[i].identity);
         }
     },
+    debugWordsAndSyllables: function(){
+        //this is only for a small study
+        console.log(Document.words);
+        console.log(Document.breaths);
+    },
     debriefDocumentDataState: function(){
         console.log(Document.viewDataState());
     },
