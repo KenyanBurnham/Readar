@@ -51,6 +51,10 @@ function initiatorFunction(target){
       //Debugger.debriefChartographer();
 
 }
+/**
+  current issues
+  some of the spans are never making it to the DOM, but on ly in a different test file
+**/
 
 // TODO: Make a config that allows customization
 // TODO: Make a greyscale version for accesibility purposes

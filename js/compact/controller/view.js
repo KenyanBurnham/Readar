@@ -185,6 +185,18 @@ View = {
             break;
         }
     },
+    setDisplaySettings: function(){
+        //Will need to expand this to other settings options, for now,
+        //we'll just change some dispaly setting
+
+        //show a setting changed icon
+        document.getElementById('settingConfirmation').style.visibility = "visible";
+        setTimeout(() => { document.getElementById('settingConfirmation').style.visibility = "hidden"; }, 5000);
+        //set gradientSetting 0, 1, 2
+        Chartographer.gradientSetting[0] = document.getElementById('densityHighColor').value;
+        Chartographer.gradientSetting[1] = document.getElementById('densityLowColor').value;
+        Chartographer.gradientSetting[2] = document.getElementById('baseTextColor').value;
+    },
     toggleDefineState: function(){
         //disable the analyze button until unresolved = zero
     },

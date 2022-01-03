@@ -137,6 +137,7 @@ let Decoupler = {
           // which could be a real probelm
           //if (proceed == true) {
               //console.log("proceed true.");
+              //state is the actual text on the DOM
               let state = Document.fetchDOMState(target);
               //explicitly typing in case there is a regExp error
               state = state.toString();
@@ -147,20 +148,25 @@ let Decoupler = {
               let replacement = "<span id='" + spanKey + "' onclick='Packager.spanEvent(this.id)'>" + sentence + "</span>";
               //maybe it just needs to be explicitly type-casted
               replacement = replacement.toString();
+
+  // TODO: This proxifying step does not seems to affect the output: consider removing
               //First we have to sort through the state string replace the
               //original sentence with a span-wrapped sentence
               try {
                   // this means that there is some non-word character that
                   //is influencing String.replace()
-                  state = this.proxify(state);
-                  sentence = this.proxify(sentence);
-                  replacement = this.proxify(replacement);
+                  //state = this.proxify(state);
+                  //sentence = this.proxify(sentence);
+                  //why am i proxifying the replacement?
+                  //replacement = this.proxify(replacement);
+                  //console.log("State:" + state);
                   state = state.replace(sentence, replacement);
                   //console.log("Replacement" + replacement);
                   //console.log("State:" + state);
                   //this removes all the unique proxies placed to avoid TypeErrors
                   //with String.replace()
-                  state = this.unproxify(state);
+                  //state = this.unproxify(state);
+                  //console.log(state);
               } catch (e) {
                   let message = "In Decoupler.spanFactorySentences(), " + e + " which happened with trying to replace: " + sentence + " with span ID: " + spanKey + "";
                   Debugger.submitErrorReport(message);

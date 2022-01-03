@@ -6,6 +6,7 @@ let Chartographer = {
     spanToSort: [],
     breathsGlobal: [],
     storedGradient: [],
+    gradientSetting: ["#007bff", "00A6A6", "#000000"],
     reset: function(){
       //this will reset the chartographer object after assign
       //clear breaths global and spanToSort
@@ -17,15 +18,18 @@ let Chartographer = {
     gradient: function(spanNumber){
         let gradientBlue;
         let gradientTeal;
+        let leftColor = this.gradientSetting[0];
+        let rightColor = this.gradientSetting[1];
+        let transitionColor = this.gradientSetting[2];
         //check whether the number of span-covered sentences are even
         if(Ariths.isEven(spanNumber) == true){
             //make an even gradient between the two colors
-            gradientBlue = generateColor('#FFFFFF','#007bff', (spanNumber)/2);
-            gradientTeal = generateColor('#00A6A6','#FFFFFF', (spanNumber)/2);
+            gradientBlue = generateColor(transitionColor,leftColor, (spanNumber)/2);
+            gradientTeal = generateColor(rightColor,transitionColor, (spanNumber)/2);
         } else if (Ariths.isEven(spanNumber) == false) {
-            gradientBlue = generateColor('#FFFFFF','#007bff', Math.floor(spanNumber)/2);
-            gradientTeal = generateColor('#00A6A6','#FFFFFF', Math.floor(spanNumber)/2);
-            gradientTeal.push("#FFFFFF");
+            gradientBlue = generateColor(transitionColor,leftColor, Math.floor(spanNumber)/2);
+            gradientTeal = generateColor(rightColor,transitionColor, Math.floor(spanNumber)/2);
+            gradientTeal.push(transitionColor);
         }
         //push the gradient together
         for (var j = 0; j < gradientTeal.length; j++) {
@@ -67,14 +71,15 @@ let Chartographer = {
         //assign gradient to the text
         for (var i = 0; i < this.spanToSort.length; i++) {
             try {
-                let span = document.getElementById(this.spanToSort[i].identity);
+                let identity = this.spanToSort[i].identity;
+                let span = document.getElementById(identity);
+        console.log(span);
                 span.style.color = "#" + gradient[i] + "";
                 span.setAttribute("data-percentile", "" + this.spanToSort[i].percentile.toFixed(2) + "");
             } catch (e) {
                 let message = "In Chartographer.assign(), " + e + " which happened with: " + this.spanToSort[i].identity + "";
                 Debugger.submitErrorReport(message);
             }
-
         }
         this.gradientMount(gradient);
     },
@@ -101,6 +106,8 @@ let Chartographer = {
     initiate: function(){
         //reset all the variables in case of concurrent use
         this.reset();
+        //ensure that the state is up-to-date
+        Document.updateDataState('inputTarget');
         //need to assign the breath unit for the sentence to the span
         let body = Document.body;
         for (var i = 0; i < body.length; i++) {

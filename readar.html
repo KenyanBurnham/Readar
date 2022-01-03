@@ -62,14 +62,19 @@
                 <input type="color" id="densityHighColor" name="densityHighColor" value="#007bff"><br><br>
                 <label for="densityLowColor">Low Density Color:</label>
                 <input type="color" id="densityLowColor" name="densityLowColor" value="#00A6A6"><br><br>
+                <label for="densityLowColor">Base Text Color:</label>
+                <input type="color" id="baseTextColor" name="densityLowColor" value="#000000"><br><br>
 
                 <label for="customRange3" class="form-label">Percentage of Density Displayed</label>
                 <p>Show <span id="percentageDensityFeedback">100%</span></p>
                 <input type="range" class="form-range" min="0" max="10" step="0.5" id="customRange3" value="10">
             </div>
             <div class="modal-footer">
+              <div id="settingConfirmation" class="alert alert-success" role="alert" style="visibility: hidden;">
+                  Settings successfully applied.
+              </div>
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
+              <button type="button" class="btn btn-primary" onclick="View.setDisplaySettings();">Save changes</button>
             </div>
           </div>
         </div>
