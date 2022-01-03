@@ -29,7 +29,7 @@
               </button>
             </div>
             <div class="modal-body">
-                <h4>New Text File Project (.txt)</h4>
+                <h4>Load Data</h4>
                 <button type="button" name="button"><input type="file" id="myfile" name="myfile" accept="text/plain" onchange="Inputer.initiate(this);"></button>
                 <br>
                 <br>
@@ -117,9 +117,9 @@
                             <span id="nexiconAddition" class="nexicon-addition" style="display: block; margin: auto;">Word</span>
                         </div>
                         <small>Type in a pronunciation of the word and click "Update". This interpretation will be saved and stored in the "Manage" tab.</small>
-                        <textarea id="nexiconInput" name="nexiconInput" rows="2" cols="35" class="nexicon-input" placeholder="Type Here" oninput="View.runNexiconSantitizationCheck();"></textarea>
+                        <textarea id="nexiconInput" name="nexiconInput" rows="2" cols="35" class="nexicon-input" placeholder="Type Here" oninput="View.runNexiconSantitizationCheck();" onkeydown="View.runNexiconInputCheck();"></textarea>
                         </br>
-                        <button id="nexiconUpdateButton" type="button" class="btn btn-info" name="button" onclick="Interpreter.getAbstractFromNexicon();" style="visibility: hidden;">Update</button>
+                        <button id="nexiconUpdateButton" type="button" class="btn btn-info" name="button" onclick="Interpreter.getAbstractFromNexicon();" style="visibility: hidden;" disabled>Update</button>
                     </div>
                 </div>
             </div>

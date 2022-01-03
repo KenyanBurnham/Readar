@@ -102,6 +102,16 @@ View = {
           return false;
       }
   },
+  runNexiconInputCheck: function(){
+        let textArea = document.getElementById('nexiconInput');
+        let updateButton = document.getElementById('nexiconUpdateButton');
+        if (textArea.length > 1) {
+            updatedButton.disabled = false;
+        }
+  },
+  disableNexiconInputButton: function(){
+      document.getElementById('nexiconUpdateButton').disabled = true;
+  },
   runNexiconSantitizationCheck: function(){
       //set update button to disabled
       document.getElementById("nexiconUpdateButton").disabled = true;
