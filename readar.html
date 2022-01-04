@@ -66,8 +66,9 @@
                 <input type="color" id="baseTextColor" name="densityLowColor" value="#000000"><br><br>
 
                 <label for="customRange3" class="form-label">Percentage of Density Displayed</label>
-                <p>Show <span id="percentageDensityFeedback">100%</span></p>
-                <input type="range" class="form-range" min="10" max="100" step="1" id="gradientDensitySelect" value="100" onchange="View.setGradientDisplaySettings();">
+                <p>Show <span id="percentageDensityFeedback">100%</span> (minimum 10%)</p>
+                <input type="range" class="form-range" min="10" max="100" step="1" id="gradientDensitySelect" value="100" onchange="View.setGradientDisplaySettings();"><br>
+                <small>Percentages lower than 100% represent the "top" and "bottom" percentile of word density.</small>
             </div>
             <div class="modal-footer">
               <div id="settingConfirmation" class="alert alert-success" role="alert" style="visibility: hidden;">
@@ -155,8 +156,8 @@
                   </div>
                   <br>
                   <!-- Where the visual key table happens-->
-                  <div class="visual-key" id="visualKey">
-                      <hr>
+                  <div class="visual-key" id="visualKey" style="display: block;">
+
                       <table style="width: 100%;">
                         <tr id="visualKeyTable"></tr>
                       </table>

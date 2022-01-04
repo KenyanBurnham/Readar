@@ -57,6 +57,18 @@ let Chartographer = {
             td.style.background = "#" + gradient[i] + "";
             let space = document.createTextNode(" ");
             td.appendChild(space);
+            td.id = "keyTable0" + i + "";
+            td.classList.add("key-table");
+            td.addEventListener("mouseover", function(){
+                let color = this.style.background;
+                console.log(color);
+                let spans = document.getElementsByClassName('key-span');
+                console.log(spans[0]);
+                //spans.forEach((span) => {
+                //    console.log(span.id);
+              //qq  });
+
+            });
             //add the new child node
             tr.appendChild(td);
         }
@@ -70,7 +82,6 @@ let Chartographer = {
     assign: function(){
         //this is where the gradient will be assigned
         let gradient = this.gradient(this.spanToSort.length);
-
         //now to check the settings to see what a good percentage is
         //get the current value in the settings
         //somehow limit which spans get gradients applied to them
@@ -80,45 +91,102 @@ let Chartographer = {
         let percentageToShow = gradientSettings.value;
         //this is the percentage I don't want to show
         let difference = (100 - percentageToShow)*.01;
-        console.log("length: " + gradient.length + ", percentage to exclude: " + difference + "");
-        let numberOfExcluded = Math.round(difference * gradient.length);
+        // This feature is not accurate in the slightest bit
+        // TODO: Clean up this function so that the results are more accurate
+        //check to determine that there will be a cange at all
         let newGradient = [];
-        //if odOrEven is true then it is even
-        let gradientOddOrEven = (gradient.length % 2  == 0);
-        let excludedOddOrEven = (numberOfExcluded.length % 2  == 0);
-        //console.log("Odd or even?: " + oddOrEven + "");
-
-        //if ((gradientOddOrEven == true) && ()) {
-            //then we must treat everything using even rules
-            //let evenLeftExclusionIndex = numberOfExcluded - 1;
-            //let evenRightExclusionIndex = gradient.length - numberOfExcluded - 1;
-        //}
-        //if (gradientOddOrEven == false) {
-            //then we must treat everything using odd rules
-            //let padding = Math.round((gradient.length - numberOfExcluded)/2);
-      //  }
-
-
-        //console.log("padding: " + padding + "");
-        //for (var j = 0; j < gradient.length; j++) {}
-
+        if (percentageToShow != 100) {
+            //console.log("show: " + percentageToShow + ", exclude: " + difference);
+            //console.log("length: " + gradient.length + ", percentage to exclude: " + difference + "");
+            let numberOfExcluded = Math.round(difference * gradient.length);
+            let middleIndexPre = Math.round(gradient.length/2);
+            let middleIndexPost = Math.round(gradient.length/2) - 1;
+            let leftExclusionIndex = middleIndexPost - Math.round(numberOfExcluded/2);
+            let rightExclusionIndex = middleIndexPost + Math.round(numberOfExcluded/2);
+            //console.log("left: " + leftExclusionIndex + ", middle: " + middleIndexPost  + ", actual middle:" + middleIndexPre +", right: " + rightExclusionIndex + "");
+            //get the neutral color from chartographer
+            let neutralColor = this.gradientSetting[2];
+            for (var j = 0; j < gradient.length; j++) {
+              if ((j >= leftExclusionIndex) && (j<= rightExclusionIndex)) {
+                  newGradient.push(neutralColor);
+              } else {
+                  newGradient.push(gradient[j]);
+              }
+            }
+            // this ensures that at least the first and last gradient percentile
+            // is shown since it wouldn't make sense otherwise
+            newGradient[0] = gradient[0];
+            newGradient[(gradient.length -1)] = gradient.pop();
+            //console.log(newGradient);
+        }
         /**
           Everything before this line is added to apply custom settings
         **/
-        //assign gradient to the text
-        for (var i = 0; i < this.spanToSort.length; i++) {
-            try {
-                let identity = this.spanToSort[i].identity;
-                let span = document.getElementById(identity);
-        console.log(span);
-                span.style.color = "#" + gradient[i] + "";
-                span.setAttribute("data-percentile", "" + this.spanToSort[i].percentile.toFixed(2) + "");
-            } catch (e) {
-                let message = "In Chartographer.assign(), " + e + " which happened with: " + this.spanToSort[i].identity + "";
-                Debugger.submitErrorReport(message);
+        //assigns the altered gradient
+        if (newGradient.length > 0) {
+            for (var i = 0; i < this.spanToSort.length; i++) {
+                try {
+                    let identity = this.spanToSort[i].identity;
+                    let span = document.getElementById(identity);
+                    span.classList.add("key-span");
+            console.log(span);
+                    span.style.color = "#" + newGradient[i] + "";
+                    span.addEventListener("click", function(){
+                        let color = this.style.color;
+                        let tds = document.getElementsByClassName('key-table');
+                        for (var j = 0; j < tds.length; j++) {
+                            td = tds[j];
+                            let identity = td.id;
+                            let tdColor = td.style.backgroundColor;
+                            if (tdColor == color) {
+                                td.style.opacity = .5;
+                                setTimeout(function(){
+                                    console.log("timeout working");
+                                    document.getElementById('' + identity + '').setAttribute("style", "opacity: 1; background-color: " + tdColor + ";");
+                                },1000);
+                            }
+                        }
+                    });
+                    span.setAttribute("data-percentile", "" + this.spanToSort[i].percentile.toFixed(2) + "");
+                } catch (e) {
+                    let message = "In Chartographer.assign(), " + e + " which happened with: " + this.spanToSort[i].identity + "";
+                    Debugger.submitErrorReport(message);
+                }
             }
+            this.gradientMount(gradient);
+        } //assigns the altered gradient
+        else {
+            for (var i = 0; i < this.spanToSort.length; i++) {
+                try {
+                    let identity = this.spanToSort[i].identity;
+                    let span = document.getElementById(identity);
+            console.log(span);
+                    span.style.color = "#" + gradient[i] + "";
+                    span.addEventListener("click", function(){
+                        let color = this.style.color;
+                        let tds = document.getElementsByClassName('key-table');
+                        for (var j = 0; j < tds.length; j++) {
+                            td = tds[j];
+                            let identity = td.id;
+                            let tdColor = td.style.backgroundColor;
+                            if (tdColor == color) {
+                                td.style.opacity = .5;
+                                setTimeout(function(){
+                                    console.log("timeout working");
+                                    document.getElementById('' + identity + '').setAttribute("style", "opacity: 1; background-color: " + tdColor + ";");
+                                },1000);
+                            }
+                        }
+                    });
+                    span.setAttribute("data-percentile", "" + this.spanToSort[i].percentile.toFixed(2) + "");
+                } catch (e) {
+                    let message = "In Chartographer.assign(), " + e + " which happened with: " + this.spanToSort[i].identity + "";
+                    Debugger.submitErrorReport(message);
+                }
+            }
+            this.gradientMount(gradient);
         }
-        this.gradientMount(gradient);
+
     },
     sort: function(){
         //this sorts the spans into the highest and lowest breath unit
