@@ -2,10 +2,6 @@ body{
   background-color: #f0f0f0 !important;
 }
 
-.unresolved{
-    color: red !important;
-}
-
 .big-container{
     background-color: white;
     box-shadow: 0 10px 6px -6px #777;

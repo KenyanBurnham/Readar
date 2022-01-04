@@ -66,6 +66,8 @@ let Decoupler = {
               //replace the unresolved word with the span
               this.remount(target, unresolved[i], spans[i]);
           }
+          //set the color of the spans based on the current value of the settings tab
+          View.setUnresolvedAppearance();
       },
       remove: function(target, image){
           //provide the id and it will remove and replace with the word

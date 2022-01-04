@@ -16,6 +16,8 @@ let Chartographer = {
       this.storedGradient.splice(0, this.storedGradient.length);
     },
     gradient: function(spanNumber){
+        //don't mind the language used in this function, the "teal" and "blue"
+        //is all just dummy variables to pass values
         let gradientBlue;
         let gradientTeal;
         let leftColor = this.gradientSetting[0];
@@ -68,6 +70,41 @@ let Chartographer = {
     assign: function(){
         //this is where the gradient will be assigned
         let gradient = this.gradient(this.spanToSort.length);
+
+        //now to check the settings to see what a good percentage is
+        //get the current value in the settings
+        //somehow limit which spans get gradients applied to them
+        //I could just mess with the gradient to do it
+        let gradientSettings = document.getElementById("gradientDensitySelect");
+        //this is the percentage I want to show
+        let percentageToShow = gradientSettings.value;
+        //this is the percentage I don't want to show
+        let difference = (100 - percentageToShow)*.01;
+        console.log("length: " + gradient.length + ", percentage to exclude: " + difference + "");
+        let numberOfExcluded = Math.round(difference * gradient.length);
+        let newGradient = [];
+        //if odOrEven is true then it is even
+        let gradientOddOrEven = (gradient.length % 2  == 0);
+        let excludedOddOrEven = (numberOfExcluded.length % 2  == 0);
+        //console.log("Odd or even?: " + oddOrEven + "");
+
+        //if ((gradientOddOrEven == true) && ()) {
+            //then we must treat everything using even rules
+            //let evenLeftExclusionIndex = numberOfExcluded - 1;
+            //let evenRightExclusionIndex = gradient.length - numberOfExcluded - 1;
+        //}
+        //if (gradientOddOrEven == false) {
+            //then we must treat everything using odd rules
+            //let padding = Math.round((gradient.length - numberOfExcluded)/2);
+      //  }
+
+
+        //console.log("padding: " + padding + "");
+        //for (var j = 0; j < gradient.length; j++) {}
+
+        /**
+          Everything before this line is added to apply custom settings
+        **/
         //assign gradient to the text
         for (var i = 0; i < this.spanToSort.length; i++) {
             try {

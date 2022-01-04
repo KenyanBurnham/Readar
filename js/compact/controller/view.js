@@ -1,3 +1,6 @@
+/**
+  Going to need to create a separate settings object at some point
+**/
 View = {
   toggleNexiconDisplay: function(state){
       // get element
@@ -185,6 +188,36 @@ View = {
             break;
         }
     },
+    setGradientDisplaySettings: function(){
+        let display = document.getElementById('percentageDensityFeedback');
+        let select = document.getElementById('gradientDensitySelect');
+        display.innerHTML = "" + select.value + "%";
+    },
+    toggleDensityDisplay: function(selected){
+        //this just turn the density display on and off
+        let on = document.getElementById('customRadioInline3');
+        let off = document.getElementById('customRadioInline4');
+        switch (selected) {
+          case 'on':
+            on.checked = true;
+            off.checked = false;
+            break;
+          case 'off':
+            on.checked = false;
+            off.checked = true;
+            break;
+          default:
+            on.checked = true;
+            off.checked = false;
+        }
+    },
+    setUnresolvedAppearance: function(){
+        let lexiconSpans = document.getElementsByClassName('unresolved');
+        for (var i = 0; i < lexiconSpans.length; i++) {
+          lexiconSpans[i].style.color = document.getElementById('nexiconTextColor').value;
+          lexiconSpans[i].style.backgroundColor = document.getElementById('nexiconHighlightColor').value;
+        }
+    },
     setDisplaySettings: function(){
         //Will need to expand this to other settings options, for now,
         //we'll just change some dispaly setting
@@ -196,6 +229,20 @@ View = {
         Chartographer.gradientSetting[0] = document.getElementById('densityHighColor').value;
         Chartographer.gradientSetting[1] = document.getElementById('densityLowColor').value;
         Chartographer.gradientSetting[2] = document.getElementById('baseTextColor').value;
+
+        // Density display settings
+        let on = document.getElementById('customRadioInline3');
+        let off = document.getElementById('customRadioInline4');
+        let densityDisplay = document.getElementById("visualKey");
+        if (on.checked == true) {
+            densityDisplay.style.visibility = "visible";
+        }
+        if (off.checked == true) {
+            densityDisplay.style.visibility = "hidden";
+        }
+
+        //get all the unresolved class items, and set their color and highlight
+        this.setUnresolvedAppearance();
     },
     toggleDefineState: function(){
         //disable the analyze button until unresolved = zero
