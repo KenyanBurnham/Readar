@@ -12,6 +12,11 @@ body{
     box-shadow: 0 10px 6px -6px #777;
 }
 
+.density-markers{
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: white;
+}
+
 .make-row-big{
     height: 100vh;
 }

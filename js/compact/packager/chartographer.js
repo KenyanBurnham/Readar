@@ -65,6 +65,8 @@ let Chartographer = {
                     let span = document.getElementById('' + Chartographer.spanToSort[j].identity + '');
                     if (span.style.color == color) {
                         span.setAttribute("style", "background-color: " + color + "; color: white;");
+                        //if there is a place to add the percentile, it would be
+                        // here, but we're going to avoid numbers I think.
                         setTimeout(function(){
                             span.setAttribute("style", "background-color: white; color: " + color + ";");
                         },3000);
@@ -79,7 +81,12 @@ let Chartographer = {
         //indicates sentences that are too light
         let lessDense = document.createTextNode("+");
         tr.firstChild.appendChild(dense);
+        tr.firstChild.classList.add("density-markers");
         tr.lastChild.appendChild(lessDense);
+        tr.lastChild.classList.add("density-markers");
+
+        //This decides whether the density display should be on
+        View.setDisplaySettings();
     },
     assign: function(){
         //this is where the gradient will be assigned

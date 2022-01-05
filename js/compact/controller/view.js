@@ -63,15 +63,22 @@ View = {
   clearNexiconInput: function(){
       document.getElementById("nexiconInput").value = "";
   },
+  toggleNexiconManageListItems: function(identity){
+      let tab = document.getElementById(identity);
+      //grab id of list item tab clicked and add the active class
+      tab.classList.add("active");
+      //then add the add Nexicon functionality again
+      let image = tab.getAttribute("data-image");
+      let interpretation = tab.getAttribute("data-interpretation");
+      let syllables = tab.getAttribute("data-syllables");
+      console.log("image: " + image + ", interpretation: " + interpretation + ", syllables: " + syllables);
+
+  },
   createNexiconListItem:function(identity, image, interpretation){
       let syllables = getSyllableCount(interpretation);
-      let newTab = "<a id='listItem" + identity + "' class='list-group-item list-group-item-action' aria-current='true' onclick='View.toggleNexiconManageListItems(this.id);'><p class='mb-1'>" + image + "</p><small>Interpreted as: '<i>" + interpretation + "</i>', Syllables: " + syllables + "</small></a>";
+      let newTab = "<a id='listItem" + identity + "' class='list-group-item list-group-item-action' aria-current='true' data-interpretation='" + interpretation + "' data-image='" + image + "' data-syllables='" + syllables + "' onclick='View.toggleNexiconManageListItems(this.id);'><p class='mb-1'>" + image + "</p><small>Interpreted as: '<i>" + interpretation + "</i>', Syllables: " + syllables + "</small> </br> <button>Save</button><button>Cancel</button> </a>";
       document.getElementById("manageTabListItemGroup").innerHTML += newTab;
-  },
-  toggleNexiconManageListItems: function(identity){
-      //grab id of list item tab clicked and add the active class
-      document.getElementById(identity).classList.add("active");
-      //then add the add Nexicon functionality again
+      let tab = document.getElementById('listItem' + identity + '');
   },
   updateNexiconManageTab: function(){
       //clear the modal group
@@ -218,6 +225,18 @@ View = {
           lexiconSpans[i].style.backgroundColor = document.getElementById('nexiconHighlightColor').value;
         }
     },
+    setDensityDisplay: function(){
+        // Density display settings
+        let on = document.getElementById('customRadioInline3');
+        let off = document.getElementById('customRadioInline4');
+        let densityDisplay = document.getElementById("visualKey");
+        if (on.checked == true) {
+            densityDisplay.style.visibility = "visible";
+        }
+        if (off.checked == true) {
+            densityDisplay.style.visibility = "hidden";
+        }
+    },
     setDisplaySettings: function(){
         //Will need to expand this to other settings options, for now,
         //we'll just change some dispaly setting
@@ -230,16 +249,8 @@ View = {
         Chartographer.gradientSetting[1] = document.getElementById('densityLowColor').value;
         Chartographer.gradientSetting[2] = document.getElementById('baseTextColor').value;
 
-        // Density display settings
-        let on = document.getElementById('customRadioInline3');
-        let off = document.getElementById('customRadioInline4');
-        let densityDisplay = document.getElementById("visualKey");
-        if (on.checked == true) {
-            densityDisplay.style.visibility = "visible";
-        }
-        if (off.checked == true) {
-            densityDisplay.style.visibility = "hidden";
-        }
+        //set the density display
+        this.setDensityDisplay();
 
         //get all the unresolved class items, and set their color and highlight
         this.setUnresolvedAppearance();
