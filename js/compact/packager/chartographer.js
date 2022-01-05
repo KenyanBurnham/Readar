@@ -59,7 +59,7 @@ let Chartographer = {
             td.appendChild(space);
             td.id = "keyTable0" + i + "";
             td.classList.add("key-table");
-            td.addEventListener("mouseover", function(){
+            td.addEventListener("click", function(){
                 let color = this.style.backgroundColor;
                 for (var j = 0; j < Chartographer.spanToSort.length; j++) {
                     let span = document.getElementById('' + Chartographer.spanToSort[j].identity + '');
@@ -118,7 +118,7 @@ let Chartographer = {
             // this ensures that at least the first and last gradient percentile
             // is shown since it wouldn't make sense otherwise
             newGradient[0] = gradient[0];
-            newGradient[(gradient.length -1)] = gradient.pop();
+            newGradient[(gradient.length - 1)] = gradient[gradient.length - 1];
             //console.log(newGradient);
         }
         /**

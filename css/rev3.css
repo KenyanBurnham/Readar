@@ -2,6 +2,11 @@ body{
   background-color: #f0f0f0 !important;
 }
 
+#inputTarget, textarea{
+    border: none;
+    outline: none;
+}
+
 .big-container{
     background-color: white;
     box-shadow: 0 10px 6px -6px #777;
@@ -44,6 +49,10 @@ body{
     position: -webkit-sticky;
     position: sticky;
     top: 33rem;
+}
+
+.key-table:hover {
+    opacity: .5;
 }
 
 .paper {

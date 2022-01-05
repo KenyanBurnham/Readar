@@ -41,9 +41,7 @@ function initiatorFunction(target){
       //this is the main visual feedback
       if(Interpreter.unresolved.length == 0){
            Chartographer.initiate();
-      } else {
-          //disable the run button until the Define button is taken care off
-      }
+      } 
 
       //debrief all errors
       Debugger.debriefErrors();

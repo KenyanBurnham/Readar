@@ -147,21 +147,23 @@
 <!-- Controls Section -->
 <!--=========================================================================-->
         <nav class="navbar sticky-top nav-justified navbar-light bg-light" style="padding-left: 10px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
-                  <div class="btn-group" role="group" aria-label="Basic example">
-                    <button class="btn btn-lg btn-primary" type="button" name="button" onclick="initiatorFunction('inputTarget');"> Analyze </button>
-                    <button type="button" class="btn btn-lg" style="background-color: #0dcaf0; color: white;" data-toggle="modal" data-target="#nexiconModal" onclick="View.updateNexiconManageTab();"> Define  <span id="nexiconBadge" class="badge bg-secondary" style="visibility: hidden;"></span> </button>
-                    <button class="btn btn-lg btn-info" type="button" name="button" onclick="Debugger.debriefInterpreter();"> Debrief</button>
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-lg btn-secondary" data-toggle="modal" data-target="#exampleModalLong"> Personalize</button>
-                  </div>
-                  <br>
-                  <!-- Where the visual key table happens-->
-                  <div class="visual-key" id="visualKey" style="display: block;">
-
-                      <table style="width: 100%;">
-                        <tr id="visualKeyTable"></tr>
-                      </table>
-                  </div>
+            <div class="row">
+                <div class="col">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button type="button" class="btn btn-lg btn-primary" onclick="initiatorFunction('inputTarget');">Analyze</button>
+                        <button type="button" class="btn btn-lg" style="background-color: #0dcaf0; color: white;" data-toggle="modal" data-target="#nexiconModal" onclick="View.updateNexiconManageTab();">Define  <span id="nexiconBadge" class="badge bg-secondary"></span></button>
+                        <button type="button" class="btn btn-lg btn-secondary" data-toggle="modal" data-target="#exampleModalLong">Personalize</button>
+                    </div>
+                </div>
+                <div class="col">
+                    <!-- Where the visual key table happens-->
+                    <div class="visual-key" id="visualKey" >
+                        <table>
+                          <tr id="visualKeyTable"></tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </nav>
         <br><br> <!-- Intentional vertical spacing -->
 
