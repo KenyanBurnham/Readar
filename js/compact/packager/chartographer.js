@@ -60,14 +60,16 @@ let Chartographer = {
             td.id = "keyTable0" + i + "";
             td.classList.add("key-table");
             td.addEventListener("mouseover", function(){
-                let color = this.style.background;
-                console.log(color);
-                let spans = document.getElementsByClassName('key-span');
-                console.log(spans[0]);
-                //spans.forEach((span) => {
-                //    console.log(span.id);
-              //qq  });
-
+                let color = this.style.backgroundColor;
+                for (var j = 0; j < Chartographer.spanToSort.length; j++) {
+                    let span = document.getElementById('' + Chartographer.spanToSort[j].identity + '');
+                    if (span.style.color == color) {
+                        span.setAttribute("style", "background-color: " + color + "; color: white;");
+                        setTimeout(function(){
+                            span.setAttribute("style", "background-color: white; color: " + color + ";");
+                        },3000);
+                    }
+                }
             });
             //add the new child node
             tr.appendChild(td);
@@ -129,7 +131,6 @@ let Chartographer = {
                     let identity = this.spanToSort[i].identity;
                     let span = document.getElementById(identity);
                     span.classList.add("key-span");
-            console.log(span);
                     span.style.color = "#" + newGradient[i] + "";
                     span.addEventListener("click", function(){
                         let color = this.style.color;
@@ -141,12 +142,13 @@ let Chartographer = {
                             if (tdColor == color) {
                                 td.style.opacity = .5;
                                 setTimeout(function(){
-                                    console.log("timeout working");
                                     document.getElementById('' + identity + '').setAttribute("style", "opacity: 1; background-color: " + tdColor + ";");
-                                },1000);
+                                },2000);
                             }
                         }
                     });
+                    //for some reason there is a mismatch between the color in
+                    //the text and the lowest value color on the density key
                     span.setAttribute("data-percentile", "" + this.spanToSort[i].percentile.toFixed(2) + "");
                 } catch (e) {
                     let message = "In Chartographer.assign(), " + e + " which happened with: " + this.spanToSort[i].identity + "";
@@ -160,7 +162,6 @@ let Chartographer = {
                 try {
                     let identity = this.spanToSort[i].identity;
                     let span = document.getElementById(identity);
-            console.log(span);
                     span.style.color = "#" + gradient[i] + "";
                     span.addEventListener("click", function(){
                         let color = this.style.color;
@@ -172,9 +173,8 @@ let Chartographer = {
                             if (tdColor == color) {
                                 td.style.opacity = .5;
                                 setTimeout(function(){
-                                    console.log("timeout working");
                                     document.getElementById('' + identity + '').setAttribute("style", "opacity: 1; background-color: " + tdColor + ";");
-                                },1000);
+                                },2000);
                             }
                         }
                     });
@@ -232,7 +232,6 @@ let Chartographer = {
             //after all sentences have been processed calculate the p values for all spans
             this.calculate();
         }
-
         this.sort();
         //KEY
         //body[whichParagraph].sentences[whichSentence].words.breaths[whichBreaths]
