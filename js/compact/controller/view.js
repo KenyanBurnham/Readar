@@ -72,13 +72,35 @@ View = {
       let interpretation = tab.getAttribute("data-interpretation");
       let syllables = tab.getAttribute("data-syllables");
       console.log("image: " + image + ", interpretation: " + interpretation + ", syllables: " + syllables);
-
   },
   createNexiconListItem:function(identity, image, interpretation){
       let syllables = getSyllableCount(interpretation);
-      let newTab = "<a id='listItem" + identity + "' class='list-group-item list-group-item-action' aria-current='true' data-interpretation='" + interpretation + "' data-image='" + image + "' data-syllables='" + syllables + "' onclick='View.toggleNexiconManageListItems(this.id);'><p class='mb-1'>" + image + "</p><small>Interpreted as: '<i>" + interpretation + "</i>', Syllables: " + syllables + "</small> </br> <button>Save</button><button>Cancel</button> </a>";
-      document.getElementById("manageTabListItemGroup").innerHTML += newTab;
-      let tab = document.getElementById('listItem' + identity + '');
+      let newTab = document.createElement("a");
+      newTab.setAttribute("id", "listItem" + identity + "");
+      newTab.classList.add("list-group-item");
+      newTab.classList.add("list-group-item-action");
+      newTab.setAttribute("aria-current", "true");
+      newTab.setAttribute("data-interpretation", "" + interpretation + "");
+      newTab.setAttribute("data-image", "" + image + "");
+      newTab.setAttribute("data-syllables", "" + syllables + "");
+      newTab.addEventListener("click", function(){
+          View.toggleNexiconManageListItems(newTab.id);
+      });
+      let p = document.createElement("p");
+      let small = document.createElement("small");
+      let br = document.createElement("br");
+      p.classList.add("mb-1");
+      p.innerHTML = "" + image + "";
+      small.innerHTML = "Interpreted as: '<i>" + interpretation + "</i>', Syllables: " + syllables + "";
+      let save = "<button id='nexiconSave"+ identity +"'>Save</button>";
+      let cancelBtn = "<button id='nexiconCancel" + identity + ">Cancel</button>";
+      newTab.append(p);
+      newTab.append(small);
+      newTab.append(br);
+      newTab.innerHTML += save;
+      //I have now idea how the cancel button never makes it
+      newTab.innerHTML += cancelBtn;
+      document.getElementById("manageTabListItemGroup").append(newTab);
   },
   updateNexiconManageTab: function(){
       //clear the modal group
