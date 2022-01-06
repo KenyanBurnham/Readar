@@ -85,11 +85,9 @@ let Interpreter = {
             uncountableSyllables: false,
         };
         //let's run a syllable counting test to determine if our syllable counter can catch it
-        let uncountable = getSyllableCount(word);
+        let uncountable = getSyllableCount(word, true);
         if (uncountable == false) {
             TestResults.uncountableSyllables = true;
-        } else {
-            TestResults.uncountableSyllables = false;
         }
         return TestResults;
     },

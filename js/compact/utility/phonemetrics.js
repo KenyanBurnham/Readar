@@ -1,7 +1,7 @@
 /** ============================================================================
         Gets syllable count using regular expression
 =============================================================================**/
-function filterWithRegEx(a){
+function filterWithRegEx(a, test){
     try {
         if(a != null){
             a = a.replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/, '');
@@ -12,17 +12,23 @@ function filterWithRegEx(a){
         }
         return a;
     } catch (e) {
-        let message = "In Phonemetrics.filterWithRegEx(), " + e + " which happened with: " + a + "";
-        Debugger.submitErrorReport(message);
-        //need to call the nexicon intervention from here, because obviously it is not working
-        return false;
+        if (test == true) {
+            //we do not need to send an error report
+            return false;
+        } else if(test == false){
+            //then we do need to send an error report
+            let message = "In Phonemetrics.filterWithRegEx(), " + e + " which happened with: " + a + "";
+            Debugger.submitErrorReport(message);
+            //need to call the nexicon intervention from here, because obviously it is not working
+            return false;
+        }
     }
 }
 
 /** ============================================================================
         Gets count of syllables by calling filterWithReqEx
 =============================================================================**/
-function getSyllableCount(a){
+function getSyllableCount(a, test){
     try {
         if (a.length <= 3) {
             // If the word is less or equal to three,
@@ -34,7 +40,7 @@ function getSyllableCount(a){
         }else {
             // For any word that is more than three characters
             // Get a count using filterWithExpression
-            a = filterWithRegEx(a);
+            a = filterWithRegEx(a, test);
             return a;
         }
     } catch (e) {

@@ -44,7 +44,6 @@ let Words = {
               let testResults = Interpreter.testWord(word);
               //calculate word length
               let wordLength = word.length;
-              console.log("results form testing word: " + word + " for syllable countability is: " +  testResults.uncountableSyllables);
               //Begin Decision Tree
               //If there is a known interpretation for the word
               if((testResults.containsInterpretation == true)){
@@ -52,11 +51,7 @@ let Words = {
                   //Go ahead and get the interpretation
                   let interpretation = Interpreter.getInterpretation(word);
                   //And the syllable count for the interpretation
-                  let syllablesForInterpretation = getSyllableCount(interpretation);
-                  //some words have been encountered as being uncountable, such as "pwnd"
-                  if (syllablesForInterpretation == false) {
-                      console.log("(Probably don't need this one) An intervention for the word: " + interpretation + " needs to be made because this word is not syllable-countable.");
-                  }
+                  let syllablesForInterpretation = getSyllableCount(interpretation, false);
                   //Update the wordcount variable
                   wordCount = wordCount + 1;
                       //word.length stays the same
@@ -71,7 +66,7 @@ let Words = {
 
               //If there is no KNOWN interpretation, is it a regular word
               // or a word with a known UNRESOLVED Interpretation?
-              }else if((testResults.containsInterpretation == false) && (testResults.containsNumber != true)){
+            }else if((testResults.containsInterpretation == false) && (testResults.containsNumber != true)){
                   //Then there is no interpretation
                   if((testResults.containsUnresolved == true)){
                       //Is there a known unresolved word?
@@ -92,10 +87,10 @@ let Words = {
                           Bank.words.push(word);
 
                   //If it's not a KNOWN UNRESOLVED word,
-                  //then it is an UNKNOWN UNRESOLVED word
+                  //then it is an UNKNOWN and UNRESOLVED word
                   //and it can get a syllable count
                   //Adds to the unresolved object
-                }else if((testResults.containsUnresolved == false) && (testResults.containsNumber != true) || (testResults.uncountableSyllables == false)){
+                }else if((testResults.containsUnresolved == false) && (testResults.containsNumber != true) || (testResults.uncountableSyllables == true)){
                       //If there is no unresolved, add to unresolved
                       //console.log("Contains New Unresolved:" + word);
                       wordCount = wordCount + 1;
@@ -117,16 +112,15 @@ let Words = {
 
               // If it has no known/unknown unresolved or interpretation
               // then word undergoes regular process
-              // unless it cannot get a syllable count
               } else{
                     //Filters any additional whitespaces that made it through
                     // if containsNumber is true then the word DOES NOT HAVE a number
                     // and if it is syllable-countable
-                    if((wordLength > 0) && (testResults.containsNumber == true) && (testResults.uncountableSyllables != true)){
+                    if((wordLength > 0) && (testResults.containsNumber == true) && (testResults.uncountableSyllables == false)){
                           //Increases the word count
                           wordCount = wordCount + 1;
                           //get a syllable count
-                          let syllableCount = getSyllableCount(word);
+                          let syllableCount = getSyllableCount(word, false);
                           //wordlength pushed into Bank
                           Bank.lengths.push(wordLength);
                           //set syllables to a default value
