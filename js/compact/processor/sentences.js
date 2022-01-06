@@ -121,7 +121,6 @@ let Sentences = {
         **/
         //For each sentence, remove any edge cases and push to larger object
         sentences.sentences.forEach(function(sentence, i){
-            console.log(i);
             //Make random spaces filter out
             if((sentence != undefined) || (sentence.length > 0)){
                 //Increment the sentenceCount variable
