@@ -4,8 +4,8 @@
   "Abstract": The internal representation of a word or set of characters
 */
 let Interpreter = {
-    image: ["1950s", "1945", "1948", "1950", "423", "10", "48", "60", "60th", "2008", "360", "1979", "2004", "2006", "300", "08", "5000", "1000", "2010", "2011", "1960s", "1980s"],
-    abstract: ["nineteen fifties", "nineteen forty five", "nineteen forty eight", "nineteen fifty", "four hundred twenty three", "ten", "fourty eight", "sixty", "sixtieth", "two thousand eight", "three hundred sixty", "nineteen seventy nine", "two thousand four", "two thousand six", "three hundred", "eight", "five thousand", "one thousand", "twenty ten", "twenty eleven", "nineteen sixties", "nineteen eighties"],
+    image: ["1950s", "1945", "1948", "1950", "423", "10", "48", "60", "60th", "2008", "360", "1979", "2004", "2006", "300", "08", "5000", "1000", "2010", "2011", "1960s", "1980s", "9:00 PM"],
+    abstract: ["nineteen fifties", "nineteen forty five", "nineteen forty eight", "nineteen fifty", "four hundred twenty three", "ten", "fourty eight", "sixty", "sixtieth", "two thousand eight", "three hundred sixty", "nineteen seventy nine", "two thousand four", "two thousand six", "three hundred", "eight", "five thousand", "one thousand", "twenty ten", "twenty eleven", "nineteen sixties", "nineteen eighties", "nine oclock pe em"],
     spanIdentities: [],
     unresolved: [],
     getImages: function(){
