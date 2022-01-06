@@ -14,6 +14,8 @@ function filterWithRegEx(a){
     } catch (e) {
         let message = "In Phonemetrics.filterWithRegEx(), " + e + " which happened with: " + a + "";
         Debugger.submitErrorReport(message);
+        //need to call the nexicon intervention from here, because obviously it is not working
+        return false;
     }
 }
 

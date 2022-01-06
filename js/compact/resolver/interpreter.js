@@ -82,7 +82,15 @@ let Interpreter = {
             containsNumber: this.testForNumber(word),
             containsInterpretation: this.testForInterpretation(word),
             containsUnresolved: this.testForUnresolved(word),
+            uncountableSyllables: false,
         };
+        //let's run a syllable counting test to determine if our syllable counter can catch it
+        let uncountable = getSyllableCount(word);
+        if (uncountable == false) {
+            TestResults.uncountableSyllables = true;
+        } else {
+            TestResults.uncountableSyllables = false;
+        }
         return TestResults;
     },
     getInterpretation: function(image){
