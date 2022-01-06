@@ -35,24 +35,22 @@ let Sentences = {
     // TODO: need to fix tha punctuation bug
     //sentences with the "?" punctuation are replaced with "." and that leads
     //to a decoupling problem later on
-        //Remove some simple cases of punctuation
-        //paragraph = paragraph.replace("!", ".");
-        //paragraph = paragraph.replace("?", ".");
-        //paragraph = paragraph.replace("...", ".");
-        //Remove apostrophes (’) and replace with nothing to preserve words
-        //paragraph = paragraph.replace(/\’/g,"");
-        //remove dashes ('-') and replace with space
-        //paragraph = paragraph.replace(/\"-"/g," ");
-        //Split paragraph by "SPACE + ." pairs
-        //return sentences without punctuations or apostrophes
-        //return paragraph.split(". ");
-
         let Paragraph = {
             sentences: [],
             punctuations: [],
         };
-
+        //this function splits several know punctuation endings using a long regexp
         paragraph = paragraph.split(/(\.+\')|(\?+\')|(\!+\')|(\u2026+\')|(\.+\")|(\?+\")|(\!+\")|(\u2026+\")|(\.+\s)|(\?+\s)|(\!+\s)|(\u2026+\s)|(\:+\s)/);
+      /**
+          This explains the breakdown of the regexp below
+          /(\.+\')|(\?+\')|(\!+\')|(\u2026+\')|(\.+\")|(\?+\")|(\!+\")|(\u2026+\")|(\.+\s)|(\?+\s)|(\!+\s)|(\u2026+\s)|(\:+\s)/
+
+          this regular expression is broken down in the following way
+          (\.+\")| = "a period followed by a double quote OR"
+          (\.+\')| = "a period followed by a single quote OR"
+          (\u2026+\')|  = "ellipsis followed by a single quote OR"
+          (\.+\s)| = "a period followed by whitespace"
+        **/
         let sentences = [];
         let punctuations = [];
         //separate the results that are undefined, sentences, or puntuations
@@ -105,22 +103,6 @@ let Sentences = {
             }
         }
         return Paragraph;
-        /**
-          another way I could try to do things is to just search the sentence
-          result with all the possible punctuations attached to see if there
-          is a match during the span attachment phase
-        **/
-
-        /**
-          This explains the breakdown of the regexp below
-          /(\.+\')|(\?+\')|(\!+\')|(\u2026+\')|(\.+\")|(\?+\")|(\!+\")|(\u2026+\")|(\.+\s)|(\?+\s)|(\!+\s)|(\u2026+\s)|(\:+\s)/
-
-          this regular expression is broken down in the following way
-          (\.+\")| = "a period followed by a double quote OR"
-          (\.+\')| = "a period followed by a single quote OR"
-          (\u2026+\')|  = "ellipsis followed by a single quote OR"
-          (\.+\s)| = "a period followed by whitespace"
-        **/
     },
     process: function(paragraph){
         //Reset global sentence storage
@@ -129,9 +111,17 @@ let Sentences = {
         let paragraphSentences = [];
         //remove common punctuation and split sentence by ". " pairs
         let sentences = this.splitPunctuation(paragraph);
-        console.log("This is were we return our punctuation-split sentences");
+        /**
+          The sentences object above has two attributes:
+            sentences: an array of sentences with punctuation removed
+            punctuations: an array of the punctuations that belong to the sentences
+
+            A future goal will be to use the punctuations that belong to the
+            sentences to negate the span-decoupling issues that are constantly happening
+        **/
         //For each sentence, remove any edge cases and push to larger object
-        sentences.sentences.forEach(function(sentence){
+        sentences.sentences.forEach(function(sentence, i){
+            console.log(i);
             //Make random spaces filter out
             if((sentence != undefined) || (sentence.length > 0)){
                 //Increment the sentenceCount variable
@@ -140,6 +130,9 @@ let Sentences = {
                 let Sentence = new Object;
                 //Add an empty string of sentence to Sentence Object
                 Sentence.sentence = "";
+                //Add an attribute that will contain punctuation that belongs
+                //to each sentence
+                Sentence.punctuation = sentences.punctuations[i];
                 //Push current sentence into into sentence object
                 sentence = sentence.trim();
                 //removes excess whitespace to ensure there isn't any sort of error
