@@ -22,6 +22,7 @@ let Packager = {
                 let sentence = paragraph.sentences[j];
                 //Adds a span wrapper on the sentence
                 let spanIdentity = Decoupler.spanFactorySentences(sentence.sentence, target);
+          //I suspect our problem is here
                 this.packagedSpans.push(spanIdentity);
                 //give the sentence an identity that can be refered to
                 //based on the span it belongs to

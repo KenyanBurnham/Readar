@@ -25,6 +25,8 @@ let Sentences = {
         mutableSentence = mutableSentence.replace(/\:/g, "$*");
         //replace semicolon with tag
         mutableSentence = mutableSentence.replace(/\;/g, "$*");
+        //replace alll apostrophes with tag
+        mutableSentence = mutableSentence.replace(/.*["'].*/, "$*");
         //return array of fragments
         return mutableSentence.split("$*");
     },

@@ -158,13 +158,13 @@ let Decoupler = {
                   // this means that there is some non-word character that
                   //is influencing String.replace()
                   //state = this.proxify(state);
-                  //sentence = this.proxify(sentence);
+                //  sentence = this.proxify(sentence);
                   //why am i proxifying the replacement?
                   //replacement = this.proxify(replacement);
-                  //console.log("State:" + state);
-                  state = state.replace(sentence, replacement);
-                  //console.log("Replacement" + replacement);
-                  //console.log("State:" + state);
+                  console.log("State:" + state);
+                  newState = state.replace(sentence, replacement);
+                  console.log("Replacement" + replacement);
+                  console.log("Replaced State:" + newState);
                   //this removes all the unique proxies placed to avoid TypeErrors
                   //with String.replace()
                   //state = this.unproxify(state);
@@ -180,7 +180,7 @@ let Decoupler = {
                   //doesn't seem to change the result
                   document.getElementById(target).innerHTML = "";
                   //put the HTML back on the DOM
-                  document.getElementById(target).innerHTML = state;
+                  document.getElementById(target).innerHTML = newState;
                   //ensure the document object is being updated properly
                   Document.updateDataState(target);
               } catch (e) {
