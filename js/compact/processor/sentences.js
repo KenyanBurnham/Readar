@@ -32,17 +32,95 @@ let Sentences = {
         return mutableSentence.split("$*");
     },
     splitPunctuation: function(paragraph){
+    // TODO: need to fix tha punctuation bug
+    //sentences with the "?" punctuation are replaced with "." and that leads
+    //to a decoupling problem later on
         //Remove some simple cases of punctuation
-        paragraph = paragraph.replace("!", ".");
-        paragraph = paragraph.replace("?", ".");
-        paragraph = paragraph.replace("...", ".");
+        //paragraph = paragraph.replace("!", ".");
+        //paragraph = paragraph.replace("?", ".");
+        //paragraph = paragraph.replace("...", ".");
         //Remove apostrophes (’) and replace with nothing to preserve words
-        paragraph = paragraph.replace(/\’/g,"");
+        //paragraph = paragraph.replace(/\’/g,"");
         //remove dashes ('-') and replace with space
-        paragraph = paragraph.replace(/\"-"/g," ");
+        //paragraph = paragraph.replace(/\"-"/g," ");
         //Split paragraph by "SPACE + ." pairs
         //return sentences without punctuations or apostrophes
-        return paragraph.split(". ");
+        //return paragraph.split(". ");
+
+        let Paragraph = {
+            sentences: [],
+            punctuations: [],
+        };
+
+        paragraph = paragraph.split(/(\.+\')|(\?+\')|(\!+\')|(\u2026+\')|(\.+\")|(\?+\")|(\!+\")|(\u2026+\")|(\.+\s)|(\?+\s)|(\!+\s)|(\u2026+\s)|(\:+\s)/);
+        let sentences = [];
+        let punctuations = [];
+        //separate the results that are undefined, sentences, or puntuations
+        for (var i = 0; i < paragraph.length; i++) {
+            //then it is an undefined artifect from the splitting process
+            if (paragraph[i] == undefined) {
+                //do nothing
+            }
+            //then it is a punctuation mark by itself
+            else if (paragraph[i].length == 2) {
+                //add the punctuation to the punctuation array
+                Paragraph.punctuations.push(paragraph[i]);
+            }
+            //then it must be a sentence that may or may not
+            //have a lingering punctuation mark
+            else if (paragraph[i].length > 2) {
+                let sentence = paragraph[i];
+                // special case for ellipsis, since it uses three char spaces
+                if (sentence.endsWith("...")) {
+                    //this is the sentence which we split for that last punctuation mark
+                    let splitSentence = sentence.split("");
+                    //remove the last three characters
+                    splitSentence.splice((splitSentence.length - 3), 3);
+                    // then put the string back together using join()
+                    let finalSentence = splitSentence.join("");
+                    //push the punctuation free sentence to the sentence array
+                    Paragraph.sentences.push(finalSentence);
+                    //push the punctuation mark to the punctuation array
+                    Paragraph.punctuations.push("...");
+                }
+                //this detects if there is a lingering punctuation mark (which happens sometimes)
+                //then it removes the punctuation mark and adds the sentence
+                //and punctuation to their respective arrays
+                else if ((sentence.endsWith(".")) || (sentence.endsWith("!")) || (sentence.endsWith("?")) || (sentence.endsWith(":"))){
+                    //this is the sentence which we split for that last punctuation mark
+                    let splitSentence = sentence.split("");
+                    //remove the last character, which we know is a punctuation mark
+                    let lonePunctuation = splitSentence.pop();
+                    // then put the string back together using join()
+                    let finalSentence = splitSentence.join("");
+                    //push the punctuation free sentence to the sentence array
+                    Paragraph.sentences.push(finalSentence);
+                    //push the punctuation mark to the punctuation array
+                    Paragraph.punctuations.push(lonePunctuation);
+                }
+                //we assume that the sentence is punctuation-less and can be added
+                else {
+                    Paragraph.sentences.push(paragraph[i]);
+                }
+            }
+        }
+        return Paragraph;
+        /**
+          another way I could try to do things is to just search the sentence
+          result with all the possible punctuations attached to see if there
+          is a match during the span attachment phase
+        **/
+
+        /**
+          This explains the breakdown of the regexp below
+          /(\.+\')|(\?+\')|(\!+\')|(\u2026+\')|(\.+\")|(\?+\")|(\!+\")|(\u2026+\")|(\.+\s)|(\?+\s)|(\!+\s)|(\u2026+\s)|(\:+\s)/
+
+          this regular expression is broken down in the following way
+          (\.+\")| = "a period followed by a double quote OR"
+          (\.+\')| = "a period followed by a single quote OR"
+          (\u2026+\')|  = "ellipsis followed by a single quote OR"
+          (\.+\s)| = "a period followed by whitespace"
+        **/
     },
     process: function(paragraph){
         //Reset global sentence storage
@@ -51,10 +129,11 @@ let Sentences = {
         let paragraphSentences = [];
         //remove common punctuation and split sentence by ". " pairs
         let sentences = this.splitPunctuation(paragraph);
+        console.log("This is were we return our punctuation-split sentences");
         //For each sentence, remove any edge cases and push to larger object
-        sentences.forEach(function(sentence){
+        sentences.sentences.forEach(function(sentence){
             //Make random spaces filter out
-            if(sentence.length > 0){
+            if((sentence != undefined) || (sentence.length > 0)){
                 //Increment the sentenceCount variable
                 this.sentenceCount = this.sentenceCount + 1;
                 //create Sentence Object to save in sentences array of Sentences Object
