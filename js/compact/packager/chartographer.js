@@ -6,7 +6,7 @@ let Chartographer = {
     spanToSort: [],
     breathsGlobal: [],
     storedGradient: [],
-    gradientSetting: ["#007bff", "00A6A6", "#000000"],
+    gradientSetting: ["#007bff", "#00A6A6", "#000000"],
     reset: function(){
       //this will reset the chartographer object after assign
       //clear breaths global and spanToSort
@@ -50,8 +50,25 @@ let Chartographer = {
         while (tr.hasChildNodes()) {
             tr.removeChild(tr.firstChild);
         }
+
+        //this is for the new density key
+        let container = document.getElementById("canvasContainer");
+        let newCanvas = document.createElement("canvas");
+        newCanvas.setAttribute("id", "keyCanvas");
+        newCanvas.setAttribute("width", "" + container.clientWidth + "");
+        newCanvas.setAttribute("height", "" + container.clientHeight + "");
+        container.append(newCanvas);
+        let canvas = document.getElementById('keyCanvas');
+        let ctx = canvas.getContext("2d");
+        //this ensures that no matter the size of the gradient that it is evenly distributed
+        let colorStopFrequency = (1/gradient.length);
+        // Create gradient
+        //createLinearGradient(x,y,x1,y1)
+        var grd = ctx.createLinearGradient(0, 0, canvas.clientWidth, 0);
+
         // add td elements the size of the gradient
         for (var i = 0; i < gradient.length; i++) {
+            grd.addColorStop((i*colorStopFrequency), "#" + gradient[i] + "");
             let td = document.createElement("td");
             //give the child a gradient color
             td.style.background = "#" + gradient[i] + "";
@@ -76,6 +93,102 @@ let Chartographer = {
             //add the new child node
             tr.appendChild(td);
         }
+
+
+        /**
+          original source code is at
+          https://www.kirupa.com/canvas/follow_mouse_cursor.htm
+        **/
+
+        function getPosition(el) {
+          var xPosition = 0;
+          var yPosition = 0;
+
+          while (el) {
+            xPosition += (el.offsetLeft - el.scrollLeft + el.clientLeft);
+            yPosition += (el.offsetTop - el.scrollTop + el.clientTop);
+            el = el.offsetParent;
+          }
+          return {
+            x: xPosition,
+            y: yPosition
+          };
+        }
+
+        var canvasPos = getPosition(canvas);
+        var mouseX = 0;
+        var mouseY = 0;
+
+        function setMousePosition(e) {
+          mouseX = e.clientX - canvasPos.x;
+          mouseY = e.clientY - canvasPos.y;
+        }
+        canvas.addEventListener("mouseout", function(){
+            // Fill with gradient
+            ctx.fillStyle = grd;
+            //fillRect(x,y,width,height)
+            ctx.fillRect(0, 0, canvas.clientWidth, 50);
+        });
+        canvas.addEventListener("mousemove", setMousePosition, false);
+
+        function setMousePosition(e) {
+          mouseX = e.clientX - canvasPos.x;
+          mouseY = e.clientY - canvasPos.y;
+        }
+
+        function getPosition(el) {
+          var xPosition = 0;
+          var yPosition = 0;
+
+          while (el) {
+            xPosition += (el.offsetLeft - el.scrollLeft + el.clientLeft);
+            yPosition += (el.offsetTop - el.scrollTop + el.clientTop);
+            el = el.offsetParent;
+          }
+          return {
+            x: xPosition,
+            y: yPosition
+          };
+        }
+
+        function update() {
+            // Fill with gradient
+            ctx.fillStyle = grd;
+            //fillRect(x,y,width,height)
+            ctx.fillRect(0, 0, canvas.clientWidth, 50);
+
+            ctx.beginPath();
+            ctx.moveTo(mouseX, 0);
+            ctx.lineTo(mouseX, 100);
+            ctx.strokeStyle = "#FFFFFF";
+            if ((colorStopFrequency*100)< 3) {
+                ctx.lineWidth = 3;
+            } else {
+                ctx.lineWidth = colorStopFrequency*100;
+            }
+
+            ctx.stroke();
+
+            requestAnimationFrame(update);
+
+        }
+        update();
+
+
+        /**
+        canvas.addEventListener("mouseover", function(){
+            followMouse();
+            console.log("called");
+            ctx.beginPath();
+            console.log(getPosition(ctx));
+            ctx.moveTo(getPosition(ctx), 0);
+            ctx.beginPath();
+            ctx.lineTo(getPosition(ctx), 100);
+            ctx.stroke();
+        });
+        **/
+
+
         //indicates sentences that are very dense
         let dense = document.createTextNode("-");
         //indicates sentences that are too light
