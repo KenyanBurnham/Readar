@@ -6,7 +6,7 @@ let Chartographer = {
     spanToSort: [],
     breathsGlobal: [],
     storedGradient: [],
-    gradientSetting: ["#007bff", "#00A6A6", "#000000"],
+    gradientSetting: ["#007bff", "#00A6A6", "000000"],
     reset: function(){
       //this will reset the chartographer object after assign
       //clear breaths global and spanToSort
@@ -72,6 +72,7 @@ let Chartographer = {
             let td = document.createElement("td");
             //give the child a gradient color
             td.style.background = "#" + gradient[i] + "";
+
             let space = document.createTextNode(" ");
             td.appendChild(space);
             td.id = "keyTable0" + i + "";
@@ -81,10 +82,14 @@ let Chartographer = {
                 for (var j = 0; j < Chartographer.spanToSort.length; j++) {
                     let span = document.getElementById('' + Chartographer.spanToSort[j].identity + '');
                     if (span.style.color == color) {
-                        span.setAttribute("style", "background-color: " + color + "; color: white;");
+                        span.style.removeProperty('background-color');
+                        span.style.removeProperty('color');
+                        span.setAttribute("style", "background-color: " + color + "; color: white");
                         //if there is a place to add the percentile, it would be
                         // here, but we're going to avoid numbers I think.
                         setTimeout(function(){
+                            span.style.removeProperty('background-color');
+                            span.style.removeProperty('color');
                             span.setAttribute("style", "background-color: white; color: " + color + ";");
                         },3000);
                     }
@@ -93,7 +98,6 @@ let Chartographer = {
             //add the new child node
             tr.appendChild(td);
         }
-
 
         /**
           original source code is at
@@ -123,12 +127,7 @@ let Chartographer = {
           mouseX = e.clientX - canvasPos.x;
           mouseY = e.clientY - canvasPos.y;
         }
-        canvas.addEventListener("mouseout", function(){
-            // Fill with gradient
-            ctx.fillStyle = grd;
-            //fillRect(x,y,width,height)
-            ctx.fillRect(0, 0, canvas.clientWidth, 50);
-        });
+
         canvas.addEventListener("mousemove", setMousePosition, false);
 
         function setMousePosition(e) {
@@ -164,7 +163,7 @@ let Chartographer = {
             if ((colorStopFrequency*100)< 3) {
                 ctx.lineWidth = 3;
             } else {
-                ctx.lineWidth = colorStopFrequency*100;
+                ctx.lineWidth = (canvas.width)/Chartographer.spanToSort.length;
             }
 
             ctx.stroke();
@@ -174,20 +173,39 @@ let Chartographer = {
         }
         update();
 
-
-        /**
-        canvas.addEventListener("mouseover", function(){
-            followMouse();
-            console.log("called");
-            ctx.beginPath();
-            console.log(getPosition(ctx));
-            ctx.moveTo(getPosition(ctx), 0);
-            ctx.beginPath();
-            ctx.lineTo(getPosition(ctx), 100);
-            ctx.stroke();
+        // TODO: fix this exit animation
+        //curently does not work
+        canvas.addEventListener("mouseout", function(){
+          ctx.clearRect(0, 0, canvas.clientWidth, 50);
+          // Fill with gradient
+          ctx.fillStyle = grd;
+          //fillRect(x,y,width,height)
+          ctx.fillRect(0, 0, canvas.clientWidth, 50);
+            //requestAnimationFrame(updateGrd);
         });
-        **/
 
+        canvas.addEventListener("click", function(){
+            let currentPosition = mouseX;
+            //the number of pixels per sentence;
+            let divisions = (canvas.width)/Chartographer.spanToSort.length;
+            //for each sentence
+            for (var i = 0; i < Chartographer.spanToSort.length; i++) {
+                let leftBoundary = ((i * divisions));
+                let rightBoundary = ((i * divisions) + divisions);
+                if ((mouseX >= leftBoundary) && (mouseX <= rightBoundary)) {
+                    let spanToHighlight = document.getElementById("" + Chartographer.spanToSort[i].identity + "");
+                    let spanColor = spanToHighlight.style.color;
+                    spanToHighlight.style.removeProperty('background-color');
+                    spanToHighlight.style.removeProperty('color');
+                    spanToHighlight.setAttribute("style", "background-color: " + spanColor + "; color: white;");
+                    setTimeout(function(){
+                        spanToHighlight.style.removeProperty('background-color');
+                        spanToHighlight.style.removeProperty('color');
+                        spanToHighlight.setAttribute("style", "background-color: white; color: " + spanColor + ";");
+                    },3000);
+                }
+            }
+        });
 
         //indicates sentences that are very dense
         let dense = document.createTextNode("-");
