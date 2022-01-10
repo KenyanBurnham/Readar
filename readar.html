@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <!-- Meta Information-->
+      <title>Readar</title>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="manifest" href="manifest.json">
+      <!-- Template Stylesheets-->
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <!-- Custom Stylesheets-->
+      <link rel="stylesheet" href="css/changeable.css">
+      <link rel="stylesheet" href="css/mobile.css">
+      <link rel="stylesheet" href="css/rev3.css">
+</head>
+<body>
+
+      <!-- Settings Modal -->
+      <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Settings</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <h4>Load Data</h4>
+                <button type="button" name="button"><input type="file" id="myfile" name="myfile" accept="text/plain" onchange="Inputer.initiate(this);"></button>
+                <br>
+                <br>
+                <hr>
+                <h4>Feature Preferences</h4>
+                <br>
+                <p><b>Density Display</b></p>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="customRadioInline3" name="customRadioInline3" class="custom-control-input" checked="true" onclick="View.toggleDensityDisplay('on');">
+                    <label class="custom-control-label" for="customRadioInline3">On</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="customRadioInline4" name="customRadioInline4" class="custom-control-input" onclick="View.toggleDensityDisplay('off');">
+                    <label class="custom-control-label" for="customRadioInline4">Off</label>
+                </div>
+                <br>
+                <hr>
+                <br>
+                <h4>Display Customizations</h4>
+                <br>
+                <p><b>Nexicon Color</b></p>
+                <label for="nexiconTextColor">Text Color:</label>
+                <input type="color" id="nexiconTextColor" name="nexiconTextColor" value="#FF0000"><br><br>
+                <label for="nexiconHighlightColor">Highlight Color:</label>
+                <input type="color" id="nexiconHighlightColor" name="nexiconHighlightColor" value="#FFFFFF"><br><br>
+
+                <p><b>Density Display Color</b></p>
+                <!-- will need to ensure white is not slectable-->
+                <label for="densityHighColor">High Density Color:</label>
+                <input type="color" id="densityHighColor" name="densityHighColor" value="#007bff"><br><br>
+                <label for="densityLowColor">Low Density Color:</label>
+                <input type="color" id="densityLowColor" name="densityLowColor" value="#00A6A6"><br><br>
+                <label for="densityLowColor">Base Text Color:</label>
+                <input type="color" id="baseTextColor" name="densityLowColor" value="#000000"><br><br>
+
+                <label for="customRange3" class="form-label">Percentage of Density Displayed</label>
+                <p>Show <span id="percentageDensityFeedback">100%</span> (minimum 10%)</p>
+                <input type="range" class="form-range" min="10" max="100" step="1" id="gradientDensitySelect" value="100" onchange="View.setGradientDisplaySettings();"><br>
+                <small>Percentages lower than 100% represent the "top" and "bottom" percentile of word density.</small>
+            </div>
+            <div class="modal-footer">
+              <div id="settingConfirmation" class="alert alert-success" role="alert" style="visibility: hidden;">
+                  Settings successfully applied.
+              </div>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" onclick="View.setDisplaySettings();">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Nexicon Modal -->
+    <div class="modal" id="nexiconModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Lexicon</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                  <li class="nav-item" role="presentation">
+                      <button class="nav-link active" id="manageTab" data-bs-toggle="tab" data-bs-target="#nexiconManageTab" type="button" role="tab" aria-controls="nexiconManageTab" aria-selected="true" onclick="View.toggleNexiconTab(this.id);">Manage</button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                      <button class="nav-link" id="addTab" data-bs-toggle="tab" data-bs-target="#nexiconAddTab" type="button" role="tab" aria-controls="nexiconAddTab" aria-selected="false" onclick="View.toggleNexiconTab(this.id);">Add <span id="nexiconAddBadge" class="badge bg-secondary" style="visibility: hidden;"></span></button>
+                  </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="nexiconManageTab" role="tabpanel" aria-labelledby="nexiconManageTab-tab">
+                    <div id="manageTabListItemGroup" class="list-group"></div>
+                </div>
+                <div class="tab-pane fade show" id="nexiconAddTab" role="tabpanel" aria-labelledby="nexiconAddTab-tab">
+                    <!-- Tells the user that there isn't any alerts -->
+                    <div id="nexiconStateDisplay">
+                        </br></br>
+                        <div id="nexiconAlertDisplay" class="alert alert-secondary" role="alert">
+                            No words need to be interpreted at this moment.
+                            </br>
+                            <small>Run analysis to discover words that need internal definitions.</small>
+                        </div>
+                    </div>
+                    <!-- Tells the user to how to internall change the unprocessible words-->
+                    <div id="nexiconInputDisplay" class="mx-auto" style="visibility: hidden;">
+                        <small>The word below cannot be assigned syllables.</small>
+                        <div class="row">
+                            <span id="nexiconAddition" class="nexicon-addition" style="display: block; margin: auto;">Word</span>
+                        </div>
+                        <small>Type in a pronunciation of the word and click "Update". This interpretation will be saved and stored in the "Manage" tab.</small>
+                        <textarea id="nexiconInput" name="nexiconInput" rows="2" cols="35" class="nexicon-input" placeholder="Type Here" oninput="View.runNexiconSantitizationCheck();" onkeydown="View.runNexiconInputCheck();"></textarea>
+                        </br>
+                        <button id="nexiconUpdateButton" type="button" class="btn btn-info" name="button" onclick="Interpreter.getAbstractFromNexicon();" style="visibility: hidden;" disabled>Update</button>
+                    </div>
+                </div>
+            </div>
+          </div>
+              <!-- TODO: Ensure that the user experience includes some sort of input parsing -->
+          <div id="sanitizeWarning" class="alert alert-danger" role="alert" style="visibility: hidden;">
+              Your pronunciation may only contain letter characters.
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="View.resetNexicon();">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <main class="container-fluid readar-container" id="useContainer">
+
+<!--=========================================================================-->
+<!-- Controls Section -->
+<!--=========================================================================-->
+        <nav class="navbar sticky-top nav-justified navbar-light bg-light" style="padding-left: 10px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); display: block;">
+            <div class="row">
+                <div class="col">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button id="analyzeButton" type="button" class="btn btn-lg btn-primary" onclick="initiatorFunction('inputTarget');">Analyze</button>
+                        <button id="defineButton" type="button" class="btn btn-lg" style="background-color: #0dcaf0; color: white;" data-toggle="modal" data-target="#nexiconModal" onclick="View.updateNexiconManageTab();">Define  <span id="nexiconBadge" class="badge bg-secondary"></span></button>
+                        <button id="settingButton" type="button" class="btn btn-lg btn-secondary" data-toggle="modal" data-target="#exampleModalLong">Personalize</button>
+                    </div>
+                </div>
+                <div id="spinnerContainer" class="col" style=" max-width: 49vw;" hidden>
+                    <span style="float: right;">
+                      <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+                    </span>
+                </div>
+            </div>
+        </nav>
+        <br><br> <!-- Intentional vertical spacing -->
+<!--=========================================================================-->
+<!-- Editing Section -->
+<!--=========================================================================-->
+          <div class="col-12">
+              <div class="row">
+                  <section class="paper" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                        <div class="paper_in" contenteditable id="inputTarget">
+                          Programming languages have been around since the early 1950s? As languages and practices evolve, they culminate into rich cultural identity built around specific software communities. This culture can revolve around a specific language, a certain practice, the profession, or an ideology. The most recent ideological culture is the open-source software culture.
+                          <br/>
+                          &emsp; Before open-source culture gained mainstream appeal the engineering software culture, characterized by proprietary source and documentation, was the predominant culture in software development. Open-source culture has predominated because of its wide social appeal as more organizations and developers recognize that: "Software systems are subject to mathematical, technical, but also social conditions." Software systems have a deep history with the mathematics and engineering profession, each with their own conditions. As software and hardware systems are more integrated into public and private sectors, an increasing awareness of the social components of software have been recognized. This social aspect of software establishes that the developer and end-user are engaged in a dialogue facilitated by the software system. This redefinition of software as a mathematical, technical, and social medium has changed the way business and governmental sectors operate. The conversation has shifted from a private (closed-source) monologue to a public (open-source) dialogue. This perspective shift has happened as a result of collaborative platforms like GitHub as these technologies afford the environments conducive for open source development.
+                          <br/>
+                          &emsp; In Petricek's paper, software culture is defined as "shared principles and beliefs, that are concerned with the nature and practice of programming." These beliefs and practices are reflections of the social context and attitudes of the period they are developed in. The most recent culture has focused on aligning the programming field with the engineering discipline as a way to legitimize programmers and developers professionally.
+                          The phrase "software engineering" was deliberately chosen as being provocative, in implying the need for software manufacture to be based on the types of theoretical foundations and practical disciplines, that are traditional in the established branches of engineering.
+                          <br/>
+                          &emsp; In the engineering culture, interaction between software developers was mediated by geography, organization, and role. Much of the software developed in this culture was close-source and only accessible to the company or organization that produced it. The engineering culture became segmented and proprietary. In the 1950s and 1960s, free software was common in academic and business exchanges, but few open source systems were available to the public. In these collaborations, software was not valued as a commodity, it was only a theoretical framework. In the 1980s as personal computers became more common, the model for closed-source licensing became cost-effective and predominant. There were vocal rejections of this industry practice from developers like Richard Stallman developer of the GNU system. In response to increased close-source programming, Stallman created the GNU "GNU's Not Linux". Project and the copyleft license (legal mechanism for free use of software) so that developers and users could continue to use free software in their computer systems.  (History of free and open-source software.) Linux and GNU continued to grow into vibrant open-source communities, despite trends in prior decades to commoditize and restrict access to software to the general public.
+                          <br/>
+                          &emsp; However, GitHub would change this perspective. GitHub is a web-based code repository for version control. Version control allows multiple collaborators to contribute on the same project without conflict. This works by allowing developers the ability to make a copy of the code ("forking"), edit or amend the code, and then send the code back ("pushing") to be reviewed. Once the code is reviewed by other developers, the code is added to or rejected from the project. Version control was initially developed for industry as a way to manage code revisions and programmers on large software projects. This effectively allowed the "owner" of the project (and software) the ability to manage and gatekeep developers on the project! Version control became a necessary tool for large projects because: "Software development requires people to share code, which is accomplished using source control systems."
+
+                        </div>
+                  </section>
+              </div>
+          </div>
+          <br>
+          <nav id="bottomNav" class="navbar fixed-bottom nav-justified navbar-light bg-light" style="width: 90vw; margin-left: 5vw; padding: 5px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); display: block; visibility: hidden;" >
+              <div class="row">
+                  <div class="col">
+                    <div id="canvasContainer" style="width: 100%; height: 5vh; padding: 0px;"></div>
+                  </div>
+              </div>
+          </nav>
+        </main>
+
+
+
+
+
+
+
+    <!-- Enterprise Scripts-->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <!-- Scripts -->
+    <script src="js/compact/utility/arithmetic.js" type="text/javascript"></script>
+    <script src="js/compact/utility/misc.js" type="text/javascript"></script>
+    <script src="js/compact/utility/phonemetrics.js" type="text/javascript"></script>
+    <script src="js/compact/utility/debugger.js" type="text/javascript"></script>
+
+    <script src="js/compact/controller/view.js" type="text/javascript"></script>
+    <script src="js/compact/resolver/interpreter.js" type="text/javascript"></script>
+
+    <script src="js/compact/decoupler/decoupler.js" type="text/javascript"></script>
+
+    <script src="js/compact/processor/words.js" type="text/javascript"></script>
+    <script src="js/compact/processor/sentences.js" type="text/javascript"></script>
+    <script src="js/compact/processor/paragraphs.js" type="text/javascript"></script>
+
+    <script src="js/compact/packager/chartographer.js" type="text/javascript"></script>
+    <script src="js/compact/packager/packager.js" type="text/javascript"></script>
+
+    <script src="js/compact/document.js" type="text/javascript"></script>
+    <script src="js/compact/initiator.js" type="text/javascript"></script>
+
+    <script src="js/compact/inputFromFile.js" type="text/javascript"></script>
+
+
+</body>
+</html>

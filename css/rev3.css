@@ -1,0 +1,120 @@
+body{
+  background-color: #f0f0f0 !important;
+}
+
+#inputTarget, textarea{
+    border: none;
+    outline: none;
+}
+
+.big-container{
+    background-color: white;
+    box-shadow: 0 10px 6px -6px #777;
+}
+
+.density-markers{
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: white;
+}
+
+.make-row-big{
+    height: 100vh;
+}
+
+.nexicon-input{
+    resize: none;
+    border: 1px solid #EFEFEF;
+}
+
+.small-container{
+    height: 100%;
+    width: 100%;
+}
+
+.textarea-forms-right-size{
+    padding-left: 0px;
+    padding-right: 0px;
+    height: 100%;
+    width: 100%;
+}
+
+.button-group-sticky{
+    position: -webkit-sticky;
+    position: sticky;
+    top: 14rem;
+}
+
+.button-group-sticky-2{
+    position: -webkit-sticky;
+    position: sticky;
+    top: 19rem;
+}
+
+.button-group-sticky-3{
+    position: -webkit-sticky;
+    position: sticky;
+    top: 33rem;
+}
+
+.key-table:hover {
+    opacity: .5;
+}
+
+.paper {
+  background-color: white;
+  padding: 5vw 5vw;
+}
+
+.sentence-preview {
+  border: 1px solid red;
+  font-size: 2em;
+}
+
+.readar-container{
+  padding: 5vw 5vw;
+}
+
+.nexicon-addition {
+    color: #007bff;
+    padding: 10px 10px;
+}
+
+/**
+  spinner from https://loading.io/css/
+**/
+
+.lds-ring {
+  display: inline-block;
+  position: relative;
+  width: 40px;
+  height: 40px;
+}
+.lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  margin: 4px;
+  border: 4px solid #cef;
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #cef transparent transparent transparent;
+}
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
