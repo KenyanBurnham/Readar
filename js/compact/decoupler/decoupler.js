@@ -211,11 +211,13 @@ let Decoupler = {
           // Clean the original packaged span array
           Packager.packagedSpans.splice(0, Packager.packagedSpans.length);
 
+
           //for all remaining spans left on the DOM
           elementList = document.getElementById(target).querySelectorAll("span");
 
           for (var j = 0; j < elementList.length; j++) {
               this.remove(elementList[j].id, elementList[j].innerText);
           }
+          
       },
 };

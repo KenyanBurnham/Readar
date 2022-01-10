@@ -18,12 +18,16 @@ function initiatorFunction(target){
       View.initiateView();
 
       console.log(document.getElementById("inputTarget").innerText);
+      let newData = document.getElementById("inputTarget").innerText;
+      document.getElementById("inputTarget").innerHTML = newData;
+
+      //Get snapshot of document
+      Document.updateDataState(target);
 
       //Clear previous spans
       Decoupler.removeAllSpans(target);
 
-      //Get snapshot of document
-      Document.updateDataState(target);
+
 
       //Grab source element and decouple text from DOM object.
       let decoupledSource = Decoupler.decouple(target);
