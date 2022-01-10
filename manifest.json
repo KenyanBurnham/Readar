@@ -1,7 +1,7 @@
 {
   "name": "Readar",
   "short_name": "Readar",
-  "start_url": "index.html",
+  "start_url": "readar.html",
   "display": "standalone",
   "background_color": "#fff",
   "orientation": "portrait-primary",
