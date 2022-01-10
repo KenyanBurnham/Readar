@@ -31,8 +31,10 @@ let Chartographer = {
         } else if (Ariths.isEven(spanNumber) == false) {
             gradientBlue = generateColor(transitionColor,leftColor, Math.floor(spanNumber)/2);
             gradientTeal = generateColor(rightColor,transitionColor, Math.floor(spanNumber)/2);
-            gradientTeal.push(transitionColor);
+            //need to push the transition color first
+            gradientBlue.push(transitionColor);
         }
+
         //push the gradient together
         for (var j = 0; j < gradientTeal.length; j++) {
             //add the teal graident to the blue one
@@ -40,12 +42,10 @@ let Chartographer = {
         }
         //then add the new gradient
         this.storedGradient = gradientBlue;
-        console.log(this.storedGradient);
         // then return this gradient to the function that called it
         return gradientBlue;
     },
     canvasGradient: function(gradient, instructions, percent){
-
         //this is for the new density key
         let container = document.getElementById("canvasContainer");
         //need to remove the children in here
@@ -275,7 +275,6 @@ let Chartographer = {
         /**
           Everything before this line is added to apply custom settings
         **/
-  // TODO: When a span is clicked, have the the canvas object redraw where it's line is
         //assigns the altered gradient
         if (newGradient.length > 0) {
             for (var i = 0; i < this.spanToSort.length; i++) {
@@ -292,7 +291,7 @@ let Chartographer = {
                     Debugger.submitErrorReport(message);
                 }
             }
-            this.gradientMount(gradient);
+            this.gradientMount(newGradient);
         } //assigns the altered gradient
         else {
             for (var i = 0; i < this.spanToSort.length; i++) {
