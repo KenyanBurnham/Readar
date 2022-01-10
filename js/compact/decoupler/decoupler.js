@@ -218,6 +218,6 @@ let Decoupler = {
           for (var j = 0; j < elementList.length; j++) {
               this.remove(elementList[j].id, elementList[j].innerText);
           }
-          
+
       },
 };
