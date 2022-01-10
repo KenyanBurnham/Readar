@@ -40,19 +40,18 @@ let Chartographer = {
         }
         //then add the new gradient
         this.storedGradient = gradientBlue;
+        console.log(this.storedGradient);
         // then return this gradient to the function that called it
         return gradientBlue;
     },
-    gradientMount: function(gradient){
-        //clear tr
-        let tr = document.getElementById("visualKeyTable");
-        //remove all child nodes (td)
-        while (tr.hasChildNodes()) {
-            tr.removeChild(tr.firstChild);
-        }
+    canvasGradient: function(gradient, instructions, percent){
 
         //this is for the new density key
         let container = document.getElementById("canvasContainer");
+        //need to remove the children in here
+        while (container.firstChild) {
+          container.removeChild(container.firstChild);
+        }
         let newCanvas = document.createElement("canvas");
         newCanvas.setAttribute("id", "keyCanvas");
         newCanvas.setAttribute("width", "" + container.clientWidth + "");
@@ -66,37 +65,12 @@ let Chartographer = {
         //createLinearGradient(x,y,x1,y1)
         var grd = ctx.createLinearGradient(0, 0, canvas.clientWidth, 0);
 
-        // add td elements the size of the gradient
         for (var i = 0; i < gradient.length; i++) {
-            grd.addColorStop((i*colorStopFrequency), "#" + gradient[i] + "");
-            let td = document.createElement("td");
-            //give the child a gradient color
-            td.style.background = "#" + gradient[i] + "";
-
-            let space = document.createTextNode(" ");
-            td.appendChild(space);
-            td.id = "keyTable0" + i + "";
-            td.classList.add("key-table");
-            td.addEventListener("click", function(){
-                let color = this.style.backgroundColor;
-                for (var j = 0; j < Chartographer.spanToSort.length; j++) {
-                    let span = document.getElementById('' + Chartographer.spanToSort[j].identity + '');
-                    if (span.style.color == color) {
-                        span.style.removeProperty('background-color');
-                        span.style.removeProperty('color');
-                        span.setAttribute("style", "background-color: " + color + "; color: white");
-                        //if there is a place to add the percentile, it would be
-                        // here, but we're going to avoid numbers I think.
-                        setTimeout(function(){
-                            span.style.removeProperty('background-color');
-                            span.style.removeProperty('color');
-                            span.setAttribute("style", "background-color: white; color: " + color + ";");
-                        },3000);
-                    }
-                }
-            });
-            //add the new child node
-            tr.appendChild(td);
+            if(gradient[i].search(/#/g) == -1){
+                grd.addColorStop((i*colorStopFrequency), "#" + gradient[i] + "");
+            } else{
+                grd.addColorStop((i*colorStopFrequency), "" + gradient[i] + "");
+            }
         }
 
         /**
@@ -150,72 +124,111 @@ let Chartographer = {
           };
         }
 
-        function update() {
-            // Fill with gradient
-            ctx.fillStyle = grd;
-            //fillRect(x,y,width,height)
-            ctx.fillRect(0, 0, canvas.clientWidth, 50);
-
-            ctx.beginPath();
-            ctx.moveTo(mouseX, 0);
-            ctx.lineTo(mouseX, 100);
-            ctx.strokeStyle = "#FFFFFF";
-            if ((colorStopFrequency*100)< 3) {
-                ctx.lineWidth = 3;
-            } else {
-                ctx.lineWidth = (canvas.width)/Chartographer.spanToSort.length;
-            }
-
-            ctx.stroke();
-
-            requestAnimationFrame(update);
-
+        switch (instructions) {
+          case "map":
+                //this is generated the first time the density display is called
+                function update() {
+                    // Fill with gradient
+                    ctx.fillStyle = grd;
+                    //fillRect(x,y,width,height)
+                    ctx.fillRect(0, 0, canvas.clientWidth, 50);
+                    ctx.beginPath();
+                    ctx.moveTo(mouseX, 0);
+                    ctx.lineTo(mouseX, 100);
+                    ctx.strokeStyle = "#FFFFFF";
+                    if ((colorStopFrequency*100)< 3) {
+                        ctx.lineWidth = 3;
+                    } else {
+                        ctx.lineWidth = (canvas.width)/Chartographer.spanToSort.length;
+                    }
+                    ctx.stroke();
+                    requestAnimationFrame(update);
+                }
+                update();
+                // TODO: fix this exit animation
+                //curently does not work
+                canvas.addEventListener("mouseout", function(){
+                    Chartographer.canvasGradient(gradient, "map");
+                });
+            break;
+          case "reference":
+              //this is used when the user uses a sentence to figure out the density
+              //this is generated the first time the density display is called
+              function reupdate() {
+                  //this is the
+                  let position = (canvas.width)*(1-percent);
+                  // Fill with gradient
+                  ctx.fillStyle = grd;
+                  //fillRect(x,y,width,height)
+                  ctx.fillRect(0, 0, canvas.clientWidth, 50);
+                  ctx.beginPath();
+                  if (position > 3) {
+                      ctx.moveTo(position, 0);
+                      ctx.lineTo(position, 100);
+                  } if (position == canvas.clientWidth) {
+                      ctx.moveTo((position-1), 0);
+                      ctx.lineTo((position-1), 100);
+                  }
+                  else {
+                      ctx.moveTo(3, 0);
+                      ctx.lineTo(3, 100);
+                  }
+                  ctx.strokeStyle = "#FFFFFF";
+                  if ((colorStopFrequency*100)< 3) {
+                      ctx.lineWidth = 3;
+                  } else {
+                      ctx.lineWidth = (canvas.width)/Chartographer.spanToSort.length;
+                  }
+                  ctx.stroke();
+                  requestAnimationFrame(reupdate);
+              }
+              reupdate();
+              setTimeout(function(){
+                  Chartographer.canvasGradient(gradient, "map");
+              },2500);
+          break;
         }
-        update();
 
-        // TODO: fix this exit animation
-        //curently does not work
-        canvas.addEventListener("mouseout", function(){
-          ctx.clearRect(0, 0, canvas.clientWidth, 50);
-          // Fill with gradient
-          ctx.fillStyle = grd;
-          //fillRect(x,y,width,height)
-          ctx.fillRect(0, 0, canvas.clientWidth, 50);
-            //requestAnimationFrame(updateGrd);
-        });
-
+        //this adds a listerner that makes sure that when the canvas is clicked
+        //the sentence that matches the spectrum is revealed
+        //I'm thinking about leaving this active, even when the display is hidden
         canvas.addEventListener("click", function(){
             let currentPosition = mouseX;
             //the number of pixels per sentence;
             let divisions = (canvas.width)/Chartographer.spanToSort.length;
             //for each sentence
-            for (var i = 0; i < Chartographer.spanToSort.length; i++) {
-                let leftBoundary = ((i * divisions));
-                let rightBoundary = ((i * divisions) + divisions);
+            for (var l = 0; l < Chartographer.spanToSort.length; l++) {
+                let leftBoundary = ((l * divisions));
+                let rightBoundary = ((l * divisions) + divisions);
                 if ((mouseX >= leftBoundary) && (mouseX <= rightBoundary)) {
-                    let spanToHighlight = document.getElementById("" + Chartographer.spanToSort[i].identity + "");
-                    let spanColor = spanToHighlight.style.color;
+                    let spanToHighlight = document.getElementById("" + Chartographer.spanToSort[l].identity + "");
+                    let spanColor = spanToHighlight.getAttribute("data-color")
+                    console.log(spanToHighlight.getAttribute("data-color"));
+
                     spanToHighlight.style.removeProperty('background-color');
                     spanToHighlight.style.removeProperty('color');
-                    spanToHighlight.setAttribute("style", "background-color: " + spanColor + "; color: white;");
+                    spanToHighlight.setAttribute("style", "background-color: #" + spanColor + "; color: white;");
                     setTimeout(function(){
                         spanToHighlight.style.removeProperty('background-color');
                         spanToHighlight.style.removeProperty('color');
-                        spanToHighlight.setAttribute("style", "background-color: white; color: " + spanColor + ";");
+                        spanToHighlight.setAttribute("style", "background-color: white; color: #" + spanColor + ";");
                     },3000);
                 }
             }
         });
 
-        //indicates sentences that are very dense
-        let dense = document.createTextNode("-");
-        //indicates sentences that are too light
-        let lessDense = document.createTextNode("+");
-        tr.firstChild.appendChild(dense);
-        tr.firstChild.classList.add("density-markers");
-        tr.lastChild.appendChild(lessDense);
-        tr.lastChild.classList.add("density-markers");
+    },
+    gradientMount: function(gradient){
 
+        Chartographer.canvasGradient(gradient, "map");
+        for (var k = 0; k < Chartographer.spanToSort.length; k++) {
+            let span = document.getElementById("" + Chartographer.spanToSort[k].identity + "");
+            span.setAttribute("data-color", "" + gradient[k] + "");
+            span.addEventListener("click", function(){
+                let percent = span.getAttribute("data-percentile");
+                Chartographer.canvasGradient(gradient, "reference", percent);
+            });
+        }
         //This decides whether the density display should be on
         View.setDisplaySettings();
     },
@@ -257,11 +270,12 @@ let Chartographer = {
             // is shown since it wouldn't make sense otherwise
             newGradient[0] = gradient[0];
             newGradient[(gradient.length - 1)] = gradient[gradient.length - 1];
-            //console.log(newGradient);
+            console.log(newGradient);
         }
         /**
           Everything before this line is added to apply custom settings
         **/
+  // TODO: When a span is clicked, have the the canvas object redraw where it's line is
         //assigns the altered gradient
         if (newGradient.length > 0) {
             for (var i = 0; i < this.spanToSort.length; i++) {
@@ -270,21 +284,6 @@ let Chartographer = {
                     let span = document.getElementById(identity);
                     span.classList.add("key-span");
                     span.style.color = "#" + newGradient[i] + "";
-                    span.addEventListener("click", function(){
-                        let color = this.style.color;
-                        let tds = document.getElementsByClassName('key-table');
-                        for (var j = 0; j < tds.length; j++) {
-                            td = tds[j];
-                            let identity = td.id;
-                            let tdColor = td.style.backgroundColor;
-                            if (tdColor == color) {
-                                td.style.opacity = .5;
-                                setTimeout(function(){
-                                    document.getElementById('' + identity + '').setAttribute("style", "opacity: 1; background-color: " + tdColor + ";");
-                                },2000);
-                            }
-                        }
-                    });
                     //for some reason there is a mismatch between the color in
                     //the text and the lowest value color on the density key
                     span.setAttribute("data-percentile", "" + this.spanToSort[i].percentile.toFixed(2) + "");
@@ -301,21 +300,6 @@ let Chartographer = {
                     let identity = this.spanToSort[i].identity;
                     let span = document.getElementById(identity);
                     span.style.color = "#" + gradient[i] + "";
-                    span.addEventListener("click", function(){
-                        let color = this.style.color;
-                        let tds = document.getElementsByClassName('key-table');
-                        for (var j = 0; j < tds.length; j++) {
-                            td = tds[j];
-                            let identity = td.id;
-                            let tdColor = td.style.backgroundColor;
-                            if (tdColor == color) {
-                                td.style.opacity = .5;
-                                setTimeout(function(){
-                                    document.getElementById('' + identity + '').setAttribute("style", "opacity: 1; background-color: " + tdColor + ";");
-                                },2000);
-                            }
-                        }
-                    });
                     span.setAttribute("data-percentile", "" + this.spanToSort[i].percentile.toFixed(2) + "");
                 } catch (e) {
                     let message = "In Chartographer.assign(), " + e + " which happened with: " + this.spanToSort[i].identity + "";
@@ -324,7 +308,6 @@ let Chartographer = {
             }
             this.gradientMount(gradient);
         }
-
     },
     sort: function(){
         //this sorts the spans into the highest and lowest breath unit

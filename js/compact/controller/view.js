@@ -2,6 +2,31 @@
   Going to need to create a separate settings object at some point
 **/
 View = {
+  initiateView: function(){
+      //hide the bottom nav
+      document.getElementById('bottomNav').visibility = "hidden";
+      //set the input opacity low
+      document.getElementById('inputTarget').opacity = .5;
+      //show spinner
+      document.getElementById("spinnerContainer").visibility = "visible";
+      //disable the buttons
+      document.getElementById('analyzeButton').disabled = true;
+      document.getElementById('defineButton').disabled = true;
+      document.getElementById('settingButton').disabled = true;
+
+  },
+  completeView: function(){
+      //hide the bottom nav
+      document.getElementById('bottomNav').visibility = "visible";
+      //set the input opacity low
+      document.getElementById('inputTarget').opacity = 1;
+      //show spinner
+      document.getElementById("spinnerContainer").visibility = "hidden";
+      //disable the buttons
+      document.getElementById('analyzeButton').disabled = false;
+      document.getElementById('defineButton').disabled = false;
+      document.getElementById('settingButton').disabled = false;
+  },
   toggleNexiconDisplay: function(state){
       // get element
       let alertBody = document.getElementById('nexiconStateDisplay');
@@ -251,7 +276,7 @@ View = {
         // Density display settings
         let on = document.getElementById('customRadioInline3');
         let off = document.getElementById('customRadioInline4');
-        let densityDisplay = document.getElementById("visualKey");
+        let densityDisplay = document.getElementById("bottomNav");
         if (on.checked == true) {
             densityDisplay.style.visibility = "visible";
         }

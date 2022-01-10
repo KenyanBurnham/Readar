@@ -14,6 +14,11 @@ function initiatorFunction(target){
       //View.resolveVisuals();
 
 //Stage 1: pre-process and removing errors
+      //hides elements and makes loading indicators visible
+      View.initiateView();
+
+      console.log(document.getElementById("inputTarget").innerText);
+
       //Clear previous spans
       Decoupler.removeAllSpans(target);
 
@@ -41,12 +46,15 @@ function initiatorFunction(target){
       //this is the main visual feedback
       if(Interpreter.unresolved.length == 0){
            Chartographer.initiate();
-      } 
+      }
 
       //debrief all errors
       Debugger.debriefErrors();
-      Debugger.debugWordsAndSyllables();
+      //Debugger.debugWordsAndSyllables();
       //Debugger.debriefChartographer();
+
+      //hides loading elements and reveals displays
+      View.completeView();
 
 }
 /**

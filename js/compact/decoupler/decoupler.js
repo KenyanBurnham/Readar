@@ -161,10 +161,10 @@ let Decoupler = {
                 //  sentence = this.proxify(sentence);
                   //why am i proxifying the replacement?
                   //replacement = this.proxify(replacement);
-                  console.log("State:" + state);
+          //console.log("State:" + state);
                   newState = state.replace(sentence, replacement);
-                  console.log("Replacement" + replacement);
-                  console.log("Replaced State:" + newState);
+          //console.log("Replacement" + replacement);
+          //console.log("Replaced State:" + newState);
                   //this removes all the unique proxies placed to avoid TypeErrors
                   //with String.replace()
                   //state = this.unproxify(state);

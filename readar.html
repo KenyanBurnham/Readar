@@ -150,20 +150,15 @@
             <div class="row">
                 <div class="col">
                     <div class="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-lg btn-primary" onclick="initiatorFunction('inputTarget');">Analyze</button>
-                        <button type="button" class="btn btn-lg" style="background-color: #0dcaf0; color: white;" data-toggle="modal" data-target="#nexiconModal" onclick="View.updateNexiconManageTab();">Define  <span id="nexiconBadge" class="badge bg-secondary"></span></button>
-                        <button type="button" class="btn btn-lg btn-secondary" data-toggle="modal" data-target="#exampleModalLong">Personalize</button>
+                        <button id="analyzeButton" type="button" class="btn btn-lg btn-primary" onclick="initiatorFunction('inputTarget');">Analyze</button>
+                        <button id="defineButton" type="button" class="btn btn-lg" style="background-color: #0dcaf0; color: white;" data-toggle="modal" data-target="#nexiconModal" onclick="View.updateNexiconManageTab();">Define  <span id="nexiconBadge" class="badge bg-secondary"></span></button>
+                        <button id="settingButton" type="button" class="btn btn-lg btn-secondary" data-toggle="modal" data-target="#exampleModalLong">Personalize</button>
                     </div>
                 </div>
-                <div class="col" style=" max-width: 49vw;">
-                    <!-- Where the visual key table happens-->
-                    <div class="visual-key" id="visualKey" style="max-width: 48vw;" >
-                        <table>
-                            <tbody style="width: 400px;">
-                                <tr id="visualKeyTable" style="width: 40vw;"></tr>
-                            </tbody>
-                        </table>
-                    </div>
+                <div id="spinnerContainer" class="col" style=" max-width: 49vw;" hidden>
+                    <span style="float: right;">
+                      <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+                    </span>
                 </div>
             </div>
         </nav>
@@ -191,7 +186,7 @@
               </div>
           </div>
           <br>
-          <nav class="navbar fixed-bottom nav-justified navbar-light bg-light" style="width: 90vw; margin-left: 5vw; padding: 5px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); display: block;">
+          <nav id="bottomNav" class="navbar fixed-bottom nav-justified navbar-light bg-light" style="width: 90vw; margin-left: 5vw; padding: 5px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); display: block; visibility: hidden;" >
               <div class="row">
                   <div class="col">
                     <div id="canvasContainer" style="width: 100%; height: 5vh; padding: 0px;"></div>
