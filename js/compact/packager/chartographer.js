@@ -203,8 +203,6 @@ let Chartographer = {
                 if ((mouseX >= leftBoundary) && (mouseX <= rightBoundary)) {
                     let spanToHighlight = document.getElementById("" + Chartographer.spanToSort[l].identity + "");
                     let spanColor = spanToHighlight.getAttribute("data-color")
-                    console.log(spanToHighlight.getAttribute("data-color"));
-
                     spanToHighlight.style.removeProperty('background-color');
                     spanToHighlight.style.removeProperty('color');
                     spanToHighlight.setAttribute("style", "background-color: #" + spanColor + "; color: white;");
@@ -270,7 +268,6 @@ let Chartographer = {
             // is shown since it wouldn't make sense otherwise
             newGradient[0] = gradient[0];
             newGradient[(gradient.length - 1)] = gradient[gradient.length - 1];
-            console.log(newGradient);
         }
         /**
           Everything before this line is added to apply custom settings

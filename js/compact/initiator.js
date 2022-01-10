@@ -17,9 +17,10 @@ function initiatorFunction(target){
       //hides elements and makes loading indicators visible
       View.initiateView();
 
-      console.log(document.getElementById("inputTarget").innerText);
-      let newData = document.getElementById("inputTarget").innerText;
-      document.getElementById("inputTarget").innerHTML = newData;
+      //this is a patch to help recursion, does remove whitespace
+      //console.log(document.getElementById("inputTarget").innerText);
+      //let newData = document.getElementById("inputTarget").innerText;
+      //document.getElementById("inputTarget").innerHTML = newData;
 
       //Get snapshot of document
       Document.updateDataState(target);
