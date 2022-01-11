@@ -88,15 +88,18 @@ View = {
   clearNexiconInput: function(){
       document.getElementById("nexiconInput").value = "";
   },
-  toggleNexiconManageListItems: function(identity){
+  toggleNexiconManageListItems: function(identity, toggle){
       let tab = document.getElementById(identity);
       //grab id of list item tab clicked and add the active class
-      tab.classList.add("active");
+      //tab.classList.add("active");
       //then add the add Nexicon functionality again
       let image = tab.getAttribute("data-image");
       let interpretation = tab.getAttribute("data-interpretation");
       let syllables = tab.getAttribute("data-syllables");
       console.log("image: " + image + ", interpretation: " + interpretation + ", syllables: " + syllables);
+      //unhide the save button
+      //document.getElementById("nexiconSave" + identity).style.visibility = "visible";
+      //document.getElementById("nexiconCancel" + identity).style.visibility = "visible";
   },
   createNexiconListItem:function(identity, image, interpretation){
       let syllables = getSyllableCount(interpretation);
@@ -108,23 +111,36 @@ View = {
       newTab.setAttribute("data-interpretation", "" + interpretation + "");
       newTab.setAttribute("data-image", "" + image + "");
       newTab.setAttribute("data-syllables", "" + syllables + "");
-      newTab.addEventListener("click", function(){
-          View.toggleNexiconManageListItems(newTab.id);
-      });
       let p = document.createElement("p");
       let small = document.createElement("small");
       let br = document.createElement("br");
       p.classList.add("mb-1");
       p.innerHTML = "" + image + "";
       small.innerHTML = "Interpreted as: '<i>" + interpretation + "</i>', Syllables: " + syllables + "";
-      let save = "<button id='nexiconSave"+ identity +"'>Save</button>";
-      let cancelBtn = "<button id='nexiconCancel" + identity + ">Cancel</button>";
+      let save = document.createElement("button");
+      save.setAttribute("id", "nexiconSavelistItem" + identity + "");
+      let cancelBtn = document.createElement("button");
+      cancelBtn.setAttribute("id", "nexiconCancellistItem" + identity + "");
+      save.setAttribute("style", "visibility: hidden; margin-right: 5px;");
+      cancelBtn.setAttribute("style", "visibility: hidden;");
+      save.setAttribute("value", "Save");
+      save.innerText = "Save";
+      cancelBtn.setAttribute("value", "Cancel");
+      cancelBtn.innerText = "Cancel";
+      save.classList.add("btn");
+      save.classList.add("btn-primary");
+      save.classList.add("btn-sm");
+      cancelBtn.classList.add("btn");
+      cancelBtn.classList.add("btn-secondary");
+      cancelBtn.classList.add("btn-sm");
       newTab.append(p);
       newTab.append(small);
       newTab.append(br);
-      newTab.innerHTML += save;
-      //I have now idea how the cancel button never makes it
-      newTab.innerHTML += cancelBtn;
+      newTab.append(save);
+      newTab.append(cancelBtn);
+      newTab.addEventListener("click", function(){
+          View.toggleNexiconManageListItems(newTab.id, "open");
+      });
       document.getElementById("manageTabListItemGroup").append(newTab);
   },
   updateNexiconManageTab: function(){

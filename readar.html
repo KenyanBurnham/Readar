@@ -118,11 +118,10 @@
                     </div>
                     <!-- Tells the user to how to internall change the unprocessible words-->
                     <div id="nexiconInputDisplay" class="mx-auto" style="visibility: hidden;">
-                        <small>The word below cannot be assigned syllables.</small>
+                        <small>The word below cannot be assigned syllables. Type in a pronunciation of the word and click "Update". This interpretation will be saved and stored in the "Manage" tab.</small>
                         <div class="row">
                             <span id="nexiconAddition" class="nexicon-addition" style="display: block; margin: auto;">Word</span>
                         </div>
-                        <small>Type in a pronunciation of the word and click "Update". This interpretation will be saved and stored in the "Manage" tab.</small>
                         <textarea id="nexiconInput" name="nexiconInput" rows="2" cols="35" class="nexicon-input" placeholder="Type Here" oninput="View.runNexiconSantitizationCheck();" onkeydown="View.runNexiconInputCheck();"></textarea>
                         </br>
                         <button id="nexiconUpdateButton" type="button" class="btn btn-info" name="button" onclick="Interpreter.getAbstractFromNexicon();" style="visibility: hidden;" disabled>Update</button>
