@@ -100,15 +100,20 @@
                   <li class="nav-item" role="presentation">
                       <button class="nav-link" id="addTab" data-bs-toggle="tab" data-bs-target="#nexiconAddTab" type="button" role="tab" aria-controls="nexiconAddTab" aria-selected="false" onclick="View.toggleNexiconTab(this.id);">Add <span id="nexiconAddBadge" class="badge bg-secondary" style="visibility: hidden;"></span></button>
                   </li>
+                  <li class="nav-item" role="presentation">
+                      <button class="nav-link" id="editTab" data-bs-toggle="tab" data-bs-target="#nexiconEditTab" type="button" role="tab" aria-controls="nexiconEditTab" aria-selected="false" onclick="View.toggleNexiconTab(this.id);" style="visibility: hidden;">Edit</button>
+                  </li>
             </ul>
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="nexiconManageTab" role="tabpanel" aria-labelledby="nexiconManageTab-tab">
                     <div id="manageTabListItemGroup" class="list-group"></div>
                 </div>
-                <div class="tab-pane fade show" id="nexiconAddTab" role="tabpanel" aria-labelledby="nexiconAddTab-tab">
+                <div class="tab-pane fade" id="nexiconAddTab" role="tabpanel" aria-labelledby="nexiconAddTab-tab">
                     <!-- Tells the user that there isn't any alerts -->
                     <div id="nexiconStateDisplay">
                         </br></br>
+                        <small style='color: gray; visibility: hidden;' id="addInterpretationPrompt">Click on words to add an interpretation.</small>
+                        <div id="nexiconAddWordsList" class=""></div>
                         <div id="nexiconAlertDisplay" class="alert alert-secondary" role="alert">
                             No words need to be interpreted at this moment.
                             </br>
@@ -117,13 +122,39 @@
                     </div>
                     <!-- Tells the user to how to internall change the unprocessible words-->
                     <div id="nexiconInputDisplay" class="mx-auto" style="visibility: hidden;">
-                        <small>The word below cannot be assigned syllables. Type in a pronunciation of the word and click "Update". This interpretation will be saved and stored in the "Manage" tab.</small>
                         <div class="row">
                             <span id="nexiconAddition" class="nexicon-addition" style="display: block; margin: auto;">Word</span>
                         </div>
-                        <textarea id="nexiconInput" name="nexiconInput" rows="2" cols="35" class="nexicon-input" placeholder="Type Here" oninput="View.runNexiconSantitizationCheck();" onkeydown="View.runNexiconInputCheck();"></textarea>
-                        </br>
-                        <button id="nexiconUpdateButton" type="button" class="btn btn-info" name="button" onclick="Interpreter.getAbstractFromNexicon();" style="visibility: hidden;" disabled>Update</button>
+                        <form>
+                            <div class="form-group">
+                                <label for="nexiconInput">Enter an intepretation </label>
+                                <input id="nexiconInput" type="text" class="form-control"  placeholder="Type here" oninput="View.runNexiconSantitizationCheck();" onkeydown="View.runNexiconInputCheck();">
+                                <small>(Example: "112" = "one twelve"/"one hundred twelve")</small>
+                                <br>
+                                <button id="nexiconUpdateButton" type="button" class="btn btn-info" name="button" onclick="Interpreter.getAbstractFromNexicon();" style="visibility: hidden;" disabled>Update</button>
+                            </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="nexiconEditTab" role="tabpanel" aria-labelledby="nexiconEditTab-tab">
+                    <!-- Tells the user to how to internall change the unprocessible words-->
+                    <div id="nexiconEditGroup" class="mx-auto" style="visibility: hidden;">
+                        <small>Edit the interpretation and syllables or remove the word.</small>
+                        <div class="row">
+                            <span id="nexiconWordToEdit" class="nexicon-addition" style="display: block; margin: auto;">Word</span>
+                        </div>
+                        <form>
+                            <div class="form-group">
+                                <label for="editInterpretationInput">Intepretation</label>
+                                <input id="editInterpretationInput" type="text" class="form-control"  placeholder="Example input">
+                            </div>
+                            <div class="form-group">
+                                <label for="editSyllablesInput">Syllables</label>
+                                <input type="number" class="form-control" id="editSyllablesInput" placeholder="Another input">
+                            </div>
+                        </form>
+                        <button id="nexiconEditButton" type="button" class="btn btn-info" name="button" onclick="Interpreter.getAbstractFromNexicon();"disabled>Update</button>
+                        <button id="nexiconRemoveButton" type="button" class="btn btn-warning" name="button" onclick="">Remove</button>
+                        <button id="nexiconCancelButton" type="button" class="btn btn-light" name="button" onclick="View.toggleNexiconTab('manageTab');">Cancel</button>
                     </div>
                 </div>
             </div>

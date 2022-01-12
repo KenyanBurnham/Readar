@@ -89,17 +89,27 @@ View = {
       document.getElementById("nexiconInput").value = "";
   },
   toggleNexiconManageListItems: function(identity, toggle){
+      //reset the nexicon tab
+      //this.resetNexicon();
+      //clear the input
+      //this.clearNexiconInput();
+      this.toggleNexiconTab("editTab");
+
       let tab = document.getElementById(identity);
       //grab id of list item tab clicked and add the active class
-      //tab.classList.add("active");
       //then add the add Nexicon functionality again
       let image = tab.getAttribute("data-image");
       let interpretation = tab.getAttribute("data-interpretation");
       let syllables = tab.getAttribute("data-syllables");
       console.log("image: " + image + ", interpretation: " + interpretation + ", syllables: " + syllables);
-      //unhide the save button
-      //document.getElementById("nexiconSave" + identity).style.visibility = "visible";
-      //document.getElementById("nexiconCancel" + identity).style.visibility = "visible";
+      //unhide items
+      document.getElementById("nexiconEditGroup").style.visibility = "visible";
+      document.getElementById('nexiconWordToEdit').innerHTML = image;
+      document.getElementById('editInterpretationInput').value = "" + interpretation + "";
+      document.getElementById('editSyllablesInput').value = "" + syllables + "";
+
+
+
   },
   createNexiconListItem:function(identity, image, interpretation){
       let syllables = getSyllableCount(interpretation);
@@ -117,27 +127,9 @@ View = {
       p.classList.add("mb-1");
       p.innerHTML = "" + image + "";
       small.innerHTML = "Interpreted as: '<i>" + interpretation + "</i>', Syllables: " + syllables + "";
-      let save = document.createElement("button");
-      save.setAttribute("id", "nexiconSavelistItem" + identity + "");
-      let cancelBtn = document.createElement("button");
-      cancelBtn.setAttribute("id", "nexiconCancellistItem" + identity + "");
-      save.setAttribute("style", "visibility: hidden; margin-right: 5px;");
-      cancelBtn.setAttribute("style", "visibility: hidden;");
-      save.setAttribute("value", "Save");
-      save.innerText = "Save";
-      cancelBtn.setAttribute("value", "Cancel");
-      cancelBtn.innerText = "Cancel";
-      save.classList.add("btn");
-      save.classList.add("btn-primary");
-      save.classList.add("btn-sm");
-      cancelBtn.classList.add("btn");
-      cancelBtn.classList.add("btn-secondary");
-      cancelBtn.classList.add("btn-sm");
       newTab.append(p);
       newTab.append(small);
       newTab.append(br);
-      newTab.append(save);
-      newTab.append(cancelBtn);
       newTab.addEventListener("click", function(){
           View.toggleNexiconManageListItems(newTab.id, "open");
       });
@@ -208,15 +200,18 @@ View = {
       document.getElementById("nexiconAddition").innerHTML = image;
   },
   updateNexiconAddTab: function(){
+      document.getElementById('nexiconAddWordsList').innerHTML = "";
       //reset the add items tab
       let unresolved = Interpreter.getUnresolved();
       if (unresolved.length > 0) {
           //hide the alert
           document.getElementById('nexiconAlertDisplay').style.visibility = "hidden";
+          //unhide the prompt
+          document.getElementById('addInterpretationPrompt').style.visibility = "visible";
           for (var i = 0; i < unresolved.length; i++) {
               let image = unresolved[i];
               let newTab = "<a id='listItemAdd" + image + "' data-image='" + image + "' class='list-group-item list-group-item-action' aria-current='true' onclick='View.addNewInterpretationCallback(this.id);'><p class='mb-1'>" + image + "</p></a>";
-              document.getElementById("nexiconStateDisplay").innerHTML += newTab;
+              document.getElementById("nexiconAddWordsList").innerHTML += newTab;
           }
       } else {
           document.getElementById('nexiconAlertDisplay').style.visibility = "visible";
@@ -229,6 +224,9 @@ View = {
       let nexAddTab = document.getElementById("nexiconAddTab");
       let manageButton = document.getElementById("manageTab");
       let addButton = document.getElementById("addTab");
+      let nexEditTab = document.getElementById('nexiconEditTab');
+      let editButton = document.getElementById('nexiconEditButton');
+      let editTab = document.getElementById('editTab');
       switch (identity) {
           case "manageTab":
               //manage tab selected
@@ -237,9 +235,16 @@ View = {
               nexManageTab.classList.add("active");
               nexAddTab.classList.remove("show");
               nexManageTab.classList.add("show");
+              //nexEditTab.style.visibility = "hidden";
+              nexEditTab.classList.remove("show");
+              nexEditTab.classList.remove("active");
+              editTab.style.visibility = "hidden";
+              editTab.classList.remove("show");
+              editTab.classList.remove("active");
               //make sure the tab looks the same
               addButton.classList.remove("active");
               manageButton.classList.add("active");
+              document.getElementById('addInterpretationPrompt').style.visibility = "hidden";
               //Add functionality for resetting
               this.updateNexiconManageTab();
             break;
@@ -250,11 +255,37 @@ View = {
               nexAddTab.classList.add("active");
               nexManageTab.classList.remove("show");
               nexAddTab.classList.add("show");
+              nexEditTab.classList.remove("show");
+              nexEditTab.classList.remove("active");
+              editTab.style.visibility = "hidden";
+              editTab.classList.remove("show");
+              editTab.classList.remove("active");
               //make sure the tab looks the same
               manageButton.classList.remove("active");
               addButton.classList.add("active");
               //add functionality for resetting
               this.updateNexiconAddTab();
+            break;
+            case "editTab":
+                // edit tab selected
+                //make sure the right tab is being shown
+                nexManageTab.classList.remove("active");
+                nexAddTab.classList.remove("active");
+                nexEditTab.classList.add("active");
+                nexManageTab.classList.remove("show");
+                nexAddTab.classList.remove("show");
+                nexEditTab.classList.add("show");
+                editTab.style.visibility = "visible";
+                editTab.classList.add("show");
+                editTab.classList.add("active");
+                document.getElementById('addInterpretationPrompt').style.visibility = "hidden";
+                //editTab.classList.add("show");
+                //editTab.classList.add("active");
+                //make sure the tab looks the same
+                manageButton.classList.remove("active");
+                addButton.classList.remove("active");
+                editButton.classList.add("active");
+                //add functionality for resetting
             break;
         }
     },

@@ -17,6 +17,14 @@ body{
     -webkit-text-stroke-color: white;
 }
 
+.nexiconListItemBehaviorShow{
+    visibility: visible;
+}
+
+.nexiconListItemBehaviorHide{
+    visibility: hidden;
+}
+
 .make-row-big{
     height: 100vh;
 }
