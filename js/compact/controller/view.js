@@ -1,6 +1,7 @@
 /**
   Going to need to create a separate settings object at some point
 **/
+// TODO: Add a search and filter for the nexicon manage tab
 View = {
   initiateView: function(){
       //hide the bottom nav
@@ -88,28 +89,31 @@ View = {
   clearNexiconInput: function(){
       document.getElementById("nexiconInput").value = "";
   },
+  addInterpretationfromEdit: function(){
+      //at the moment this does not account from syllables
+      let image = document.getElementById('nexiconWordToEdit').innerHTML;
+      let newAbstract = document.getElementById('editInterpretationInput').value;
+      //need to get the image and replace the abstract at that index
+      Interpreter.addUpdatedInterpretation(image, newAbstract);
+      // TODO: ensure that the abstract eventually get's a custom syllable count
+      View.toggleNexiconTab('manageTab');
+  },
   toggleNexiconManageListItems: function(identity, toggle){
-      //reset the nexicon tab
-      //this.resetNexicon();
-      //clear the input
-      //this.clearNexiconInput();
+      //get the right elements showing
       this.toggleNexiconTab("editTab");
-
+      document.getElementById("nexiconEditGroup").style.visibility = "visible";
+      //grad the data from the source element
+      //this is the source element that contains the data
       let tab = document.getElementById(identity);
       //grab id of list item tab clicked and add the active class
       //then add the add Nexicon functionality again
       let image = tab.getAttribute("data-image");
       let interpretation = tab.getAttribute("data-interpretation");
       let syllables = tab.getAttribute("data-syllables");
-      console.log("image: " + image + ", interpretation: " + interpretation + ", syllables: " + syllables);
-      //unhide items
-      document.getElementById("nexiconEditGroup").style.visibility = "visible";
+      //enter the data into the input and placeholder values
       document.getElementById('nexiconWordToEdit').innerHTML = image;
       document.getElementById('editInterpretationInput').value = "" + interpretation + "";
       document.getElementById('editSyllablesInput').value = "" + syllables + "";
-
-
-
   },
   createNexiconListItem:function(identity, image, interpretation){
       let syllables = getSyllableCount(interpretation);
@@ -167,28 +171,53 @@ View = {
           return false;
       }
   },
-  runNexiconInputCheck: function(){
-        let textArea = document.getElementById('nexiconInput');
-        let updateButton = document.getElementById('nexiconUpdateButton');
-        if (textArea.length > 1) {
-            updatedButton.disabled = false;
+  runNexiconInputCheck: function(source){
+        switch (source) {
+            case "add":
+                let textArea = document.getElementById('nexiconInput');
+                let updateButton = document.getElementById('nexiconUpdateButton');
+                if (textArea.length > 1) {
+                    updatedButton.disabled = false;
+                }
+                break;
+            case "edit":
+                let interpretationInput = document.getElementById('editInterpretationInput');
+                let editButton = document.getElementById('nexiconEditButton');
+                if (interpretationInput.length > 1) {
+                    editButton.disabled = false;
+                }
+                break;
         }
   },
   disableNexiconInputButton: function(){
       document.getElementById('nexiconUpdateButton').disabled = true;
   },
-  runNexiconSantitizationCheck: function(){
-      //set update button to disabled
-      document.getElementById("nexiconUpdateButton").disabled = true;
-      console.log("is this happening?");
-      let test = this.sanitizeNexiconInput(document.getElementById('nexiconInput').value);
-      console.log(test);
-      if (test == false) {
-          document.getElementById('sanitizeWarning').style.visibility = "hidden";
-          document.getElementById("nexiconUpdateButton").disabled = false;
-      } else {
-          document.getElementById('sanitizeWarning').style.visibility = "visible";
-          document.getElementById("nexiconUpdateButton").disabled = true;
+  runNexiconSantitizationCheck: function(source){
+      switch (source) {
+              case "add":
+              //set update button to disabled
+              document.getElementById("nexiconUpdateButton").disabled = true;
+              let test = this.sanitizeNexiconInput(document.getElementById('nexiconInput').value);
+              if (test == false) {
+                  document.getElementById('sanitizeWarning').style.visibility = "hidden";
+                  document.getElementById("nexiconUpdateButton").disabled = false;
+              } else {
+                  document.getElementById('sanitizeWarning').style.visibility = "visible";
+                  document.getElementById("nexiconUpdateButton").disabled = true;
+              }
+              break;
+          case "edit":
+              //set update button to disabled
+              document.getElementById("nexiconEditButton").disabled = true;
+              let secondTest = this.sanitizeNexiconInput(document.getElementById('editInterpretationInput').value);
+              if (secondTest == false) {
+                  document.getElementById('sanitizeWarning').style.visibility = "hidden";
+                  document.getElementById("nexiconEditButton").disabled = false;
+              } else {
+                  document.getElementById('sanitizeWarning').style.visibility = "visible";
+                  document.getElementById("nexiconEditButton").disabled = true;
+              }
+              break;
       }
   },
   addNewInterpretationCallback: function(identity){
@@ -198,6 +227,7 @@ View = {
       let image = identity.replace("listItemAdd", '');
       //call nexicon Addfunction
       document.getElementById("nexiconAddition").innerHTML = image;
+      this.toggleNexiconTab('addTab');
   },
   updateNexiconAddTab: function(){
       document.getElementById('nexiconAddWordsList').innerHTML = "";

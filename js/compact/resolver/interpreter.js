@@ -14,6 +14,18 @@ let Interpreter = {
     getAbstracts: function(){
         return this.abstract;
     },
+    addUpdatedInterpretation: function(image, newAbstract){
+        //get the current index of the image
+        let index = this.image.indexOf(image);
+        if (index == -1) {
+            //then it wasn't found: send an error report,
+            //although I cannot anticpate when this would happen, filing an error would be best
+            let message = "In Interpreter.addUpdatedInterpretation(), an error occured in which an image: " + image + " was not found in the Intepreter.images[]";
+            Debugger.submitErrorReport(message);
+        } else {
+            this.abstract.splice(index, 1, newAbstract);
+        }
+    },
     addInterpretation: function(image, abstract){
         // This method appends and image abstraction pair to
         //Interpreter's internal storage
