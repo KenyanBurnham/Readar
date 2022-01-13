@@ -181,8 +181,8 @@ Nexicon = {
         //remove the span
         Decoupler.remove(target, unresolved);
         //set the nexicon update button to disabled
-        View.disableNexiconInputButton();
+        //View.disableNexiconInputButton();
         //need to go back to the nexiconStateDisplay view
-        View.toggleNexiconTab("addTab");
+        View.nexiconView(2);
     },
 };

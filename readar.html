@@ -95,13 +95,13 @@
 
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                   <li class="nav-item" role="presentation">
-                      <button class="nav-link active" id="manageTab" data-bs-toggle="tab" data-bs-target="#nexiconManageTab" type="button" role="tab" aria-controls="nexiconManageTab" aria-selected="true" onclick="View.toggleNexiconTab(this.id);">Manage</button>
+                      <button class="nav-link active" id="manageTab" data-bs-toggle="tab" data-bs-target="#nexiconManageTab" type="button" role="tab" aria-controls="nexiconManageTab" aria-selected="true" onclick="View.nexiconView(1);">Manage</button>
                   </li>
                   <li class="nav-item" role="presentation">
-                      <button class="nav-link" id="addTab" data-bs-toggle="tab" data-bs-target="#nexiconAddTab" type="button" role="tab" aria-controls="nexiconAddTab" aria-selected="false" onclick="View.toggleNexiconTab(this.id);">Add <span id="nexiconAddBadge" class="badge bg-secondary" style="visibility: hidden;"></span></button>
+                      <button class="nav-link" id="addTab" data-bs-toggle="tab" data-bs-target="#nexiconAddTab" type="button" role="tab" aria-controls="nexiconAddTab" aria-selected="false" onclick="View.nexiconView(2);">Add <span id="nexiconAddBadge" class="badge bg-secondary" style="visibility: hidden;"></span></button>
                   </li>
                   <li class="nav-item" role="presentation">
-                      <button class="nav-link" id="editTab" data-bs-toggle="tab" data-bs-target="#nexiconEditTab" type="button" role="tab" aria-controls="nexiconEditTab" aria-selected="false" onclick="View.toggleNexiconTab(this.id);" style="visibility: hidden;">Edit</button>
+                      <button class="nav-link" id="editTab" data-bs-toggle="tab" data-bs-target="#nexiconEditTab" type="button" role="tab" aria-controls="nexiconEditTab" aria-selected="false" onclick="View.nexiconView(3);" style="visibility: hidden;">Edit</button>
                   </li>
             </ul>
             <div class="tab-content" id="myTabContent">
@@ -112,12 +112,12 @@
                     <!-- Tells the user that there isn't any alerts -->
                     <div id="nexiconStateDisplay">
                         </br></br>
-                        <small style='color: gray; visibility: hidden;' id="addInterpretationPrompt">Click on words to add an interpretation.</small>
-                        <div id="nexiconAddWordsList" class=""></div>
-                        <div id="nexiconAlertDisplay" class="alert alert-secondary" role="alert">
+                        <small id="addInterpretationPrompt" style='color: gray; visibility: hidden;'>Click on words to add an interpretation.</small>
+                        <div id="nexiconAddWordsList"></div>
+                        <div id="nexiconAlertDisplay" style="visibility: hidden;" class="alert alert-secondary" role="alert">
                             No words need to be interpreted at this moment.
                             </br>
-                            <small>Run analysis to discover words that need internal definitions.</small>
+                            <small>Run analysis to discover words that need internal definitions or <a onclick="View.nexiconView(4);" style="color: #007bff;">add a word with a custom interpretation</a>.</small>
                         </div>
                     </div>
                     <!-- Tells the user to how to internall change the unprocessible words-->
@@ -127,11 +127,13 @@
                         </div>
                         <form>
                             <div class="form-group">
-                                <label for="nexiconInput">Enter an intepretation </label>
+                                <label id="nexiconCustomAddLabel" for="nexiconCustomInput" style="visibility: hidden;">Enter a word </label>
+                                <input id="nexiconCustomInput" style="visibility: hidden;" type="text" class="form-control"  placeholder="Type here" onkeydown="View.runNexiconInputCheck('add');">
+                                <label for="nexiconInput">Enter an interpretation </label>
                                 <input id="nexiconInput" type="text" class="form-control"  placeholder="Type here" oninput="View.runNexiconSantitizationCheck('add');" onkeydown="View.runNexiconInputCheck('add');">
                                 <small>(Example: "112" = "one twelve"/"one hundred twelve")</small>
                                 <br>
-                                <button id="nexiconUpdateButton" type="button" class="btn btn-info" name="button" onclick="Interpreter.getAbstractFromNexicon();" style="visibility: hidden;" disabled>Update</button>
+                                <button id="nexiconUpdateButton" type="button" class="btn btn-info" name="button" onclick="Nexicon.getAbstractFromNexicon();" style="visibility: hidden;" disabled>Update</button>
                             </div>
                     </div>
                 </div>
@@ -148,12 +150,12 @@
                                 <input id="editInterpretationInput" type="text" class="form-control"  placeholder="interpretation" oninput="View.runNexiconSantitizationCheck('edit');" onkeydown="View.runNexiconInputCheck('edit');">
                             </div>
                             <div class="form-group">
-                                <label for="editSyllablesInput">Syllables</label>
+                                <label for="editSyllablesInput">(Optional) Syllables</label>
                                 <input type="number" class="form-control" id="editSyllablesInput" placeholder="1">
                             </div>
                         </form>
-                        <button id="nexiconEditButton" type="button" class="btn btn-info" name="button" onclick="View.addInterpretationfromEdit();" disabled>Update</button>
-                        <button id="nexiconRemoveButton" type="button" class="btn btn-warning" name="button" onclick="">Remove</button>
+                        <button id="nexiconEditButton" type="button" class="btn btn-info" name="button" onclick="View.createInterpretationfromEdit();" disabled>Update</button>
+                        <button id="nexiconRemoveButton" type="button" class="btn btn-warning" name="button" onclick="View.removeInterpretationUpdateView();">Remove</button>
                     </div>
                 </div>
             </div>

@@ -27,7 +27,7 @@ let Decoupler = {
           //this removes the alert that says there isn't anything
           View.toggleNexiconDisplay(true);
           //this turns the nexicon tab to the right place
-          View.toggleNexiconTab("addTab");
+          View.nexiconView(2);
       },
       spanFactoryInterpretations: function(unresolved){
           // This is for uninterpreted words
@@ -38,7 +38,7 @@ let Decoupler = {
               //create the span and add it to the returned array
               spans[i] = '<span id="' + spanKey + '" class="unresolved" onclick="Decoupler.spanEvent(this.id)" data-toggle="modal" data-target="#nexiconModal">' + unresolved[i] +  " </span>";
               //Add the key to the unresolved span key array
-              Nexicon.addUnresolvedSpanKey(spanKey);
+              Nexicon.createUnresolvedSpanKey(spanKey);
           }
           return spans;
       },
