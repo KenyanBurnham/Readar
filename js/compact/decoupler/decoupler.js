@@ -20,7 +20,7 @@ let Decoupler = {
           //that is the id for the span itself
           let span = document.getElementById("" + that + "");
           let sentence = span.innerText;
-          let word = Interpreter.getUnresolvedFromIdentity(that);
+          let word = Nexicon.useUnresolvedFromIdentity(that);
           //gets the span that the nexicon uses to displays
           //the word to be interpreted, then sets it
           document.getElementById("nexiconAddition").innerHTML = word;
@@ -38,7 +38,7 @@ let Decoupler = {
               //create the span and add it to the returned array
               spans[i] = '<span id="' + spanKey + '" class="unresolved" onclick="Decoupler.spanEvent(this.id)" data-toggle="modal" data-target="#nexiconModal">' + unresolved[i] +  " </span>";
               //Add the key to the unresolved span key array
-              Interpreter.addUnresolvedSpanKey(spanKey);
+              Nexicon.addUnresolvedSpanKey(spanKey);
           }
           return spans;
       },
@@ -46,7 +46,7 @@ let Decoupler = {
           // This function tries to resolve words that might have an interpretation
           // then it decouples the text from the DOM and returns it as a string
           // Resolve span Id's
-          Interpreter.resolveSpans(target);
+          Nexicon.resolveSpans(target);
           // get the id of the element were getting data from
           let source = document.getElementById("" + target + "").innerText;
           //Explicitly type as string
@@ -58,7 +58,7 @@ let Decoupler = {
           //get a current version of the text and HTML
           let state = Document.fetchDOMState(target);
           //get all of the unresolved words
-          let unresolved = Interpreter.getUnresolved();
+          let unresolved = Nexicon.useUnresolved();
           //for every unresolved word, create a span
           let spans = this.spanFactoryInterpretations(unresolved);
           //for every span
@@ -197,8 +197,8 @@ let Decoupler = {
           //from the previous analysis
           //for spans specifically related to interpretations
 
-          let spanIdenitities = Interpreter.spanIdentities;
-          let images = Interpreter.image;
+          let spanIdenitities = Nexicon.useUnresolvedSpanIdentities();
+          let images = Nexicon.useImages();
 
           // removes all of the span ids stored for the purpose of internal
           // word representation

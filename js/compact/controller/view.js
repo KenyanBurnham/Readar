@@ -84,17 +84,17 @@ View = {
       document.getElementById("nexiconInput").placeholder = "Type here.";
       //This updates the badge icon; only included in this function since this
       //is part of the cancel operation of the modal
-      View.updateNexiconBadge(Interpreter.unresolved.length);
+      View.updateNexiconBadge(Nexicon.unresolved.length);
   },
   clearNexiconInput: function(){
       document.getElementById("nexiconInput").value = "";
   },
-  addInterpretationfromEdit: function(){
+  createInterpretationfromEdit: function(){
       //at the moment this does not account from syllables
       let image = document.getElementById('nexiconWordToEdit').innerHTML;
       let newAbstract = document.getElementById('editInterpretationInput').value;
       //need to get the image and replace the abstract at that index
-      Interpreter.addUpdatedInterpretation(image, newAbstract);
+      Nexicon.replaceInterpretation(image, newAbstract);
       // TODO: ensure that the abstract eventually get's a custom syllable count
       View.toggleNexiconTab('manageTab');
   },
@@ -143,8 +143,8 @@ View = {
       //clear the modal group
       document.getElementById("manageTabListItemGroup").innerHTML = "</br><small style='color: gray;'>Click on saved words to edit.</small></br>";
       //then add the images and items
-      let images = Interpreter.getImages();
-      let abstracts = Interpreter.getAbstracts();
+      let images = Nexicon.useImages();
+      let abstracts = Nexicon.useAbstracts();
       //if there are any images, the let's build a few list items
       if(images.length > 0){
           for (var i = 0; i < images.length; i++) {
@@ -163,7 +163,7 @@ View = {
       //remove spaces
       modifiedInterpretation += modifiedInterpretation.replace(/\s/g, '');
       //test for numbers and other non word characters
-      let testResults = Interpreter.testForNumber(modifiedInterpretation);
+      let testResults = Nexicon.testForNumber(modifiedInterpretation);
       //if not odd characters are returned "false" then it'll return true
       if (testResults == false) {
           return true;
@@ -230,14 +230,14 @@ View = {
       this.toggleNexiconTab('addTab');
   },
   updateNexiconAddTab: function(){
-      document.getElementById('nexiconAddWordsList').innerHTML = "";
       //reset the add items tab
-      let unresolved = Interpreter.getUnresolved();
+      let unresolved = Nexicon.useUnresolved();
       if (unresolved.length > 0) {
+          //document.getElementById('nexiconAddWordsList').innerHTML = "";
           //hide the alert
           document.getElementById('nexiconAlertDisplay').style.visibility = "hidden";
           //unhide the prompt
-          document.getElementById('addInterpretationPrompt').style.visibility = "visible";
+          document.getElementById('createInterpretationPrompt').style.visibility = "visible";
           for (var i = 0; i < unresolved.length; i++) {
               let image = unresolved[i];
               let newTab = "<a id='listItemAdd" + image + "' data-image='" + image + "' class='list-group-item list-group-item-action' aria-current='true' onclick='View.addNewInterpretationCallback(this.id);'><p class='mb-1'>" + image + "</p></a>";
@@ -274,7 +274,7 @@ View = {
               //make sure the tab looks the same
               addButton.classList.remove("active");
               manageButton.classList.add("active");
-              document.getElementById('addInterpretationPrompt').style.visibility = "hidden";
+              document.getElementById('createInterpretationPrompt').style.visibility = "hidden";
               //Add functionality for resetting
               this.updateNexiconManageTab();
             break;
@@ -308,7 +308,7 @@ View = {
                 editTab.style.visibility = "visible";
                 editTab.classList.add("show");
                 editTab.classList.add("active");
-                document.getElementById('addInterpretationPrompt').style.visibility = "hidden";
+                document.getElementById('createInterpretationPrompt').style.visibility = "hidden";
                 //editTab.classList.add("show");
                 //editTab.classList.add("active");
                 //make sure the tab looks the same

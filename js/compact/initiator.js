@@ -49,7 +49,7 @@ function initiatorFunction(target){
 
       //this assigns the color pattern to the paper
       //this is the main visual feedback
-      if(Interpreter.unresolved.length == 0){
+      if(Nexicon.unresolved.length == 0){
            Chartographer.initiate();
       }
 

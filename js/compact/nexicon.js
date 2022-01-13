@@ -1,44 +1,51 @@
-/*
-  Interpreter handles the internal representation of words and symbols
-  "Image": The word or set of characters to be internally represented
-  "Abstract": The internal representation of a word or set of characters
-*/
-let Interpreter = {
+/**
+  Nexicon is the internal lexicon sorting object that handles both it's own View
+  functions and interupts other processes for computational efficacy.
+**/
+
+Nexicon = {
     image: ["1950s", "1945", "1948", "1950", "423", "10", "48", "60", "60th", "2008", "360", "1979", "2004", "2006", "300", "08", "5000", "1000", "2010", "2011", "1960s", "1980s", "9:00 PM"],
     abstract: ["nineteen fifties", "nineteen forty five", "nineteen forty eight", "nineteen fifty", "four hundred twenty three", "ten", "fourty eight", "sixty", "sixtieth", "two thousand eight", "three hundred sixty", "nineteen seventy nine", "two thousand four", "two thousand six", "three hundred", "eight", "five thousand", "one thousand", "twenty ten", "twenty eleven", "nineteen sixties", "nineteen eighties", "nine oclock pe em"],
     spanIdentities: [],
     unresolved: [],
-    getImages: function(){
+    useImages: function(){
+        //Special cases of Interpretation use
+        //this just returns images
         return this.image;
     },
-    getAbstracts: function(){
+    useAbstracts: function(){
+        //Special cases of Interpretation use
+        //this just returns abstracts
         return this.abstract;
     },
-    addUpdatedInterpretation: function(image, newAbstract){
+    createInterpretation: function(image, abstract){
+        // This method adds both an abstract and an image to storage
+        //Nexicon's internal storage
+        this.image.push(image);
+        this.abstract.push(abstract);
+    },
+    useInterpretation: function(image){
+        if(this.testForInterpretation(image) == true){
+            //The index of the image should be the same as the abstraction
+            let indexOfImage = this.image.indexOf(image);
+            //Returns the abstraction of an image that is already defined
+            return this.abstract[indexOfImage];
+        }else{
+           return -1;
+        }
+    },
+    replaceInterpretation: function(image, newAbstract){
+        //this replaces an abstract
         //get the current index of the image
         let index = this.image.indexOf(image);
         if (index == -1) {
             //then it wasn't found: send an error report,
             //although I cannot anticpate when this would happen, filing an error would be best
-            let message = "In Interpreter.addUpdatedInterpretation(), an error occured in which an image: " + image + " was not found in the Intepreter.images[]";
+            let message = "In Nexicon.replaceInterpretation(), an error occured in which an image: " + image + " was not found in the Intepreter.images[]";
             Debugger.submitErrorReport(message);
         } else {
             this.abstract.splice(index, 1, newAbstract);
         }
-    },
-    addInterpretation: function(image, abstract){
-        // This method appends and image abstraction pair to
-        //Interpreter's internal storage
-        this.image.push(image);
-        this.abstract.push(abstract);
-    },
-    addUnresolved: function(image){
-        // This method appends an unresolved word to the unresolved array
-        this.unresolved.push(image);
-    },
-    addUnresolvedSpanKey: function(key){
-        //This method pushes span keys to the spanIdentities array
-        this.spanIdentities.push(key);
     },
     removeInterpretation: function(image){
         //This method removes an image/abstract pair
@@ -49,8 +56,34 @@ let Interpreter = {
             //and needs to be removed
             this.image.splice(imageIndex, 1);
             this.abstract.splice(imageIndex, 1);
+        } else {
+            //If the image/abstraction pair doesn't exist, then we generally don't care
+            //but it is good to track if there are any edge cases
+            let message = "In Nexicon.removeInterpretation(), an error occured in which we couldn't delete an image and abstract: " + image + ".";
+            Debugger.submitErrorReport(message);
         }
-        //If the image/abstraction pair doesn't exist, then we don't care
+    },
+    useUnresolvedFromIdentity: function(identity){
+        //Special case of unresolved management
+        //get index of name and use it to get the word itself
+        let locationOfUnresolved = this.spanIdentities.indexOf(identity);
+        return this.unresolved[locationOfUnresolved];
+    },
+    useIdentityFromUnresolved: function(unresolved){
+        //special case of unresolved management
+        //use unresolved word to get idenity
+        let identityPosition = this.unresolved.indexOf(unresolved);
+        //return idenity
+        return this.spanIdentities[identityPosition];
+    },
+    createUnresolved: function(image){
+        // This method adds an unresolved word to the unresolved array
+        this.unresolved.push(image);
+    },
+    useUnresolved: function(){
+        //looking for the right place to update this
+        View.updateNexiconBadge(this.unresolved.length);
+        return this.unresolved;
     },
     removeUnresolved: function(resolved){
         //This method removes an unresolved/spanIdentity pair
@@ -62,6 +95,13 @@ let Interpreter = {
             this.unresolved.splice(unresolvedIndex, 1);
             this.spanIdentities.splice(unresolvedIndex, 1);
         }
+    },
+    createUnresolvedSpanKey: function(key){
+        //This method adds span keys to the spanIdentities array
+        this.spanIdentities.push(key);
+    },
+    useUnresolvedSpanIdentities: function(){
+        return this.spanIdentities;
     },
     testForNumber: function (word){
         //Looks for numbers
@@ -103,32 +143,6 @@ let Interpreter = {
         }
         return TestResults;
     },
-    getInterpretation: function(image){
-        if(this.testForInterpretation(image) == true){
-            //The index of the image should be the same as the abstraction
-            let indexOfImage = this.image.indexOf(image);
-            //Returns the abstraction of an image that is already defined
-            return this.abstract[indexOfImage];
-        }else{
-           return -1;
-        }
-    },
-    getUnresolvedFromIdentity: function(identity){
-        //get index of name and use it to get the word itself
-        let locationOfUnresolved = this.spanIdentities.indexOf(identity);
-        return this.unresolved[locationOfUnresolved];
-    },
-    getIdentityFromUnresolved: function(unresolved){
-        //use unresolved word to get idenity
-        let identityPosition = this.unresolved.indexOf(unresolved);
-        //return idenity
-        return this.spanIdentities[identityPosition];
-    },
-    getUnresolved: function(){
-        //looking for the right place to update this
-        View.updateNexiconBadge(this.unresolved.length);
-        return this.unresolved;
-    },
     resolveSpans: function(target){
         //get all of the spans in the target
         let spans = document.getElementById(target).getElementsByTagName("SPAN");
@@ -156,12 +170,12 @@ let Interpreter = {
         abstract = document.getElementById("nexiconInput").value;
         unresolved = document.getElementById("nexiconAddition").innerText;
         //get the unresolved spanIdentity
-        let target = this.getIdentityFromUnresolved(unresolved);
+        let target = this.useIdentityFromUnresolved(unresolved);
         //Fetch the unresolved and remove it,
         this.removeUnresolved(unresolved);
         //Then add to the images and abstractions
-        this.addInterpretation(unresolved, abstract);
-        //Debugger.debriefInterpreter();
+        this.createInterpretation(unresolved, abstract);
+        //Debugger.debriefNexicon();
         // reset the nexicon modal
         View.resetNexicon();
         //remove the span
@@ -171,4 +185,4 @@ let Interpreter = {
         //need to go back to the nexiconStateDisplay view
         View.toggleNexiconTab("addTab");
     },
-}
+};

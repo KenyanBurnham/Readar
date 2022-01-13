@@ -9,11 +9,11 @@ let Debugger = {
            console.error(this.errors[i]);
         }
     },
-    debriefInterpreter: function(){
-        console.log("Images: " + Interpreter.image);
-        console.log("Abstracts: " + Interpreter.abstract);
-        console.log("Span Identities:" + Interpreter.spanIdentities);
-        console.log("Unresolved: " + Interpreter.unresolved);
+    debriefNexicon: function(){
+        console.log("Images: " + Nexicon.useImages());
+        console.log("Abstracts: " + Nexicon.useAbstracts());
+        console.log("Span Identities:" + Nexicon.useUnresolvedSpanIdentities());
+        console.log("Unresolved: " + Nexicon.useUnresolved());
     },
     debriefChartographer: function(){
         console.log("SpansToSort.length: " + Chartographer.spanToSort.length);
