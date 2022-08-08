@@ -74,3 +74,18 @@ function initiatorFunction(target){
 // TODO: figure out why the sentence below breaks Decoupler.spanFactorySentences()
   /* This sentence was resolved by removing the "!":
   "In response to increased close-source programming, Stallman created the GNU "GNU's Not Linux!".""*/
+
+/**
+The following are a list of changes that can readily be deployed:
+• Add an animated loading icon to the top of the screen when an analysis is run.
+• Keep the horizontal orientation of the density bar.
+The following are a list of behaviors and mechanics that need further testing and expanded user involvement:
+• Concurrent analysis triggered by a character, word, or sentence change.
+• Interaction of sentence to density bar.
+o Identify a preference for hovering versus clicking among target group for this kind of behavior.
+• How Readar will scale highlighting and distribution with larger documents.
+• Behavior of density bar as it highlights sentences.
+• Behavior of sentence highlighting, generally.
+• Behavior of sentence highlighting when clicked for editing purposes.
+
+**/

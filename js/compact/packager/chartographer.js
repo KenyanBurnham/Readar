@@ -188,7 +188,6 @@ let Chartographer = {
               },2500);
           break;
         }
-
         //this adds a listerner that makes sure that when the canvas is clicked
         //the sentence that matches the spectrum is revealed
         //I'm thinking about leaving this active, even when the display is hidden
@@ -211,13 +210,14 @@ let Chartographer = {
                         spanToHighlight.style.removeProperty('color');
                         spanToHighlight.setAttribute("style", "background-color: white; color: #" + spanColor + ";");
                     },3000);
+                    //this is the scrolling action this provided by the graident bar
+                    spanToHighlight.scrollIntoView({behavior: "smooth", block: "center", inline: "center"});
                 }
             }
         });
 
     },
     gradientMount: function(gradient){
-
         Chartographer.canvasGradient(gradient, "map");
         for (var k = 0; k < Chartographer.spanToSort.length; k++) {
             let span = document.getElementById("" + Chartographer.spanToSort[k].identity + "");
