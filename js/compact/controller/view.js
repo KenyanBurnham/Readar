@@ -14,7 +14,6 @@ View = {
       document.getElementById('analyzeButton').disabled = true;
       document.getElementById('defineButton').disabled = true;
       document.getElementById('settingButton').disabled = true;
-
   },
   completeView: function(){
       //hide the bottom nav
@@ -30,7 +29,6 @@ View = {
       //resets the nexicon to the manage tab for aesthetics
       View.nexiconView(1);
   },
-
   sanitizeNexiconInput: function(interpretation){
       //remove whitespace and then run through
       //standardize into lower case
@@ -74,6 +72,7 @@ View = {
               case "add":
               //set update button to disabled
               document.getElementById("nexiconUpdateButton").disabled = true;
+              document.getElementById("nexiconRemoveButton").style.visibility = "hidden";
               let test = this.sanitizeNexiconInput(document.getElementById('nexiconInput').value);
               if (test == false) {
                   document.getElementById('sanitizeWarning').style.visibility = "hidden";
@@ -86,6 +85,7 @@ View = {
           case "edit":
               //set update button to disabled
               document.getElementById("nexiconEditButton").disabled = true;
+              document.getElementById("nexiconRemoveButton").style.visibility = "visible";
               let secondTest = this.sanitizeNexiconInput(document.getElementById('editInterpretationInput').value);
               if (secondTest == false) {
                   document.getElementById('sanitizeWarning').style.visibility = "hidden";
@@ -106,11 +106,10 @@ View = {
       document.getElementById("nexiconAddition").innerHTML = image;
       this.nexiconView(2);
   },
-
-
   toggleNexiconDisplay: function(state){
+    //+++++++++++++Don't know why this is broken and why it works
       // get element
-      let alert = document.getElementById('nexiconAlertDisplay');
+      let alertBody = document.getElementById('nexiconAlertDisplay');
       let inputBody = document.getElementById('nexiconInputDisplay');
 
       if(state == true){
@@ -123,7 +122,6 @@ View = {
           inputBody.style.visibility = "hidden";
       }
   },
-
   updateNexiconBadge: function(unresolvedLength){
       //this function needs to be called every time the nuber of
       //unresolved is changed
@@ -150,7 +148,6 @@ View = {
           nexiconAddBadge.style.visibility = "hidden";
       }
   },
-
   clearNexiconInput: function(){
       document.getElementById("nexiconInput").value = "";
   },
@@ -172,32 +169,7 @@ View = {
       //reset the tab by moving back to the manage tab
       this.nexiconView(1);
   },
-  updateNexiconAddTab: function(){
-      let addInterpretationPrompt = document.getElementById('addInterpretationPrompt');
-      let nexiconAlertDisplay = document.getElementById('nexiconAlertDisplay');
-      let addWordList = document.getElementById("nexiconAddWordsList");
-      //reset the add items tab
-      let unresolved = Nexicon.useUnresolved();
-      if (unresolved.length > 0) {
-          //hide the alert
-          addInterpretationPrompt.style.visibility = "visible";
-          nexiconAlertDisplay.style.visibility = "hidden";
-          //unhide the prompt
-          //document.getElementById('createInterpretationPrompt').style.visibility = "visible";
-          for (var i = 0; i < unresolved.length; i++) {
-              let image = unresolved[i];
-              let newTab = "<a id='listItemAdd" + image + "' data-image='" + image + "' class='list-group-item list-group-item-action' aria-current='true' onclick='View.addNewInterpretationCallback(this.id);'><p class='mb-1'>" + image + "</p></a>";
-              addWordList.innerHTML += newTab;
-          }
-      } else {
-          //remove the current words so that we can restart the process later
-          while (addWordList.firstChild) {
-              addWordList.removeChild(addWordList.firstChild);
-          }
-          nexiconAlertDisplay.style.visibility = "visible";
-          addInterpretationPrompt.style.visibility = "hidden";
-      }
-  },
+
   toggleNexiconManageListItems: function(identity){
       //get the right elements showing
       this.nexiconView(3);
@@ -242,6 +214,41 @@ View = {
       });
       document.getElementById("manageTabListItemGroup").append(newTab);
   },
+  updateNexiconCustomTab: function(){
+      //copy functionality from add and edit?
+  },
+  updateNexiconAddTab: function(){
+    //get relevant ids
+    let addInterpretationPrompt = document.getElementById('addInterpretationPrompt');
+    let nexiconAlertDisplay = document.getElementById('nexiconAlertDisplay');
+    let addWordList = document.getElementById("nexiconAddWordsList");
+    //reset the list of words
+    while (addWordList.firstChild){
+        addWordList.removeChild(addWordList.firstChild);
+    }
+    //get all the unresolved words (if any)
+    let unresolved = Nexicon.useUnresolved();
+    //then determine whether we will need the unresolved word list or not
+    if (unresolved.length > 0) {
+        //if their are unresolved words
+        //make the prompt for adding interpretations visible
+        addInterpretationPrompt.style.visibility = "visible";
+        //and hide the alert item that prompts a custom word addition
+        nexiconAlertDisplay.style.visibility = "hidden";
+        //start displaying all the unresolved words
+        for (var i = 0; i < unresolved.length; i++) {
+            let image = unresolved[i];
+            let newTab = "<a id='listItemAdd" + image + "' data-image='" + image + "' class='list-group-item list-group-item-action' aria-current='true' onclick='View.addNewInterpretationCallback(this.id);'><p class='mb-1'>" + image + "</p></a>";
+            addWordList.innerHTML += newTab;
+        }
+    } else {
+        //if there are no words that need to be resolved
+        //make the prompt for adding interpretations invisible
+        addInterpretationPrompt.style.visibility = "hidden";
+        //and reveal the alert item that prompts a custom word addition
+        nexiconAlertDisplay.style.visibility = "visible";
+    }
+  },
   updateNexiconManageTab: function(){
       //clear the modal group
       document.getElementById("manageTabListItemGroup").innerHTML = "</br><small style='color: gray;'>Click on saved words to edit.</small></br>";
@@ -264,6 +271,7 @@ View = {
       let nexManageTab = document.getElementById("nexiconManageTab");
       let nexAddTab = document.getElementById("nexiconAddTab");
       let nexEditTab = document.getElementById('nexiconEditTab');
+      let nexCusTab = document.getElementById("nexiconCustomTab");
       //buttons
       let manageButton = document.getElementById("manageTab");
       let addButton = document.getElementById("addTab");
@@ -274,54 +282,63 @@ View = {
       let customAddLabel = document.getElementById("nexiconCustomAddLabel");
       switch (identity) {
           case "manage":
-              //manage tab selected
-              //make sure the right tab is being shown
-              nexAddTab.classList.remove("active");
-              nexManageTab.classList.add("active");
-              nexAddTab.classList.remove("show");
-              nexManageTab.classList.add("show");
-              nexEditTab.classList.remove("show");
-              nexEditTab.classList.remove("active");
-              editTab.style.visibility = "hidden";
-              editTab.classList.remove("show");
-              editTab.classList.remove("active");
-              //make sure the tab looks the same
-              addButton.classList.remove("active");
-              manageButton.classList.add("active");
-              editButton.classList.remove("active");
-              //hide the custom input and label
-              customAddInput.style.visibility = "hidden";
-              customAddLabel.style.visibility = "hidden";
-              break;
+                //manage tab selected
+                //make sure the right tab is being shown
+                nexAddTab.classList.remove("active");
+                nexManageTab.classList.add("active");
+                nexAddTab.classList.remove("show");
+                nexCusTab.classList.remove("active");
+                nexCusTab.classList.remove("show");
+                nexManageTab.classList.add("show");
+                nexEditTab.classList.remove("show");
+                nexEditTab.classList.remove("active");
+
+                editTab.style.visibility = "hidden";
+                editTab.classList.remove("show");
+                editTab.classList.remove("active");
+                //make sure the tab looks the same
+                addButton.classList.remove("active");
+                manageButton.classList.add("active");
+                editButton.classList.remove("active");
+                //hide the custom input and label
+                //customAddInput.style.visibility = "hidden";
+                //customAddLabel.style.visibility = "hidden";
+                break;
           case "add":
-              // add tab selected
-              //make sure the right tab is being shown
-              nexManageTab.classList.remove("active");
-              nexAddTab.classList.add("active");
-              nexEditTab.classList.remove("active");
-              nexManageTab.classList.remove("show");
-              nexAddTab.classList.add("show");
-              nexEditTab.classList.remove("show");
-              editTab.style.visibility = "hidden";
-              editTab.classList.remove("show");
-              editTab.classList.remove("active");
-              //make sure the tab looks the same
-              manageButton.classList.remove("active");
-              addButton.classList.add("active");
-              editButton.classList.remove("active");
-              //hide the custom input and label
-              customAddInput.style.visibility = "hidden";
-              customAddLabel.style.visibility = "hidden";
-              break;
+                // add tab selected
+                //make sure the right tab is being shown
+                nexManageTab.classList.remove("active");
+                nexAddTab.classList.add("active");
+                nexEditTab.classList.remove("active");
+                nexCusTab.classList.remove("active");
+                nexCusTab.classList.remove("show");
+                nexManageTab.classList.remove("show");
+                nexAddTab.classList.add("show");
+                nexEditTab.classList.remove("show");
+                editTab.style.visibility = "hidden";
+                editTab.classList.remove("show");
+                editTab.classList.remove("active");
+                //make sure the tab looks the same
+                manageButton.classList.remove("active");
+                addButton.classList.add("active");
+                editButton.classList.remove("active");
+                //hide the custom input and label
+                //customAddInput.style.visibility = "hidden";
+                //customAddLabel.style.visibility = "hidden";
+                break;
             case "edit":
                 // edit tab selected
                 //make sure the right tab is being shown
                 nexManageTab.classList.remove("active");
                 nexAddTab.classList.remove("active");
                 nexEditTab.classList.add("active");
+                nexCusTab.classList.remove("active");
+                nexCusTab.classList.remove("show");
+
                 nexManageTab.classList.remove("show");
                 nexAddTab.classList.remove("show");
                 nexEditTab.classList.add("show");
+
                 editTab.style.visibility = "visible";
                 editTab.classList.add("show");
                 editTab.classList.add("active");
@@ -330,29 +347,26 @@ View = {
                 addButton.classList.remove("active");
                 editButton.classList.add("active");
                 //hide the custom input and label
-                customAddInput.style.visibility = "hidden";
-                customAddLabel.style.visibility = "hidden";
-
                 break;
             case "custom":
-              // add tab selected
-              //make sure the right tab is being shown
-              nexManageTab.classList.remove("active");
-              nexAddTab.classList.add("active");
-              nexManageTab.classList.remove("show");
-              nexAddTab.classList.add("show");
-              nexEditTab.classList.remove("show");
-              nexEditTab.classList.remove("active");
-              editTab.style.visibility = "hidden";
-              editTab.classList.remove("show");
-              editTab.classList.remove("active");
-              //make sure the tab looks the same
-              manageButton.classList.remove("active");
-              addButton.classList.add("active");
-              editButton.classList.remove("active");
-              //hide the custom input and label
-              customAddInput.style.visibility = "visible";
-              customAddLabel.style.visibility = "visible";
+                nexCusTab.classList.add("active");
+                nexCusTab.classList.add("show");
+                //make sure the right tab is being shown
+                nexManageTab.classList.remove("active");
+                nexAddTab.classList.remove("active");
+                nexManageTab.classList.remove("show");
+
+                nexAddTab.classList.remove("show");
+                nexEditTab.classList.remove("show");
+                nexEditTab.classList.remove("active");
+                editTab.style.visibility = "hidden";
+                editTab.classList.remove("show");
+                editTab.classList.remove("active");
+                //make sure the tab looks the same
+                manageButton.classList.remove("active");
+                addButton.classList.remove("active");
+                editButton.classList.remove("active");
+                // custom input and label
               break;
         }
     },
@@ -390,15 +404,15 @@ View = {
           case 3:
               //state 3 show the edit tab
               this.toggleNexiconTab('edit');
+              //this.updateNexiconEditTab();
               break;
           case 4:
               //state 4 is a custom add
               this.toggleNexiconTab('custom');
+              this.updateNexiconCustomTab();
               break;
         }
     },
-
-
   setGradientDisplaySettings: function(){
       let display = document.getElementById('percentageDensityFeedback');
       let select = document.getElementById('gradientDensitySelect');

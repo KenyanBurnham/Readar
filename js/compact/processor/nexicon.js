@@ -9,22 +9,26 @@ Nexicon = {
     spanIdentities: [],
     unresolved: [],
     useImages: function(){
+        console.log("use image");
         //Special cases of Interpretation use
         //this just returns images
         return this.image;
     },
     useAbstracts: function(){
+        console.log("use abstract");
         //Special cases of Interpretation use
         //this just returns abstracts
         return this.abstract;
     },
     createInterpretation: function(image, abstract){
+        console.log("create interpretation");
         // This method adds both an abstract and an image to storage
         //Nexicon's internal storage
         this.image.push(image);
         this.abstract.push(abstract);
     },
     useInterpretation: function(image){
+        console.log("use interpretation");
         if(this.testForInterpretation(image) == true){
             //The index of the image should be the same as the abstraction
             let indexOfImage = this.image.indexOf(image);
@@ -35,6 +39,7 @@ Nexicon = {
         }
     },
     replaceInterpretation: function(image, newAbstract){
+        console.log("replace interpretation");
         //this replaces an abstract
         //get the current index of the image
         let index = this.image.indexOf(image);
@@ -48,6 +53,7 @@ Nexicon = {
         }
     },
     removeInterpretation: function(image){
+        console.log("remove interpretation");
         //This method removes an image/abstract pair
         // from Interpretations internal storage
         let imageIndex = this.image.indexOf(image);
@@ -64,12 +70,14 @@ Nexicon = {
         }
     },
     useUnresolvedFromIdentity: function(identity){
+        console.log("use unresolved from identity");
         //Special case of unresolved management
         //get index of name and use it to get the word itself
         let locationOfUnresolved = this.spanIdentities.indexOf(identity);
         return this.unresolved[locationOfUnresolved];
     },
     useIdentityFromUnresolved: function(unresolved){
+        console.log("use identity from unresolved");
         //special case of unresolved management
         //use unresolved word to get idenity
         let identityPosition = this.unresolved.indexOf(unresolved);
@@ -77,15 +85,18 @@ Nexicon = {
         return this.spanIdentities[identityPosition];
     },
     createUnresolved: function(image){
+        console.log("create unresolved");
         // This method adds an unresolved word to the unresolved array
         this.unresolved.push(image);
     },
     useUnresolved: function(){
+        console.log("use unresolved");
         //looking for the right place to update this
         View.updateNexiconBadge(this.unresolved.length);
         return this.unresolved;
     },
     removeUnresolved: function(resolved){
+        console.log("remove unresolved");
         //This method removes an unresolved/spanIdentity pair
         // from Interpretations internal storage
         let unresolvedIndex = this.unresolved.indexOf(resolved);
@@ -97,10 +108,12 @@ Nexicon = {
         }
     },
     createUnresolvedSpanKey: function(key){
+        console.log("create unresolved span key");
         //This method adds span keys to the spanIdentities array
         this.spanIdentities.push(key);
     },
     useUnresolvedSpanIdentities: function(){
+        console.log("use unresolved span identity");
         return this.spanIdentities;
     },
     testForNumber: function (word){
@@ -144,6 +157,7 @@ Nexicon = {
         return TestResults;
     },
     resolveSpans: function(target){
+        console.log("resolve spans");
         //get all of the spans in the target
         let spans = document.getElementById(target).getElementsByTagName("SPAN");
         //For each of the spans
@@ -167,6 +181,7 @@ Nexicon = {
         }
     },
     getAbstractFromNexicon: function(){
+        console.log("get abstract from nexicon");
         abstract = document.getElementById("nexiconInput").value;
         unresolved = document.getElementById("nexiconAddition").innerText;
         //get the unresolved spanIdentity
